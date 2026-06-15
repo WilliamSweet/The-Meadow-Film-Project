@@ -1,0 +1,77 @@
+---
+---
+<section class="location" id="location" aria-labelledby="location-heading">
+  <div class="container">
+    <div class="location-inner">
+
+      <div class="location-image">
+        <!-- REPLACE: wide-angle photograph of Sleepy Cat Farm gardens, Greenwich CT; landscape orientation, 4:3 ratio; min 1200px wide; AVIF+WebP stack; compress <200KB -->
+        <div
+          class="img-placeholder-location"
+          role="img"
+          aria-label="[REPLACE: Sleepy Cat Farm, Greenwich Connecticut — wide-angle garden photograph, landscape orientation]"
+          data-replace="true"
+        ></div>
+      </div>
+
+      <div class="location-text">
+        <h2 class="location-heading" id="location-heading">Where the film is set</h2>
+        <p class="location-body">
+          Sleepy Cat Farm is a thirteen-acre estate in Greenwich, Connecticut &mdash; a
+          model for integrating elite landscape architecture with sustainable land
+          management. Designed in collaboration with Charles J. Stick, the property
+          blends European and Asian garden influences with a productive organic farm
+          and thriving native pollinator habitat. Through its partnership with The
+          Garden Conservancy, it serves as an educational hub, hosting public tours
+          and workshops on native wildflower propagation.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .location {
+    padding: var(--space-24) 0;
+  }
+
+  .location-inner {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .img-placeholder-location {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(155deg, #1e3320 0%, #2e5028 50%, #3f6435 100%);
+    border-radius: var(--radius-md);
+    /* REPLACE WITH: Sleepy Cat Farm photograph */
+    /* Photo spec: 4:3, min 1200px wide, AVIF+WebP stack, compress <200KB */
+  }
+
+  .location-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-bottom: var(--space-8);
+  }
+
+  .location-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.8;
+    max-width: 65ch;
+  }
+
+  @media (max-width: 768px) {
+    .location-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

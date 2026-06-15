@@ -1,0 +1,90 @@
+---
+---
+<section class="premise" id="about" aria-labelledby="premise-heading">
+  <div class="container">
+    <div class="premise-inner">
+
+      <div class="premise-text">
+        <h2 class="premise-heading" id="premise-heading">
+          Not an environmental argument. A common-sense upgrade.
+        </h2>
+        <p class="premise-body">
+          The American lawn is a monoculture that demands more pesticides than industrial
+          agriculture and more emotional energy than it returns. We have been taught to see
+          it as a status symbol, but it is actually a maintenance debt we have been paying
+          for decades.
+        </p>
+        <p class="premise-body">
+          ROOTED follows the movement to flip the script. By restoring native biodiversity
+          to our own backyards, we are not just saving the bees &mdash; we are bringing back
+          the vibrant, living landscape that belongs in our home ground.
+        </p>
+      </div>
+
+      <div class="premise-image">
+        <!-- REPLACE: film still or meadow footage frame, landscape orientation, 4:3 ratio -->
+        <div
+          class="img-placeholder-film-still"
+          role="img"
+          aria-label="[REPLACE: film still or meadow footage frame, landscape orientation]"
+          data-replace="true"
+        ></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .premise {
+    padding: var(--space-24) 0;
+  }
+
+  .premise-inner {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .premise-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-bottom: var(--space-8);
+  }
+
+  .premise-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.8;
+    max-width: 65ch;
+    margin-bottom: var(--space-6);
+  }
+
+  .premise-body:last-child {
+    margin-bottom: 0;
+  }
+
+  .img-placeholder-film-still {
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(155deg, #1e3320 0%, #2e5028 50%, #3f6435 100%);
+    border-radius: var(--radius-md);
+    /* REPLACE WITH: film still or meadow footage frame */
+    /* Photo spec: 4:3, min 1200px wide, AVIF+WebP stack, compress <200KB */
+  }
+
+  @media (max-width: 768px) {
+    .premise-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .premise-image {
+      order: -1;
+    }
+  }
+</style>

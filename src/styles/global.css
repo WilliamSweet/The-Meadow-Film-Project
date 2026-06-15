@@ -1,0 +1,189 @@
+/* ─── Fonts ────────────────────────────────────────────────────────────────── */
+/* Variable font packages — @font-face declarations handled by fontsource.     */
+/* Font families registered: 'Fraunces Variable', 'DM Sans Variable'           */
+@import '@fontsource-variable/fraunces';
+@import '@fontsource-variable/dm-sans';
+
+/* ─── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --color-bg:     #F7F3EC;
+  --color-text:   #1C2B1E;
+  --color-meadow: #4A6741;
+  /* CTA terracotta: #A85533 verified at 5.23:1 (white on earth). */
+  /* Do NOT use #B5603C — that value fails WCAG AA at 4.04:1 on cream. */
+  --color-earth:  #A85533;
+  /* Straw: hairlines and hover ONLY. Never body text — fails AA at 2.02:1. */
+  --color-straw:  #C9A96E;
+
+  /* Typography */
+  --font-display: 'Fraunces Variable', 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans Variable', system-ui, sans-serif;
+
+  /* Type scale — Perfect Fourth (1.333) */
+  --text-xs:   clamp(0.75rem,  0.6rem  + 0.3vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.4vw, 1rem);
+  --text-base: clamp(1rem,     0.875rem + 0.5vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.5vw, 1.333rem);
+  --text-xl:   clamp(1.333rem, 1.1rem  + 1vw,   1.777rem);
+  --text-2xl:  clamp(1.777rem, 1.4rem  + 1.5vw, 2.369rem);
+  --text-3xl:  clamp(2.369rem, 1.8rem  + 2vw,   3.157rem);
+  --text-4xl:  clamp(3.157rem, 2.2rem  + 3vw,   4.209rem);
+
+  /* Spacing — 4px base grid */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Accessibility utilities ────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 200;
+  background: var(--color-meadow);
+  color: #F7F3EC;
+  padding: var(--space-3) var(--space-6);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: top var(--duration-fast);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+}
+
+/* ─── Section rule ───────────────────────────────────────────────────────────── */
+.section-rule {
+  border: none;
+  border-top: 1px solid var(--color-straw);
+  margin: 0;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-8);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    opacity var(--duration-base) var(--ease-out-expo),
+    outline-offset var(--duration-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-earth);
+  color: #ffffff; /* 5.23:1 on #A85533 — WCAG AA verified */
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-earth);
+  outline-offset: 3px;
+}

@@ -1,0 +1,120 @@
+---
+---
+<section class="hero" aria-labelledby="hero-title">
+  <!-- Photo spec: wide-angle meadow at golden hour, Connecticut; min 2400px wide; AVIF+WebP stack -->
+  <!-- REPLACE src with real photo path when photography is ready -->
+  <img
+    class="hero-bg"
+    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'/%3E"
+    alt="Wide-angle meadow at golden hour, Connecticut, native wildflowers"
+    width="1920"
+    height="1080"
+    fetchpriority="high"
+    data-replace="true"
+  />
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-content container">
+    <p class="hero-label">A DOCUMENTARY FILM &middot; 2026</p>
+    <h1 class="hero-title" id="hero-title">ROOTED</h1>
+    <p class="hero-sub">
+      What the American lawn is costing us &mdash; and what comes back when we stop.
+    </p>
+    <a href="#founding-partner" class="btn btn-primary btn-hero">
+      Become a Founding Partner
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    min-height: 100vh; /* fallback */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Placeholder gradient — replaced when real photography is swapped in */
+    background: linear-gradient(
+      160deg,
+      #0f1f0f 0%,
+      #1e3a1e 30%,
+      #2d4f2d 55%,
+      #3a6335 80%,
+      #2a4a28 100%
+    );
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Semi-transparent overlay ensures text contrast against any photo */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(28, 43, 30, 0.52);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-24);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    color: var(--color-straw);
+    margin-bottom: var(--space-6);
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 900;
+    color: #F7F3EC;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: 300;
+    color: #F7F3EC;
+    max-width: 52ch;
+    line-height: 1.5;
+    margin-bottom: var(--space-12);
+    opacity: 0.92;
+  }
+
+  .btn-hero {
+    padding: var(--space-4) var(--space-12);
+    min-height: 52px;
+    font-size: var(--text-xs);
+  }
+
+  @media (max-width: 480px) {
+    .hero-sub {
+      font-size: var(--text-base);
+    }
+
+    .btn-hero {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+</style>

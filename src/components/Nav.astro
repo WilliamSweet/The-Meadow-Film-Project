@@ -1,0 +1,70 @@
+---
+---
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<nav class="nav" id="nav" aria-label="Site navigation">
+  <div class="nav-inner container">
+    <a href="/" class="nav-logo" aria-label="ROOTED — return to top">ROOTED</a>
+    <a href="#founding-partner" class="btn btn-primary nav-cta">Become a Founding Partner</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: var(--space-4) 0;
+    transition: background-color var(--duration-base) var(--ease-out-expo),
+                box-shadow var(--duration-base) var(--ease-out-expo);
+  }
+
+  .nav--scrolled {
+    background-color: var(--color-bg);
+    box-shadow: 0 1px 0 var(--color-straw);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    color: #F7F3EC;
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .nav--scrolled .nav-logo {
+    color: var(--color-text);
+  }
+
+  .nav-cta {
+    padding: var(--space-2) var(--space-6);
+    font-size: 0.625rem;
+  }
+
+  @media (max-width: 380px) {
+    .nav-cta {
+      padding: var(--space-2) var(--space-4);
+      letter-spacing: 0.04em;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav');
+  if (nav) {
+    function updateNav() {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 80);
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+  }
+</script>

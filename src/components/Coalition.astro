@@ -1,0 +1,52 @@
+---
+const partners = [
+  'Homegrown National Park',
+  'Xerces Society',
+  'American Bird Conservancy',
+  'Connecticut Audubon',
+  'Tallamy Lab at the University of Delaware',
+];
+---
+<section class="coalition" id="coalition" aria-labelledby="coalition-heading">
+  <div class="container">
+    <h2 class="coalition-heading" id="coalition-heading">
+      Rooted is convening a founding coalition.
+    </h2>
+    <ul class="coalition-list" aria-label="Confirmed coalition partners">
+      {partners.map((name) => (
+        <li class="coalition-partner">{name}</li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .coalition {
+    padding: var(--space-24) 0;
+    text-align: center;
+  }
+
+  .coalition-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+  }
+
+  .coalition-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .coalition-partner {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+</style>

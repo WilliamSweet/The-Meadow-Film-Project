@@ -1,0 +1,83 @@
+---
+const stats = [
+  {
+    figure: '40M+',
+    description: 'acres of lawn in America — more than all food crops combined',
+  },
+  {
+    figure: '$20K→$3K',
+    description: 'per acre over 20 years — lawn vs. native meadow',
+  },
+  {
+    figure: '10×',
+    description: 'more pesticides per acre on lawns than on farmland',
+  },
+];
+---
+<section class="stats" id="impact" aria-labelledby="stats-label">
+  <div class="container">
+    <p class="sr-only" id="stats-label">Impact statistics</p>
+    <div class="stats-grid">
+      {stats.map((stat) => (
+        <div class="stat-item">
+          <p class="stat-figure">{stat.figure}</p>
+          <p class="stat-description">{stat.description}</p>
+        </div>
+      ))}
+    </div>
+    <p class="stats-attribution">
+      Statistics and data provided by the Tallamy Lab at the University of Delaware.
+    </p>
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: var(--space-24) 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+  }
+
+  .stat-item {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-straw);
+  }
+
+  .stat-figure {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    color: var(--color-text);
+    line-height: 1;
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.01em;
+  }
+
+  .stat-description {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.55;
+    max-width: 22ch;
+    opacity: 0.8;
+  }
+
+  .stats-attribution {
+    margin-top: var(--space-12);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 680px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

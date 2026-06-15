@@ -1,0 +1,91 @@
+---
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import FilmPremise from '../components/FilmPremise.astro';
+import ImpactStats from '../components/ImpactStats.astro';
+import FilmDetails from '../components/FilmDetails.astro';
+import Team from '../components/Team.astro';
+import Coalition from '../components/Coalition.astro';
+import FoundingPartnerCTA from '../components/FoundingPartnerCTA.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="ROOTED — a documentary film about the American lawn and what comes back when we let it go. Join the founding coalition before registration closes."
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!--
+      Font preloads: update these paths after running `npm run build` and inspecting
+      dist/_astro/ to find the actual hashed filenames for the WOFF2 files.
+      Then replace the href values below.
+    -->
+    <!--
+    <link rel="preload" href="/path/to/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/path/to/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    -->
+
+    <title>ROOTED — Documentary Film</title>
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+  </head>
+  <body>
+    <!--
+      Nav outputs the skip link as its first element, making it the first
+      interactive element in <body> — correct WCAG pattern.
+    -->
+    <Nav />
+
+    <main id="main-content" tabindex="-1">
+      <!-- SECTION 1: Hero — full-viewport, primary CTA above fold -->
+      <Hero />
+
+      <hr class="section-rule" aria-hidden="true" />
+
+      <!-- SECTION 2: Film premise copy -->
+      <FilmPremise />
+
+      <hr class="section-rule" aria-hidden="true" />
+
+      <!-- SECTION 3: Three statistics — sparse grid, typography only -->
+      <ImpactStats />
+
+      <hr class="section-rule" aria-hidden="true" />
+
+      <!-- SECTION 4: Film details — definition list -->
+      <FilmDetails />
+
+      <hr class="section-rule" aria-hidden="true" />
+
+      <!-- SECTION 5: Team — 2×2 grid, portrait + name + role -->
+      <Team />
+
+      <hr class="section-rule" aria-hidden="true" />
+
+      <!-- SECTION 6: Coalition partners — text, not logo wall -->
+      <Coalition />
+
+      <!-- SECTION 7: Founding Partner CTA — meadow green background -->
+      <FoundingPartnerCTA />
+    </main>
+
+    <!-- SECTION 8: Footer — dark green -->
+    <Footer />
+
+    <!--
+      Fathom Analytics — cookieless, no consent banner required.
+      TODO: Replace YOUR_SITE_ID with your Fathom site ID before launch.
+      TODO: Compute SRI hash via: curl https://cdn.usefathom.com/script.js | openssl dgst -sha384 -binary | openssl base64 -A
+      Then add: integrity="sha384-HASH" crossorigin="anonymous"
+    -->
+    <!-- <script src="https://cdn.usefathom.com/script.js" data-site="YOUR_SITE_ID" defer></script> -->
+  </body>
+</html>

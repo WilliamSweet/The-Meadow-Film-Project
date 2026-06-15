@@ -1,0 +1,100 @@
+---
+---
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+
+    <div class="footer-top">
+      <p class="footer-logo">ROOTED</p>
+      <a href="mailto:hello@rootedfilm.com" class="footer-email">
+        hello@rootedfilm.com
+      </a>
+      <p class="footer-copy">&copy; 2026 ROOTED Documentary Film</p>
+    </div>
+
+    <div class="footer-legal">
+      <p>
+        ROOTED is a project of BirdStory, a 501(c)(3) nonprofit organization.
+        All donations are tax-deductible to the fullest extent of the law.
+      </p>
+      <p>
+        Statistics and data provided by the Tallamy Lab at the University of Delaware.
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-text); /* #1C2B1E dark green */
+    padding: var(--space-16) 0 var(--space-12);
+  }
+
+  .footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    margin-bottom: var(--space-8);
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 900;
+    color: var(--color-bg);
+    letter-spacing: 0.14em;
+  }
+
+  .footer-email {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-bg);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(247, 243, 236, 0.28);
+    padding-bottom: 1px;
+    transition: border-color var(--duration-fast);
+  }
+
+  .footer-email:hover,
+  .footer-email:focus-visible {
+    border-color: var(--color-bg);
+  }
+
+  .footer-email:focus-visible {
+    outline: 2px solid var(--color-straw);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  .footer-copy {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-bg);
+    opacity: 0.55;
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer-legal p {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-bg);
+    opacity: 0.48;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 640px) {
+    .footer-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+  }
+</style>

@@ -11,17 +11,13 @@
         [PLACEHOLDER: what Founding Partners receive — visibility, film credit, coalition listing]
       </p>
 
-      <!--
-        TODO: Replace Formspree endpoint with Cloudflare Worker before launch.
-        Pattern: Worker accepts POST → writes address to queue → sends confirmation async.
-        Never execute a synchronous email send inside the request handler.
-        Worker route: POST /api/founding-partner
-      -->
       <form
         class="cta-form"
-        action="https://formspree.io/f/YOUR_FORM_ID"
+        action="https://formspree.io/f/mqeonzoz"
         method="POST"
         aria-label="Founding Partner registration"
+        data-fs-success="Thank you — we will be in touch shortly."
+        data-fs-error="Something went wrong. Please email us directly."
       >
         <input type="hidden" name="_subject" value="New Founding Partner — ROOTED" />
 
@@ -36,8 +32,9 @@
             required
             autocomplete="email"
             aria-required="true"
+            data-fs-field
           />
-          <button type="submit" class="btn btn-submit">
+          <button type="submit" class="btn btn-submit" data-fs-submit-btn>
             Join the Coalition
           </button>
         </div>

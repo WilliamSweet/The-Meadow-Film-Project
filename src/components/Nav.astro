@@ -4,7 +4,16 @@
 <nav class="nav" id="nav" aria-label="Site navigation">
   <div class="nav-inner container">
     <a href="/" class="nav-logo" aria-label="The World's Best Office — return to top">The World's Best Office</a>
-    <a href="#founding-partner" class="btn btn-primary nav-cta">Become a Founding Partner</a>
+
+    <ul class="nav-links" role="list" aria-label="Page sections">
+      <li><a href="#about"   class="nav-link" data-nav-link>About</a></li>
+      <li><a href="#stories" class="nav-link" data-nav-link>Stories</a></li>
+      <li><a href="#impact"  class="nav-link" data-nav-link>Impact</a></li>
+      <li><a href="#team"    class="nav-link" data-nav-link>Team</a></li>
+      <li><a href="#film"    class="nav-link" data-nav-link>Film</a></li>
+    </ul>
+
+    <a href="#founding-partner" class="btn btn-primary nav-cta">Join the Coalition</a>
   </div>
 </nav>
 
@@ -29,8 +38,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-6);
   }
 
+  /* ── Logo ── */
   .nav-logo {
     font-family: var(--font-display);
     font-size: var(--text-xl);
@@ -38,6 +49,8 @@
     letter-spacing: 0.14em;
     color: #F7F3EC;
     text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: color var(--duration-fast);
   }
 
@@ -45,12 +58,77 @@
     color: var(--color-text);
   }
 
+  /* ── Section links ── */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--space-8);
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    color: rgba(247, 243, 236, 0.70);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color var(--duration-fast), border-color var(--duration-fast);
+  }
+
+  .nav--scrolled .nav-link {
+    color: rgba(28, 43, 30, 0.55);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.45);
+    outline: none;
+  }
+
+  .nav--scrolled .nav-link:hover,
+  .nav--scrolled .nav-link:focus-visible {
+    color: var(--color-text);
+    border-bottom-color: var(--color-earth);
+  }
+
+  .nav-link--active {
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.55);
+  }
+
+  .nav--scrolled .nav-link--active {
+    color: var(--color-text);
+    border-bottom-color: var(--color-earth);
+  }
+
+  /* ── CTA button ── */
   .nav-cta {
     padding: var(--space-2) var(--space-6);
     font-size: 0.625rem;
+    flex-shrink: 0;
   }
 
-  @media (max-width: 380px) {
+  /* ── Mobile: hide section links; shrink logo so it never wraps ── */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-logo {
+      font-size: var(--text-sm);
+      letter-spacing: 0.06em;
+    }
+
     .nav-cta {
       padding: var(--space-2) var(--space-4);
       letter-spacing: 0.04em;
@@ -59,6 +137,7 @@
 </style>
 
 <script>
+  /* ── Scrolled state ── */
   const nav = document.getElementById('nav');
   if (nav) {
     function updateNav() {
@@ -67,4 +146,48 @@
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
   }
+
+  /* ── Scroll-spy: highlight the section currently in view ── */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var links = Array.from(document.querySelectorAll('[data-nav-link]'));
+    if (!links.length) return;
+
+    /* Build id → link map in nav order */
+    var ids = links.map(function (l) { return l.getAttribute('href').slice(1); });
+    var visible = new Set();
+
+    function setActive() {
+      /* Pick the first (topmost in nav order) section that is currently visible */
+      var activeId = null;
+      for (var i = 0; i < ids.length; i++) {
+        if (visible.has(ids[i])) { activeId = ids[i]; break; }
+      }
+      links.forEach(function (l) {
+        var id = l.getAttribute('href').slice(1);
+        l.classList.toggle('nav-link--active', id === activeId);
+      });
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          visible.add(e.target.id);
+        } else {
+          visible.delete(e.target.id);
+        }
+      });
+      setActive();
+    }, {
+      /* Zone: below the fixed nav top bar, excluding the bottom 35% of viewport */
+      rootMargin: '-80px 0px -35% 0px',
+      threshold: 0
+    });
+
+    ids.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  })();
 </script>

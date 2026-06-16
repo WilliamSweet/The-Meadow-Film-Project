@@ -8,6 +8,7 @@ import Location from '../components/Location.astro';
 import Team from '../components/Team.astro';
 import Coalition from '../components/Coalition.astro';
 import StoriesSection from '../components/StoriesSection.astro';
+import TallammyPullQuote from '../components/TallammyPullQuote.astro';
 import MeadowBreak from '../components/MeadowBreak.astro';
 import FoundingPartnerCTA from '../components/FoundingPartnerCTA.astro';
 import Footer from '../components/Footer.astro';
@@ -25,15 +26,22 @@ import '../styles/global.css';
     />
     <meta name="robots" content="index, follow" />
 
-    <!--
-      Font preloads: update these paths after running `npm run build` and inspecting
-      dist/_astro/ to find the actual hashed filenames for the WOFF2 files.
-      Then replace the href values below.
-    -->
-    <!--
-    <link rel="preload" href="/path/to/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/path/to/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-    -->
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://the-meadow-film-project.pages.dev/" />
+    <meta property="og:title"       content="The World's Best Office" />
+    <meta property="og:description" content="A documentary film about the American lawn and what comes back when we let it go." />
+    <meta property="og:image"       content="https://the-meadow-film-project.pages.dev/images/hero-meadow.webp" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="The World's Best Office" />
+    <meta name="twitter:description" content="A documentary film about the American lawn and what comes back when we let it go." />
+    <meta name="twitter:image"       content="https://the-meadow-film-project.pages.dev/images/hero-meadow.webp" />
+
+    <!-- Font preloads — hashed filenames from dist/_astro/ (npm run build 2026-06-16) -->
+    <link rel="preload" href="/_astro/fraunces-latin-wght-normal.ukD16Tqj.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/_astro/dm-sans-latin-wght-normal.Xz1IZZA0.woff2" as="font" type="font/woff2" crossorigin />
 
     <title>The World's Best Office — Documentary Film</title>
 
@@ -60,6 +68,9 @@ import '../styles/global.css';
 
       <!-- SECTION 3: Stories — five named subjects; character before statistics -->
       <StoriesSection />
+
+      <!-- Pull-quote: lifts Tallamy's line as a cinematic pause before the stats -->
+      <TallammyPullQuote />
 
       <!-- Visual landmark — full-bleed meadow break between stories and stats -->
       <MeadowBreak />

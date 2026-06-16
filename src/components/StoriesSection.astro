@@ -1,0 +1,213 @@
+---
+---
+<section class="stories" id="stories" aria-labelledby="stories-heading">
+  <div class="container">
+
+    <p class="stories-lead">
+      This is a film about people who looked at their own land and made
+      a different choice &mdash; and what came back when they did.
+    </p>
+
+    <div class="stories-list">
+
+      <!-- Ryan Dressler -->
+      <article class="story-entry">
+        <div
+          class="story-photo"
+          role="img"
+          aria-label="[REPLACE: portrait photograph of Ryan Dressler]"
+          data-replace="true"
+        ></div>
+        <div class="story-text">
+          <h3 class="story-name">Ryan Dressler</h3>
+          <p class="story-body">
+            Ryan Dressler runs the numbers for a living. He converted fifty acres in Ohio,
+            and six years later the fireflies returned, along with the Baltimore orioles and
+            a pair of trumpeter swans. As he puts it: the first half of his life was spent
+            lobbying for impact investing, and he would like to spend the second half
+            lobbying for nature.
+          </p>
+        </div>
+      </article>
+
+      <!-- Sara Weaner Cooper -->
+      <article class="story-entry">
+        <div
+          class="story-photo"
+          role="img"
+          aria-label="[REPLACE: portrait photograph of Sara Weaner Cooper]"
+          data-replace="true"
+        ></div>
+        <div class="story-text">
+          <h3 class="story-name">Sara Weaner Cooper</h3>
+          <p class="story-body">
+            Sara converted the front lawn of her first house in Pennsylvania. She spent two
+            years working with the existing turf rather than tearing it out, and put a small
+            sign in the yard so the neighbors would know what was coming. One morning in May,
+            the first partridge pea pushed through the grass.
+          </p>
+        </div>
+      </article>
+
+      <!-- Victor DeMasi -->
+      <article class="story-entry">
+        <div
+          class="story-photo"
+          role="img"
+          aria-label="[REPLACE: portrait photograph of Victor DeMasi]"
+          data-replace="true"
+        ></div>
+        <div class="story-text">
+          <h3 class="story-name">Victor DeMasi</h3>
+          <p class="story-body">
+            Victor DeMasi has counted the butterflies in his Connecticut meadow every Fourth
+            of July for twenty-eight years. In the mid-nineties he counted five hundred. Last
+            year he counted two hundred and fifty.
+          </p>
+        </div>
+      </article>
+
+      <!-- David Kaye -->
+      <article class="story-entry">
+        <div
+          class="story-photo"
+          role="img"
+          aria-label="[REPLACE: portrait photograph of David Kaye]"
+          data-replace="true"
+        ></div>
+        <div class="story-text">
+          <h3 class="story-name">David Kaye</h3>
+          <p class="story-body">
+            David Kaye did not build his meadow to make a point. The strip of land beside
+            the brewery was going to become an eyesore, so Nod Hill turned it into the view
+            from the beer garden and the filter for the river beside it.
+          </p>
+        </div>
+      </article>
+
+      <!-- Doug Tallamy -->
+      <article class="story-entry">
+        <div
+          class="story-photo"
+          role="img"
+          aria-label="[REPLACE: portrait photograph of Doug Tallamy]"
+          data-replace="true"
+        ></div>
+        <div class="story-text">
+          <h3 class="story-name">Doug Tallamy</h3>
+          <p class="story-body">
+            Doug Tallamy watched a bulldozer bury the pond he grew up next to when he was
+            in the third grade. He has spent the rest of his life explaining what is lost
+            when the ordinary living things disappear &mdash; and how quickly they return when
+            the land is given back to them.
+          </p>
+        </div>
+      </article>
+
+    </div><!-- /.stories-list -->
+
+    <p class="stories-closing">
+      These are the people the film is built around. If your own land
+      has a version of this story,{' '}
+      <a
+        href="mailto:meadowfilm.hello@gmail.com"
+        class="stories-link"
+      >we would be glad to hear it</a>.
+    </p>
+
+  </div>
+</section>
+
+<style>
+  .stories {
+    padding: var(--space-24) 0;
+  }
+
+  .stories-lead {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.35;
+    max-width: 52ch;
+    margin-bottom: var(--space-16);
+  }
+
+  .stories-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .story-entry {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .story-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(155deg, #2e5028 0%, #4A6741 100%);
+    flex-shrink: 0;
+    /* REPLACE WITH: portrait photograph, 1:1, min 160px, AVIF+WebP, <80KB */
+  }
+
+  .story-name {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+    margin-bottom: var(--space-2);
+  }
+
+  .story-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.75;
+    max-width: 65ch;
+  }
+
+  .stories-closing {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.75;
+    margin-top: var(--space-16);
+    max-width: 65ch;
+  }
+
+  .stories-link {
+    color: var(--color-meadow);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity var(--duration-fast);
+  }
+
+  .stories-link:hover,
+  .stories-link:focus-visible {
+    opacity: 0.75;
+  }
+
+  .stories-link:focus-visible {
+    outline: 2px solid var(--color-meadow);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  @media (max-width: 520px) {
+    .story-entry {
+      grid-template-columns: 64px 1fr;
+      gap: var(--space-4);
+    }
+
+    .story-photo {
+      width: 64px;
+      height: 64px;
+    }
+  }
+</style>

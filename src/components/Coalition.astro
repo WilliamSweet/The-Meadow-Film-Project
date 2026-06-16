@@ -1,8 +1,9 @@
 ---
 const partners = [
-  'Homegrown National Park',
-  'Tallamy Lab, University of Delaware',
-  'University of Connecticut',
+  { name: 'Homegrown National Park', description: '250,000+ pledges to restore native habitat on private land across North America' },
+  { name: 'Wild Ones', description: '36,000 members nationwide dedicated to native plant landscaping' },
+  { name: 'Tallamy Lab, University of Delaware', description: null },
+  { name: 'University of Connecticut', description: null },
 ];
 ---
 <section class="coalition" id="coalition" aria-labelledby="coalition-heading">
@@ -11,8 +12,13 @@ const partners = [
       The conservation community is already here.
     </h2>
     <ul class="coalition-list" aria-label="Confirmed coalition partners">
-      {partners.map((name) => (
-        <li class="coalition-partner">{name}</li>
+      {partners.map((partner) => (
+        <li class="coalition-item">
+          <span class="coalition-partner">{partner.name}</span>
+          {partner.description && (
+            <span class="coalition-description">{partner.description}</span>
+          )}
+        </li>
       ))}
     </ul>
   </div>
@@ -36,7 +42,13 @@ const partners = [
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .coalition-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
   }
 
   .coalition-partner {
@@ -46,5 +58,14 @@ const partners = [
     font-style: italic;
     color: var(--color-text);
     letter-spacing: 0.02em;
+  }
+
+  .coalition-description {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.6;
+    letter-spacing: 0;
+    font-style: normal;
   }
 </style>

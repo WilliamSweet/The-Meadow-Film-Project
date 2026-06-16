@@ -12,12 +12,14 @@
 
       <!-- Ryan Dressler -->
       <article class="story-entry">
-        <div
+        <img
           class="story-photo"
-          role="img"
-          aria-label="[REPLACE: portrait photograph of Ryan Dressler]"
-          data-replace="true"
-        ></div>
+          src="/images/ryan-dressler.webp"
+          alt="Ryan Dressler in Ohio"
+          width="160"
+          height="160"
+          loading="lazy"
+        />
         <div class="story-text">
           <h3 class="story-name">Ryan Dressler</h3>
           <p class="story-body">
@@ -32,12 +34,14 @@
 
       <!-- Sara Weaner Cooper -->
       <article class="story-entry">
-        <div
+        <img
           class="story-photo"
-          role="img"
-          aria-label="[REPLACE: portrait photograph of Sara Weaner Cooper]"
-          data-replace="true"
-        ></div>
+          src="/images/sara-weaner-cooper.webp"
+          alt="Sara Weaner Cooper's front yard meadow in Pennsylvania"
+          width="160"
+          height="90"
+          loading="lazy"
+        />
         <div class="story-text">
           <h3 class="story-name">Sara Weaner Cooper</h3>
           <p class="story-body">
@@ -69,12 +73,14 @@
 
       <!-- David Kaye -->
       <article class="story-entry">
-        <div
+        <img
           class="story-photo"
-          role="img"
-          aria-label="[REPLACE: portrait photograph of David Kaye]"
-          data-replace="true"
-        ></div>
+          src="/images/david-kaye.webp"
+          alt="David Kaye at Nod Hill meadow, Connecticut"
+          width="160"
+          height="120"
+          loading="lazy"
+        />
         <div class="story-text">
           <h3 class="story-name">David Kaye</h3>
           <p class="story-body">
@@ -152,7 +158,8 @@
     border-radius: var(--radius-sm);
     background: linear-gradient(155deg, #2e5028 0%, #4A6741 100%);
     flex-shrink: 0;
-    /* REPLACE WITH: portrait photograph, 1:1, min 160px, AVIF+WebP, <80KB */
+    object-fit: cover;
+    display: block;
   }
 
   .story-name {

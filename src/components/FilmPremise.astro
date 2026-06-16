@@ -24,13 +24,14 @@
       </div>
 
       <div class="premise-image">
-        <!-- REPLACE: film still or meadow footage frame, landscape orientation, 4:3 ratio -->
-        <div
-          class="img-placeholder-film-still"
-          role="img"
-          aria-label="[REPLACE: film still or meadow footage frame, landscape orientation]"
-          data-replace="true"
-        ></div>
+        <img
+          class="img-premise"
+          src="/images/meadow-project-litchfield.webp"
+          alt="Meadow Project, Litchfield County, Connecticut — native planting in progress"
+          width="960"
+          height="623"
+          loading="lazy"
+        />
       </div>
 
     </div>
@@ -71,12 +72,12 @@
     margin-bottom: 0;
   }
 
-  .img-placeholder-film-still {
-    aspect-ratio: 4 / 3;
-    background: linear-gradient(155deg, #1e3320 0%, #2e5028 50%, #3f6435 100%);
+  .img-premise {
+    width: 100%;
+    height: auto;
     border-radius: var(--radius-md);
-    /* REPLACE WITH: film still or meadow footage frame */
-    /* Photo spec: 4:3, min 1200px wide, AVIF+WebP stack, compress <200KB */
+    display: block;
+    object-fit: cover;
   }
 
   @media (max-width: 768px) {

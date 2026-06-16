@@ -5,13 +5,14 @@
     <div class="location-inner">
 
       <div class="location-image">
-        <!-- REPLACE: wide-angle photograph of Sleepy Cat Farm gardens, Greenwich CT; landscape orientation, 4:3 ratio; min 1200px wide; AVIF+WebP stack; compress <200KB -->
-        <div
-          class="img-placeholder-location"
-          role="img"
-          aria-label="[REPLACE: Sleepy Cat Farm, Greenwich Connecticut — wide-angle garden photograph, landscape orientation]"
-          data-replace="true"
-        ></div>
+        <img
+          class="img-location"
+          src="/images/sleepy-cat-farm.webp"
+          alt="Sleepy Cat Farm gardens, Greenwich, Connecticut — native meadow planting"
+          width="900"
+          height="676"
+          loading="lazy"
+        />
       </div>
 
       <div class="location-text">
@@ -43,12 +44,12 @@
     align-items: center;
   }
 
-  .img-placeholder-location {
-    aspect-ratio: 4 / 3;
-    background: linear-gradient(155deg, #1e3320 0%, #2e5028 50%, #3f6435 100%);
+  .img-location {
+    width: 100%;
+    height: auto;
     border-radius: var(--radius-md);
-    /* REPLACE WITH: Sleepy Cat Farm photograph */
-    /* Photo spec: 4:3, min 1200px wide, AVIF+WebP stack, compress <200KB */
+    display: block;
+    object-fit: cover;
   }
 
   .location-heading {

@@ -5,28 +5,40 @@ const team = [
     role: 'Producer',
     credential: "Director of Netflix's Our Oceans; co-creator of Prehistoric Planet",
     bio: "Nick directed Netflix's Our Oceans, narrated by President Obama, and co-created Prehistoric Planet for Apple TV+ alongside Jon Favreau. He spent four years directing the BBC's Dynasties: Painted Wolf, which won Best Behavioral Film at Jackson Hole. Over a twenty-five-year career his work has ranged from forest nomads in Sumatra to wolves on the Arctic tundra.",
-    imgAlt: '[REPLACE: headshot of Nick Lyon, producer — 1:1 ratio, circular crop]',
+    imgSrc: '/images/nick-lyon.webp',
+    imgAlt: 'Nick Lyon, producer',
+    imgW: 149,
+    imgH: 200,
   },
   {
     name: 'Wylie Overstreet',
     role: 'Director',
     credential: 'Creator of To Scale: The Solar System',
     bio: 'Wylie is a filmmaker whose visual storytelling has reached tens of millions worldwide. He created the To Scale series, including the viral To Scale: The Solar System, built across a seven-mile stretch of Nevada desert. His work has been featured by The Atlantic, The Guardian, Scientific American, and PBS.',
-    imgAlt: '[REPLACE: headshot of Wylie Overstreet, director — 1:1 ratio, circular crop]',
+    imgSrc: '/images/wylie-overstreet.webp',
+    imgAlt: 'Wylie Overstreet, director',
+    imgW: 168,
+    imgH: 200,
   },
   {
     name: 'Mel Finn',
     role: 'Writer',
     credential: 'Novelist (The Gloaming, The Hare); co-founder of BirdStory',
     bio: 'Melanie is an award-winning novelist — The Gloaming, The Underneath, The Hare — and the co-founder of BirdStory. As writer and producer of the Stories to Save Us series, she brings a literary sensibility to documentary filmmaking, exploring how we mythologize landscapes and how those myths shape the way we treat the land.',
-    imgAlt: '[REPLACE: headshot of Mel Finn, writer — 1:1 ratio, circular crop]',
+    imgSrc: '/images/mel-finn.webp',
+    imgAlt: 'Mel Finn, writer',
+    imgW: 154,
+    imgH: 200,
   },
   {
     name: 'William Sweet',
     role: 'Creator',
     credential: 'Creator of the American Roots Act',
     bio: "William is the creator of the American Roots Act, a bipartisan legislative initiative to scale native meadow restoration through tax incentives. He has collaborated with Senator Richard Blumenthal, Senate Majority Leader Bob Duff, and Representative Tom O'Dea, and has been invited to participate in federal Farm Bill discussions.",
-    imgAlt: '[REPLACE: headshot of William Sweet, creator — 1:1 ratio, circular crop]',
+    imgSrc: '/images/william-sweet.webp',
+    imgAlt: 'William Sweet, creator',
+    imgW: 200,
+    imgH: 200,
   },
 ];
 ---
@@ -38,13 +50,14 @@ const team = [
     <div class="team-grid">
       {team.map((member) => (
         <article class="team-card">
-          <!-- REPLACE: portrait photograph, 1:1, circular crop, data-replace="true" -->
-          <div
+          <img
             class="team-portrait"
-            role="img"
-            aria-label={member.imgAlt}
-            data-replace="true"
-          ></div>
+            src={member.imgSrc}
+            alt={member.imgAlt}
+            width={member.imgW}
+            height={member.imgH}
+            loading="lazy"
+          />
           <div class="team-info">
             <p class="team-role">{member.role}</p>
             <h3 class="team-name">{member.name}</h3>
@@ -90,9 +103,9 @@ const team = [
     height: 96px;
     min-width: 96px;
     border-radius: 50%;
-    background: #d4c9b8;
+    object-fit: cover;
+    display: block;
     transition: opacity var(--duration-base) ease-out;
-    /* REPLACE WITH: headshot photograph, min 200×200px, circular crop */
   }
 
   .team-portrait:hover {

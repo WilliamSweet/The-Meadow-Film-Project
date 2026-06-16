@@ -1,16 +1,14 @@
 ---
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <!-- Photo spec: wide-angle meadow at golden hour, Connecticut; min 2400px wide; AVIF+WebP stack -->
-  <!-- REPLACE src with real photo path when photography is ready -->
   <img
     class="hero-bg"
-    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'/%3E"
-    alt="Wide-angle meadow at golden hour, Connecticut, native wildflowers"
-    width="1920"
-    height="1080"
+    src="/images/hero-meadow.webp"
+    alt="A native meadow in golden afternoon light"
+    width="2400"
+    height="1600"
     fetchpriority="high"
-    data-replace="true"
+    loading="eager"
   />
   <div class="hero-overlay" aria-hidden="true"></div>
 
@@ -61,7 +59,7 @@
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(28, 43, 30, 0.52);
+    background: rgba(28, 43, 30, 0.55);
   }
 
   .hero-content {

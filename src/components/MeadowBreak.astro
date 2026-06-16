@@ -1,0 +1,32 @@
+---
+---
+<section class="meadow-break" data-reveal aria-hidden="true">
+  <img
+    class="meadow-break-img"
+    src="/images/fullbleed-meadow.webp"
+    alt="Native meadow grasses in golden afternoon light"
+    width="2400"
+    height="1602"
+    loading="lazy"
+  />
+</section>
+
+<style>
+  .meadow-break {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    height: clamp(300px, 55vh, 600px);
+    overflow: hidden;
+  }
+
+  .meadow-break-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+</style>

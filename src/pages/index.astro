@@ -108,6 +108,12 @@ import '../styles/global.css';
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ba135a4e-288e-4632-95c5-26a0b5ed6f46"></script>
 
     <script>
+      // Restore smooth scrolling after initial load so hash-on-refresh
+      // doesn't animate the page to the bottom on every visit.
+      window.addEventListener('load', function () {
+        document.documentElement.style.scrollBehavior = 'smooth';
+      });
+
       (function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 

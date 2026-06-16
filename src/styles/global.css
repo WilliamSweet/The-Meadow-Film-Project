@@ -187,3 +187,17 @@ video {
   outline: 2px solid var(--color-earth);
   outline-offset: 3px;
 }
+
+/* ─── Scroll-reveal ──────────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 640ms var(--ease-out-expo),
+    transform 640ms var(--ease-out-expo);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}

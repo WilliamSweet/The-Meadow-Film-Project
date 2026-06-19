@@ -7,14 +7,19 @@
 /* ─── Design tokens ─────────────────────────────────────────────────────────── */
 :root {
   /* Palette */
-  --color-bg:     #F7F3EC;
-  --color-text:   #1C2B1E;
-  --color-meadow: #4A6741;
+  --color-bg:         #F4EFE6;
+  --color-text:       #1C1A17;
+  --color-meadow:     #4A6741;
   /* CTA terracotta: #A85533 verified at 5.23:1 (white on earth). */
-  /* Do NOT use #B5603C — that value fails WCAG AA at 4.04:1 on cream. */
-  --color-earth:  #A85533;
+  /* Do NOT use #B5603C — that value fails WCAG AA at 4.04:1 on cream.   */
+  /* Do NOT use --color-amber for CTA buttons — white on amber ~2.8:1, fails AA. */
+  --color-earth:      #A85533;
+  /* Amber: editorial accent only — pull quotes, section markers, hairlines. Not CTA. */
+  --color-amber:      #B8904A;
+  /* Wildflower: grief accent — one element per section max. */
+  --color-wildflower: #A8896E;
   /* Straw: hairlines and hover ONLY. Never body text — fails AA at 2.02:1. */
-  --color-straw:  #C9A96E;
+  --color-straw:      #C9A96E;
 
   /* Typography */
   --font-display: 'Fraunces Variable', 'Playfair Display', Georgia, serif;

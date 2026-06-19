@@ -115,62 +115,8 @@ import '../styles/global.css';
     -->
     <!-- <script src="https://cdn.usefathom.com/script.js" data-site="YOUR_SITE_ID" defer></script> -->
 
-    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-    <script defer>
-      Formspree.init({ formId: 'mqeonzoz' });
-    </script>
-
+    <script src="/js/formspree-ajax.js" defer></script>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="ba135a4e-288e-4632-95c5-26a0b5ed6f46"></script>
-
-    <script>
-      // On load: strip any hash left in the URL (prevents scroll-to-section
-      // on refresh after a user previously clicked a CTA anchor).
-      window.addEventListener('load', function () {
-        if (window.location.hash) {
-          window.scrollTo(0, 0);
-          history.replaceState(null, '', window.location.pathname);
-        }
-        document.documentElement.style.scrollBehavior = 'smooth';
-      });
-
-      // After each anchor-link click, strip the hash once the scroll settles
-      // so it does not persist in the URL for the next page load.
-      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-        link.addEventListener('click', function () {
-          setTimeout(function () {
-            history.replaceState(null, '', window.location.pathname);
-          }, 800);
-        });
-      });
-
-      (function () {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        var observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-        );
-
-        var sections = document.querySelectorAll('main section');
-        sections.forEach(function (el, i) {
-          if (i === 0) return;
-          el.setAttribute('data-reveal', '');
-          observer.observe(el);
-        });
-
-        var footer = document.querySelector('footer');
-        if (footer) {
-          footer.setAttribute('data-reveal', '');
-          observer.observe(footer);
-        }
-      })();
-    </script>
+    <script src="/js/main.js" defer></script>
   </body>
 </html>

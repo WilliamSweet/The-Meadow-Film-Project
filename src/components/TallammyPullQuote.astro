@@ -1,12 +1,15 @@
 ---
+const quoteText = "A weed is a plant whose virtues have not yet been discovered.";
+const words = quoteText.split(' ');
 ---
 <div class="pull-quote" data-reveal>
   <div class="container">
     <p class="pull-quote-text">
-      He has spent the rest of his life explaining what is lost when the ordinary
-      living things disappear &mdash; and how quickly they return when the land
-      is given back to them.
+      {words.map((word, i) => (
+        <span class="word" style={`transition-delay: ${i * 50}ms`}>{word}{' '}</span>
+      ))}
     </p>
+    <p class="pull-quote-attribution">— Ralph Waldo Emerson</p>
   </div>
 </div>
 
@@ -24,6 +27,32 @@
     color: var(--color-text);
     line-height: 1.45;
     max-width: 50ch;
+    margin: 0 auto var(--space-6);
+  }
+
+  .word {
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+    display: inline;
+  }
+
+  .pull-quote-text.revealed .word {
+    opacity: 1;
+  }
+
+  /* Reduced motion: show words immediately, no animation */
+  @media (prefers-reduced-motion: reduce) {
+    .word {
+      opacity: 1;
+      transition: none;
+    }
+  }
+
+  .pull-quote-attribution {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-wildflower);
+    letter-spacing: 0.04em;
     margin: 0 auto;
   }
 </style>

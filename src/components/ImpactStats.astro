@@ -22,10 +22,33 @@ const group2 = [
   {
     figure: '80%',
     description: 'of Connecticut watershed land has no formal state protection beyond local zoning',
+    countTo: '80',
+    suffix: '%',
+    display: '80%',
   },
   {
     figure: '$625B',
     description: 'needed for U.S. water infrastructure over the next 20 years',
+  },
+];
+
+const group3 = [
+  {
+    figure: '3 billion',
+    description: 'birds lost from North American skies since 1970',
+    countTo: '3000000000',
+    display: '3 billion',
+  },
+  {
+    figure: '55%',
+    description: 'of honey bee colonies lost in a single season — a record',
+    countTo: '55',
+    suffix: '%',
+    display: '55%',
+  },
+  {
+    figure: '45 miles',
+    description: 'car-equivalent emissions from one hour of gas mowing',
   },
 ];
 ---
@@ -47,10 +70,34 @@ const group2 = [
 
     <div class="stat-group">
       <p class="stat-group-label">The infrastructure burden</p>
+      <p class="stat-group-sub">Lawn and landscape runoff is among the leading sources of nonpoint water pollution in American watersheds — and most of that land has no protection.</p>
       <div class="stats-grid">
         {group2.map((stat) => (
           <div class="stat-item">
-            <p class="stat-figure">{stat.figure}</p>
+            <p
+              class="stat-figure"
+              data-count={stat.countTo}
+              data-display={stat.display}
+              data-suffix={stat.suffix}
+            >{stat.figure}</p>
+            <p class="stat-description">{stat.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="stat-group">
+      <p class="stat-group-label">The living world</p>
+      <p class="stat-group-sub">Lawns cover more land than any food crop in America — and support a fraction of the birds, bees, and wildlife that native meadows sustain.</p>
+      <div class="stats-grid">
+        {group3.map((stat) => (
+          <div class="stat-item">
+            <p
+              class="stat-figure"
+              data-count={stat.countTo}
+              data-display={stat.display}
+              data-suffix={stat.suffix}
+            >{stat.figure}</p>
             <p class="stat-description">{stat.description}</p>
           </div>
         ))}
@@ -58,8 +105,23 @@ const group2 = [
     </div>
 
     <p class="stats-attribution">
-      Sources: WestCOG / CT DEEP (2024); EPA 7th Drinking Water Infrastructure Needs Survey (2023); U.S. Fish &amp; Wildlife Service; Robbins et al. / NASA (2005); Owens Corning cost analysis.
+      Sources: WestCOG / CT DEEP (2024); EPA 7th Drinking Water Infrastructure Needs Survey (2023); U.S. Fish &amp; Wildlife Service; Robbins et al. / NASA (2005); Owens Corning cost analysis; Rosenberg et al. / Cornell Lab of Ornithology, <em>Science</em> 2019; USDA AMS Honey Bee Colonies Survey (2024); U.S. EPA emissions analysis (2015).
     </p>
+
+    <details class="stats-research">
+      <summary class="stats-research-toggle">Research &amp; sources</summary>
+      <ul class="stats-research-list">
+        <li><strong>40M+ acres of lawn</strong> — Robbins et al., NASA / USGS (2005); confirmed by Christina Milesi / NASA Ames Research Center</li>
+        <li><strong>$20K→$3K over 20 years</strong> — Owens Corning cost analysis; 20-year lifecycle comparison of turf vs. native meadow per acre</li>
+        <li><strong>10× more pesticides than farmland</strong> — U.S. Fish &amp; Wildlife Service (USFWS) pesticide application data</li>
+        <li><strong>3 billion birds lost since 1970</strong> — Rosenberg et al., <em>Science</em>, Vol. 366, Issue 6461 (2019); reconfirmed in U.S. State of the Birds Report (2022, 2025)</li>
+        <li><strong>55% honey bee colonies lost (2023–24)</strong> — USDA Agricultural Marketing Service, Honey Bee Colonies survey, October 2024</li>
+        <li><strong>45 miles car-equivalent emissions from one hour of gas mowing</strong> — U.S. EPA emissions analysis (2015); VOC/NOx equivalency to driving a new car 45 miles</li>
+        <li><strong>120,000+ CT water supply spills (1997–2022)</strong> — WestCOG, <em>Safeguarding Public Water Supply Watersheds</em> (2024)</li>
+        <li><strong>80% of CT watershed land unprotected</strong> — CT DEEP / WestCOG (2024)</li>
+        <li><strong>$625B U.S. water infrastructure need</strong> — EPA 7th Drinking Water Infrastructure Needs Survey and Assessment (2023)</li>
+      </ul>
+    </details>
   </div>
 </section>
 
@@ -77,6 +139,16 @@ const group2 = [
     font-family: var(--font-body);
     font-size: var(--text-xs);
     color: var(--color-earth);
+    margin-bottom: var(--space-2);
+  }
+
+  .stat-group-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.65;
+    line-height: 1.55;
+    max-width: 60ch;
     margin-bottom: var(--space-6);
   }
 
@@ -88,7 +160,24 @@ const group2 = [
 
   .stat-item {
     padding-top: var(--space-6);
-    border-top: 1px solid var(--color-straw);
+    position: relative;
+  }
+
+  .stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--color-amber);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  :global([data-reveal].is-visible) .stat-item::before {
+    transform: scaleX(1);
   }
 
   .stat-figure {
@@ -116,6 +205,60 @@ const group2 = [
     font-size: var(--text-xs);
     color: var(--color-text);
     opacity: 0.5;
+  }
+
+  .stats-research {
+    margin-top: var(--space-10);
+    border-top: 1px solid var(--color-amber);
+    padding-top: var(--space-6);
+  }
+
+  .stats-research-toggle {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-earth);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    user-select: none;
+  }
+
+  .stats-research-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .stats-research-toggle::before {
+    content: '▸';
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+
+  .stats-research[open] .stats-research-toggle::before {
+    transform: rotate(90deg);
+  }
+
+  .stats-research-list {
+    margin-top: var(--space-6);
+    padding-left: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+  }
+
+  .stats-research-list li {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+
+  .stats-research-list strong {
+    font-weight: 600;
+    opacity: 1;
   }
 
   @media (max-width: 680px) {

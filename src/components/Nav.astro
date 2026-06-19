@@ -18,7 +18,15 @@
 </nav>
 
 <style>
-  /* ── Base: solid background always — readable by default, no JS required ── */
+  /* ── Animatable scroll-progress token ───────────────────────────────────────
+     inherits: true so .nav-logo and .nav-link children can read it           */
+  @property --nav-progress {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+  }
+
+  /* ── Base: solid cream background — readable with zero JS or CSS support ── */
   .nav {
     position: fixed;
     top: 0;
@@ -28,14 +36,6 @@
     padding: var(--space-4) 0;
     background-color: var(--color-bg);
     box-shadow: 0 1px 0 var(--color-straw);
-    transition: background-color var(--duration-base) var(--ease-out-expo),
-                box-shadow var(--duration-base) var(--ease-out-expo);
-  }
-
-  /* ── Over-hero: transparent + white text (progressive enhancement via JS) ── */
-  .nav--over-hero {
-    background-color: transparent;
-    box-shadow: none;
   }
 
   .nav-inner {
@@ -55,11 +55,6 @@
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
-    transition: color var(--duration-fast);
-  }
-
-  .nav--over-hero .nav-logo {
-    color: #F7F3EC;
   }
 
   /* ── Section links ── */
@@ -79,15 +74,10 @@
     font-weight: 400;
     font-variant: small-caps;
     letter-spacing: 0.12em;
-    color: rgba(28, 43, 30, 0.55);
+    color: rgba(28, 26, 23, 0.55);
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
-    transition: color var(--duration-fast), border-color var(--duration-fast);
-  }
-
-  .nav--over-hero .nav-link {
-    color: rgba(247, 243, 236, 0.70);
   }
 
   .nav-link:hover,
@@ -97,20 +87,9 @@
     outline: none;
   }
 
-  .nav--over-hero .nav-link:hover,
-  .nav--over-hero .nav-link:focus-visible {
-    color: #F7F3EC;
-    border-bottom-color: rgba(247, 243, 236, 0.45);
-  }
-
   .nav-link--active {
     color: var(--color-text);
     border-bottom-color: var(--color-earth);
-  }
-
-  .nav--over-hero .nav-link--active {
-    color: #F7F3EC;
-    border-bottom-color: rgba(247, 243, 236, 0.55);
   }
 
   /* ── CTA button ── */
@@ -120,7 +99,112 @@
     flex-shrink: 0;
   }
 
-  /* ── Mobile: hide section links; shrink logo so it never wraps ── */
+  /* ── JS fallback class: transparent over hero (older browsers only) ── */
+  .nav--over-hero {
+    background-color: transparent;
+    box-shadow: none;
+    transition:
+      background-color var(--duration-base) var(--ease-out-expo),
+      box-shadow var(--duration-base) var(--ease-out-expo);
+  }
+
+  .nav--over-hero .nav-logo {
+    color: #F7F3EC;
+    transition: color var(--duration-base) var(--ease-out-expo);
+  }
+
+  .nav--over-hero .nav-link {
+    color: rgba(247, 243, 236, 0.70);
+    transition: color var(--duration-base) var(--ease-out-expo);
+  }
+
+  .nav--over-hero .nav-link:hover,
+  .nav--over-hero .nav-link:focus-visible {
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.45);
+  }
+
+  .nav--over-hero .nav-link--active {
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.55);
+  }
+
+  /* ── Cinematic CSS scroll-driven transition ─────────────────────────────────
+     Supported: Chrome 115+, Safari 18+, Firefox 110+
+     180px fade window centred on the hero exit (100svh)
+     Skipped entirely for prefers-reduced-motion users               ── */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+
+      @keyframes nav-progress {
+        from { --nav-progress: 0; }
+        to   { --nav-progress: 1; }
+      }
+
+      .nav {
+        animation: nav-progress linear both;
+        animation-timeline: scroll(root);
+        animation-range: calc(100svh - 120px) calc(100svh + 60px);
+
+        background-color: color-mix(
+          in srgb,
+          var(--color-bg) calc(var(--nav-progress) * 100%),
+          transparent
+        );
+        box-shadow: 0 1px 0 color-mix(
+          in srgb,
+          var(--color-straw) calc(var(--nav-progress) * 100%),
+          transparent
+        );
+      }
+
+      .nav-logo {
+        color: color-mix(
+          in srgb,
+          var(--color-text) calc(var(--nav-progress) * 100%),
+          #F7F3EC
+        );
+      }
+
+      .nav-link {
+        color: color-mix(
+          in srgb,
+          rgba(28, 26, 23, 0.55) calc(var(--nav-progress) * 100%),
+          rgba(247, 243, 236, 0.70)
+        );
+      }
+
+      .nav-link:hover,
+      .nav-link:focus-visible {
+        color: color-mix(
+          in srgb,
+          var(--color-text) calc(var(--nav-progress) * 100%),
+          #F7F3EC
+        );
+        border-bottom-color: color-mix(
+          in srgb,
+          var(--color-earth) calc(var(--nav-progress) * 100%),
+          rgba(247, 243, 236, 0.45)
+        );
+        outline: none;
+      }
+
+      .nav-link--active {
+        color: color-mix(
+          in srgb,
+          var(--color-text) calc(var(--nav-progress) * 100%),
+          #F7F3EC
+        );
+        border-bottom-color: color-mix(
+          in srgb,
+          var(--color-earth) calc(var(--nav-progress) * 100%),
+          rgba(247, 243, 236, 0.55)
+        );
+      }
+    }
+  }
+
+  /* ── Mobile ── */
   @media (max-width: 768px) {
     .nav-links {
       display: none;
@@ -141,14 +225,17 @@
 </style>
 
 <script>
-  /* ── Over-hero state: transparent when hero is visible, solid otherwise ── */
-  const nav = document.getElementById('nav');
-  const hero = document.querySelector('.hero');
-  if (nav && hero) {
-    new IntersectionObserver(
-      ([entry]) => nav.classList.toggle('nav--over-hero', entry.isIntersecting),
-      { threshold: 0 }
-    ).observe(hero);
+  /* ── Nav state: CSS handles modern browsers via scroll-driven animation.
+     JS IntersectionObserver is the fallback for older browsers only.    ── */
+  if (!CSS.supports('animation-timeline', 'scroll()')) {
+    const nav = document.getElementById('nav');
+    const hero = document.querySelector('.hero');
+    if (nav && hero) {
+      new IntersectionObserver(
+        ([entry]) => nav.classList.toggle('nav--over-hero', entry.isIntersecting),
+        { threshold: 0 }
+      ).observe(hero);
+    }
   }
 
   /* ── Scroll-spy: highlight the section currently in view ── */

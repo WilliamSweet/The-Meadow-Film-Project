@@ -26,7 +26,7 @@
     initial-value: 0;
   }
 
-  /* ── Base: solid cream background — readable with zero JS or CSS support ── */
+  /* ── Base: transparent, white text — works over hero with zero JS ── */
   .nav {
     position: fixed;
     top: 0;
@@ -34,8 +34,8 @@
     right: 0;
     z-index: 100;
     padding: var(--space-4) 0;
-    background-color: var(--color-bg);
-    box-shadow: 0 1px 0 var(--color-straw);
+    background-color: transparent;
+    box-shadow: none;
   }
 
   .nav-inner {
@@ -51,7 +51,7 @@
     font-size: var(--text-xl);
     font-weight: 900;
     letter-spacing: 0.14em;
-    color: var(--color-text);
+    color: #F7F3EC;
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
@@ -74,7 +74,7 @@
     font-weight: 400;
     font-variant: small-caps;
     letter-spacing: 0.12em;
-    color: rgba(28, 26, 23, 0.55);
+    color: rgba(247, 243, 236, 0.70);
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
@@ -82,14 +82,14 @@
 
   .nav-link:hover,
   .nav-link:focus-visible {
-    color: var(--color-text);
-    border-bottom-color: var(--color-earth);
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.45);
     outline: none;
   }
 
   .nav-link--active {
-    color: var(--color-text);
-    border-bottom-color: var(--color-earth);
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.55);
   }
 
   /* ── CTA button ── */
@@ -99,34 +99,34 @@
     flex-shrink: 0;
   }
 
-  /* ── JS fallback class: transparent over hero (older browsers only) ── */
-  .nav--over-hero {
-    background-color: transparent;
-    box-shadow: none;
+  /* ── JS fallback: solid state past hero (older browsers only) ── */
+  .nav--scrolled {
+    background-color: var(--color-bg);
+    box-shadow: 0 1px 0 var(--color-straw);
     transition:
       background-color var(--duration-base) var(--ease-out-expo),
       box-shadow var(--duration-base) var(--ease-out-expo);
   }
 
-  .nav--over-hero .nav-logo {
-    color: #F7F3EC;
+  .nav--scrolled .nav-logo {
+    color: var(--color-text);
     transition: color var(--duration-base) var(--ease-out-expo);
   }
 
-  .nav--over-hero .nav-link {
-    color: rgba(247, 243, 236, 0.70);
+  .nav--scrolled .nav-link {
+    color: rgba(28, 26, 23, 0.55);
     transition: color var(--duration-base) var(--ease-out-expo);
   }
 
-  .nav--over-hero .nav-link:hover,
-  .nav--over-hero .nav-link:focus-visible {
-    color: #F7F3EC;
-    border-bottom-color: rgba(247, 243, 236, 0.45);
+  .nav--scrolled .nav-link:hover,
+  .nav--scrolled .nav-link:focus-visible {
+    color: var(--color-text);
+    border-bottom-color: var(--color-earth);
   }
 
-  .nav--over-hero .nav-link--active {
-    color: #F7F3EC;
-    border-bottom-color: rgba(247, 243, 236, 0.55);
+  .nav--scrolled .nav-link--active {
+    color: var(--color-text);
+    border-bottom-color: var(--color-earth);
   }
 
   /* ── Cinematic CSS scroll-driven transition ─────────────────────────────────
@@ -232,7 +232,7 @@
     const hero = document.querySelector('.hero');
     if (nav && hero) {
       new IntersectionObserver(
-        ([entry]) => nav.classList.toggle('nav--over-hero', entry.isIntersecting),
+        ([entry]) => nav.classList.toggle('nav--scrolled', !entry.isIntersecting),
         { threshold: 0 }
       ).observe(hero);
     }

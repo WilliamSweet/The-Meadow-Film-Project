@@ -130,19 +130,19 @@
   }
 
   /* ── Cinematic CSS scroll-driven transition ─────────────────────────────────
+     Background only — text color is handled by JS (.nav--scrolled class)
      Supported: Chrome 115+, Safari 18+, Firefox 110+
-     180px fade window centred on the hero exit (100svh)
-     Skipped entirely for prefers-reduced-motion users               ── */
+     180px fade window centred on the hero exit (100svh)              ── */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: scroll()) {
 
-      @keyframes nav-progress {
+      @keyframes nav-bg {
         from { --nav-progress: 0; }
         to   { --nav-progress: 1; }
       }
 
       .nav {
-        animation: nav-progress linear both;
+        animation: nav-bg linear both;
         animation-timeline: scroll(root);
         animation-range: calc(100svh - 120px) calc(100svh + 60px);
 
@@ -155,50 +155,6 @@
           in srgb,
           var(--color-straw) calc(var(--nav-progress) * 100%),
           transparent
-        );
-      }
-
-      .nav-logo {
-        color: color-mix(
-          in srgb,
-          var(--color-text) calc(var(--nav-progress) * 100%),
-          #F7F3EC
-        );
-      }
-
-      .nav-link {
-        color: color-mix(
-          in srgb,
-          rgba(28, 26, 23, 0.55) calc(var(--nav-progress) * 100%),
-          rgba(247, 243, 236, 0.70)
-        );
-      }
-
-      .nav-link:hover,
-      .nav-link:focus-visible {
-        color: color-mix(
-          in srgb,
-          var(--color-text) calc(var(--nav-progress) * 100%),
-          #F7F3EC
-        );
-        border-bottom-color: color-mix(
-          in srgb,
-          var(--color-earth) calc(var(--nav-progress) * 100%),
-          rgba(247, 243, 236, 0.45)
-        );
-        outline: none;
-      }
-
-      .nav-link--active {
-        color: color-mix(
-          in srgb,
-          var(--color-text) calc(var(--nav-progress) * 100%),
-          #F7F3EC
-        );
-        border-bottom-color: color-mix(
-          in srgb,
-          var(--color-earth) calc(var(--nav-progress) * 100%),
-          rgba(247, 243, 236, 0.55)
         );
       }
     }
@@ -225,18 +181,17 @@
 </style>
 
 <script>
-  /* ── Nav state: CSS handles modern browsers via scroll-driven animation.
-     JS IntersectionObserver is the fallback for older browsers only.    ── */
-  if (!CSS.supports('animation-timeline', 'scroll()')) {
+  /* ── Nav text color: JS IntersectionObserver always runs.
+     CSS handles background-only scroll animation separately.           ── */
+  (function () {
     const nav = document.getElementById('nav');
     const hero = document.querySelector('.hero');
-    if (nav && hero) {
-      new IntersectionObserver(
-        ([entry]) => nav.classList.toggle('nav--scrolled', !entry.isIntersecting),
-        { threshold: 0 }
-      ).observe(hero);
-    }
-  }
+    if (!nav || !hero) return;
+    new IntersectionObserver(
+      ([entry]) => nav.classList.toggle('nav--scrolled', !entry.isIntersecting),
+      { threshold: 0 }
+    ).observe(hero);
+  })();
 
   /* ── Scroll-spy: highlight the section currently in view ── */
   (function () {

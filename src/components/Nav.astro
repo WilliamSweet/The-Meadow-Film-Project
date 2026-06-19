@@ -55,6 +55,7 @@
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
   }
 
   /* ── Section links ── */
@@ -78,6 +79,7 @@
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
   }
 
   .nav-link:hover,
@@ -110,11 +112,13 @@
 
   .nav--scrolled .nav-logo {
     color: var(--color-text);
+    text-shadow: none;
     transition: color var(--duration-base) var(--ease-out-expo);
   }
 
   .nav--scrolled .nav-link {
     color: rgba(28, 26, 23, 0.55);
+    text-shadow: none;
     transition: color var(--duration-base) var(--ease-out-expo);
   }
 

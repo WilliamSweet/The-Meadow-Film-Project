@@ -141,12 +141,14 @@
   const nav = document.getElementById('nav');
   if (nav) {
     const hero = document.querySelector('.hero');
-    function updateNav() {
-      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
-      nav.classList.toggle('nav--scrolled', heroBottom <= 0);
+    if (hero) {
+      new IntersectionObserver(
+        ([entry]) => nav.classList.toggle('nav--scrolled', !entry.isIntersecting),
+        { threshold: 0 }
+      ).observe(hero);
+    } else {
+      nav.classList.add('nav--scrolled');
     }
-    window.addEventListener('scroll', updateNav, { passive: true });
-    updateNav();
   }
 
   /* ── Scroll-spy: highlight the section currently in view ── */

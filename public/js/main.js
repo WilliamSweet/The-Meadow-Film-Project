@@ -1,5 +1,44 @@
 if (typeof Formspree !== 'undefined') Formspree.init({ formId: 'mqeonzoz' });
 
+// Nav: transparent + white text over hero, solid cream + dark text past hero
+(function () {
+  var nav = document.getElementById('nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  new IntersectionObserver(
+    function (entries) { nav.classList.toggle('nav--scrolled', !entries[0].isIntersecting); },
+    { threshold: 0 }
+  ).observe(hero);
+})();
+
+// Nav scroll-spy: highlight section link matching the section in view
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var links = Array.from(document.querySelectorAll('[data-nav-link]'));
+  if (!links.length) return;
+  var ids = links.map(function (l) { return l.getAttribute('href').slice(1); });
+  var visible = new Set();
+  function setActive() {
+    var activeId = null;
+    for (var i = 0; i < ids.length; i++) {
+      if (visible.has(ids[i])) { activeId = ids[i]; break; }
+    }
+    links.forEach(function (l) {
+      l.classList.toggle('nav-link--active', l.getAttribute('href').slice(1) === activeId);
+    });
+  }
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { visible.add(e.target.id); } else { visible.delete(e.target.id); }
+    });
+    setActive();
+  }, { rootMargin: '-80px 0px -35% 0px', threshold: 0 });
+  ids.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) spy.observe(el);
+  });
+})();
+
 // Strip hash from URL on load to prevent scroll-to-section on refresh
 window.addEventListener('load', function () {
   if (window.location.hash) {

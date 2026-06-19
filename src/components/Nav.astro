@@ -18,6 +18,7 @@
 </nav>
 
 <style>
+  /* ── Base: solid background always — readable by default, no JS required ── */
   .nav {
     position: fixed;
     top: 0;
@@ -25,13 +26,16 @@
     right: 0;
     z-index: 100;
     padding: var(--space-4) 0;
+    background-color: var(--color-bg);
+    box-shadow: 0 1px 0 var(--color-straw);
     transition: background-color var(--duration-base) var(--ease-out-expo),
                 box-shadow var(--duration-base) var(--ease-out-expo);
   }
 
-  .nav--scrolled {
-    background-color: var(--color-bg);
-    box-shadow: 0 1px 0 var(--color-straw);
+  /* ── Over-hero: transparent + white text (progressive enhancement via JS) ── */
+  .nav--over-hero {
+    background-color: transparent;
+    box-shadow: none;
   }
 
   .nav-inner {
@@ -47,15 +51,15 @@
     font-size: var(--text-xl);
     font-weight: 900;
     letter-spacing: 0.14em;
-    color: #F7F3EC;
+    color: var(--color-text);
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
     transition: color var(--duration-fast);
   }
 
-  .nav--scrolled .nav-logo {
-    color: var(--color-text);
+  .nav--over-hero .nav-logo {
+    color: #F7F3EC;
   }
 
   /* ── Section links ── */
@@ -75,38 +79,38 @@
     font-weight: 400;
     font-variant: small-caps;
     letter-spacing: 0.12em;
-    color: rgba(247, 243, 236, 0.70);
+    color: rgba(28, 43, 30, 0.55);
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
     transition: color var(--duration-fast), border-color var(--duration-fast);
   }
 
-  .nav--scrolled .nav-link {
-    color: rgba(28, 43, 30, 0.55);
+  .nav--over-hero .nav-link {
+    color: rgba(247, 243, 236, 0.70);
   }
 
   .nav-link:hover,
   .nav-link:focus-visible {
-    color: #F7F3EC;
-    border-bottom-color: rgba(247, 243, 236, 0.45);
+    color: var(--color-text);
+    border-bottom-color: var(--color-earth);
     outline: none;
   }
 
-  .nav--scrolled .nav-link:hover,
-  .nav--scrolled .nav-link:focus-visible {
-    color: var(--color-text);
-    border-bottom-color: var(--color-earth);
+  .nav--over-hero .nav-link:hover,
+  .nav--over-hero .nav-link:focus-visible {
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.45);
   }
 
   .nav-link--active {
-    color: #F7F3EC;
-    border-bottom-color: rgba(247, 243, 236, 0.55);
-  }
-
-  .nav--scrolled .nav-link--active {
     color: var(--color-text);
     border-bottom-color: var(--color-earth);
+  }
+
+  .nav--over-hero .nav-link--active {
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.55);
   }
 
   /* ── CTA button ── */
@@ -137,18 +141,14 @@
 </style>
 
 <script>
-  /* ── Scrolled state ── */
+  /* ── Over-hero state: transparent when hero is visible, solid otherwise ── */
   const nav = document.getElementById('nav');
-  if (nav) {
-    const hero = document.querySelector('.hero');
-    if (hero) {
-      new IntersectionObserver(
-        ([entry]) => nav.classList.toggle('nav--scrolled', !entry.isIntersecting),
-        { threshold: 0 }
-      ).observe(hero);
-    } else {
-      nav.classList.add('nav--scrolled');
-    }
+  const hero = document.querySelector('.hero');
+  if (nav && hero) {
+    new IntersectionObserver(
+      ([entry]) => nav.classList.toggle('nav--over-hero', entry.isIntersecting),
+      { threshold: 0 }
+    ).observe(hero);
   }
 
   /* ── Scroll-spy: highlight the section currently in view ── */
@@ -158,12 +158,10 @@
     var links = Array.from(document.querySelectorAll('[data-nav-link]'));
     if (!links.length) return;
 
-    /* Build id → link map in nav order */
     var ids = links.map(function (l) { return l.getAttribute('href').slice(1); });
     var visible = new Set();
 
     function setActive() {
-      /* Pick the first (topmost in nav order) section that is currently visible */
       var activeId = null;
       for (var i = 0; i < ids.length; i++) {
         if (visible.has(ids[i])) { activeId = ids[i]; break; }
@@ -184,7 +182,6 @@
       });
       setActive();
     }, {
-      /* Zone: below the fixed nav top bar, excluding the bottom 35% of viewport */
       rootMargin: '-80px 0px -35% 0px',
       threshold: 0
     });

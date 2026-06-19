@@ -25,8 +25,6 @@
     right: 0;
     z-index: 100;
     padding: var(--space-4) 0;
-    background-color: var(--color-bg);
-    box-shadow: 0 1px 0 var(--color-straw);
     transition: background-color var(--duration-base) var(--ease-out-expo),
                 box-shadow var(--duration-base) var(--ease-out-expo);
   }
@@ -49,7 +47,7 @@
     font-size: var(--text-xl);
     font-weight: 900;
     letter-spacing: 0.14em;
-    color: var(--color-text);
+    color: #F7F3EC;
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
@@ -77,7 +75,7 @@
     font-weight: 400;
     font-variant: small-caps;
     letter-spacing: 0.12em;
-    color: rgba(28, 43, 30, 0.55);
+    color: rgba(247, 243, 236, 0.70);
     text-decoration: none;
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
@@ -90,8 +88,8 @@
 
   .nav-link:hover,
   .nav-link:focus-visible {
-    color: var(--color-text);
-    border-bottom-color: var(--color-earth);
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.45);
     outline: none;
   }
 
@@ -102,8 +100,8 @@
   }
 
   .nav-link--active {
-    color: var(--color-text);
-    border-bottom-color: var(--color-earth);
+    color: #F7F3EC;
+    border-bottom-color: rgba(247, 243, 236, 0.55);
   }
 
   .nav--scrolled .nav-link--active {
@@ -142,8 +140,10 @@
   /* ── Scrolled state ── */
   const nav = document.getElementById('nav');
   if (nav) {
+    const hero = document.querySelector('.hero');
     function updateNav() {
-      nav.classList.toggle('nav--scrolled', window.scrollY > 80);
+      const threshold = hero ? hero.offsetHeight - 80 : 80;
+      nav.classList.toggle('nav--scrolled', window.scrollY > threshold);
     }
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();

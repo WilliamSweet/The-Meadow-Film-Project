@@ -142,8 +142,8 @@
   if (nav) {
     const hero = document.querySelector('.hero');
     function updateNav() {
-      const threshold = hero ? hero.offsetHeight - 80 : 80;
-      nav.classList.toggle('nav--scrolled', window.scrollY > threshold);
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      nav.classList.toggle('nav--scrolled', heroBottom <= 0);
     }
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();

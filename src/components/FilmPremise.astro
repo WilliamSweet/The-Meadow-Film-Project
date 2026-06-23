@@ -24,14 +24,17 @@
       </div>
 
       <div class="premise-image">
-        <img
-          class="img-premise"
-          src="/images/meadow-project-litchfield.webp"
-          alt="Meadow Project, Litchfield County, Connecticut — native planting in progress"
-          width="960"
-          height="623"
-          loading="lazy"
-        />
+        <figure class="premise-figure">
+          <img
+            class="img-premise"
+            src="/images/meadow-project-litchfield.webp"
+            alt="Meadow Project, Litchfield County, Connecticut — native planting in progress"
+            width="960"
+            height="623"
+            loading="lazy"
+          />
+          <figcaption class="img-credit">Photo: Larry Weaner Landscape Associates (LWLA)</figcaption>
+        </figure>
       </div>
 
     </div>
@@ -72,12 +75,24 @@
     margin-bottom: 0;
   }
 
+  .premise-figure {
+    margin: 0;
+  }
+
   .img-premise {
     width: 100%;
     height: auto;
     border-radius: var(--radius-md);
     display: block;
     object-fit: cover;
+  }
+
+  .img-credit {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-wildflower);
+    margin-top: var(--space-2);
+    text-align: right;
   }
 
   @media (max-width: 768px) {

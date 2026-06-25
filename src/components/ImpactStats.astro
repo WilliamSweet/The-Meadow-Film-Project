@@ -6,11 +6,11 @@ const group1 = [
   },
   {
     figure: '40M+',
-    description: 'acres of lawn in America — more than all food crops combined',
+    description: 'acres of lawn in America — more than cotton, rice, potatoes, and all U.S. fruit, nut, and berry orchards combined',
   },
   {
     figure: '10×',
-    description: 'more pesticides per acre on lawns than on farmland',
+    description: 'up to 10× the pesticides per acre of lawn versus farmland',
   },
 ];
 
@@ -40,15 +40,15 @@ const group3 = [
     display: '3 billion',
   },
   {
-    figure: '55%',
-    description: 'of honey bee colonies lost in a single season — a record',
-    countTo: '55',
+    figure: '37%',
+    description: 'of U.S. bee species now face extinction risk — native bees, not managed hives',
+    countTo: '37',
     suffix: '%',
-    display: '55%',
+    display: '37%',
   },
   {
-    figure: '45 miles',
-    description: 'car-equivalent emissions from one hour of gas mowing',
+    figure: '300 miles',
+    description: 'of smog-forming pollution produced by one hour of gas mowing',
   },
 ];
 ---
@@ -88,7 +88,7 @@ const group3 = [
 
     <div class="stat-group">
       <p class="stat-group-label">The living world</p>
-      <p class="stat-group-sub">Lawns cover more land than any food crop in America — and support a fraction of the birds, bees, and wildlife that native meadows sustain.</p>
+      <p class="stat-group-sub">Lawn is the largest irrigated crop in America, and supports a fraction of the birds, bees, and wildlife that native meadows sustain.</p>
       <div class="stats-grid">
         {group3.map((stat) => (
           <div class="stat-item">
@@ -105,18 +105,18 @@ const group3 = [
     </div>
 
     <p class="stats-attribution">
-      Sources: WestCOG / CT DEEP (2024); EPA 7th Drinking Water Infrastructure Needs Survey (2023); U.S. Fish &amp; Wildlife Service; Robbins et al. / NASA (2005); Owens Corning cost analysis; Rosenberg et al. / Cornell Lab of Ornithology, <em>Science</em> 2019; USDA AMS Honey Bee Colonies Survey (2024); U.S. EPA emissions analysis (2015).
+      Sources: WestCOG / CT DEEP (2024); EPA 7th Drinking Water Infrastructure Needs Survey (2023); U.S. Fish &amp; Wildlife Service; Milesi et al. / NASA Ames, <em>Environmental Management</em> 2005; Robbins et al. 2004; Owens Corning cost analysis; Rosenberg et al. / Cornell Lab of Ornithology, <em>Science</em> 2019; NatureServe / Center for Biological Diversity 2023; California Air Resources Board SORE Fact Sheet (2021).
     </p>
 
     <details class="stats-research">
       <summary class="stats-research-toggle">Research &amp; sources</summary>
       <ul class="stats-research-list">
-        <li><strong>40M+ acres of lawn</strong> — Robbins et al., NASA / USGS (2005); confirmed by Christina Milesi / NASA Ames Research Center</li>
+        <li><strong>40M+ acres of lawn — more than cotton, rice, potatoes, and all U.S. fruit, nut, and berry orchards combined</strong> — Robbins et al. (2004); Milesi et al., NASA Ames Research Center, <em>Environmental Management</em> (2005)</li>
         <li><strong>$20K→$3K over 20 years</strong> — Owens Corning cost analysis; 20-year lifecycle comparison of turf vs. native meadow per acre</li>
         <li><strong>10× more pesticides than farmland</strong> — U.S. Fish &amp; Wildlife Service (USFWS) pesticide application data</li>
         <li><strong>3 billion birds lost since 1970</strong> — Rosenberg et al., <em>Science</em>, Vol. 366, Issue 6461 (2019); reconfirmed in U.S. State of the Birds Report (2022, 2025)</li>
-        <li><strong>55% honey bee colonies lost (2023–24)</strong> — USDA Agricultural Marketing Service, Honey Bee Colonies survey, October 2024</li>
-        <li><strong>45 miles car-equivalent emissions from one hour of gas mowing</strong> — U.S. EPA emissions analysis (2015); VOC/NOx equivalency to driving a new car 45 miles</li>
+        <li><strong>37% of U.S. bee species face extinction risk</strong> — NatureServe / Center for Biological Diversity (2023); native wild bees, not managed honey bee colonies</li>
+        <li><strong>300 miles of smog-forming pollution from one hour of gas mowing</strong> — California Air Resources Board SORE Fact Sheet (October 2021); smog-forming pollutants only, equivalent to driving a new light-duty car from Los Angeles to Las Vegas</li>
         <li><strong>120,000+ CT water supply spills (1997–2022)</strong> — WestCOG, <em>Safeguarding Public Water Supply Watersheds</em> (2024)</li>
         <li><strong>80% of CT watershed land unprotected</strong> — CT DEEP / WestCOG (2024)</li>
         <li><strong>$625B U.S. water infrastructure need</strong> — EPA 7th Drinking Water Infrastructure Needs Survey and Assessment (2023)</li>

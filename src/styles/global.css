@@ -57,6 +57,11 @@
   --duration-slow: 400ms;
 }
 
+/* ─── Scroll offset for sticky nav (WCAG 2.4.11) ───────────────────────────── */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
 /* ─── Reduced motion ─────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,

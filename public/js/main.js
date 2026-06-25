@@ -119,9 +119,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     { threshold: 0.08 }
   );
 
-  // Add data-reveal to main sections (skip first/hero) and footer
+  // Add data-reveal to main sections (skip first/hero, skip sections with scroll-card children)
   document.querySelectorAll('main section').forEach(function (el, i) {
     if (i === 0) return;
+    if (el.querySelector('[data-scroll-card]')) return;
     el.setAttribute('data-reveal', '');
   });
   var footer = document.querySelector('footer');
@@ -163,4 +164,50 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       ticking = true;
     }
   }, { passive: true });
+})();
+
+// Story cards scrollytelling — bidirectional fade in/out as each card enters/leaves view
+(function () {
+  var cards = document.querySelectorAll('[data-scroll-card]');
+  if (!cards.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    cards.forEach(function (c) { c.classList.add('visible'); });
+    return;
+  }
+
+  var cardObserver = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  cards.forEach(function (card) { cardObserver.observe(card); });
+
+  // Scroll fallback — catches any card that missed the observer callback
+  var cardTicking = false;
+  function syncCardsInView() {
+    cards.forEach(function (card) {
+      var rect = card.getBoundingClientRect();
+      var inView = rect.bottom > window.innerHeight * 0.2 && rect.top < window.innerHeight * 0.85;
+      card.classList.toggle('visible', inView);
+    });
+    cardTicking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!cardTicking) {
+      requestAnimationFrame(syncCardsInView);
+      cardTicking = true;
+    }
+  }, { passive: true });
+
+  // Initial check on load
+  syncCardsInView();
 })();

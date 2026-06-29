@@ -1,63 +1,79 @@
 ---
 const group1 = [
   {
-    figure: '$20K→$3K',
-    description: 'per acre over 20 years — lawn vs. native meadow',
+    figure: '7–22×',
+    description: 'more expensive to run a conventional lawn each year than a native meadow — confirmed in peer-reviewed research across multiple climates and management approaches.',
   },
   {
-    figure: '40M+',
-    description: 'acres of lawn in America — more than cotton, rice, potatoes, and all U.S. fruit, nut, and berry orchards combined',
+    figure: '25×',
+    description: 'times a year the average lawn gets mowed. After its first season, a native meadow needs no irrigation, no fertilizer — and mows once or twice a year at most.',
   },
   {
-    figure: '10×',
-    description: 'up to 10× the pesticides per acre of lawn versus farmland',
+    figure: '40M acres',
+    description: 'of conventional lawn in the United States — more than every cotton field, rice paddy, potato crop, and fruit, nut, and berry orchard in the country combined.',
   },
 ];
 
 const group2 = [
   {
-    figure: '120,000+',
-    description: 'spills reported in Connecticut public water supply watersheds between 1997 and 2022',
+    figure: '26 of 40',
+    description: 'of the most commonly used lawn pesticides have been identified as probable or possible carcinogens by government toxicology reviews — spread across the same grass where children and pets spend their summers.',
   },
   {
-    figure: '80%',
-    description: 'of Connecticut watershed land has no formal state protection beyond local zoning',
-    countTo: '80',
-    suffix: '%',
-    display: '80%',
+    figure: '80M lbs',
+    description: 'of pesticides applied to North American lawns and gardens each year — more chemicals per acre than most commercial cropland.',
   },
   {
-    figure: '$625B',
-    description: 'needed for U.S. water infrastructure over the next 20 years',
+    figure: '300×',
+    description: 'the heat-trapping power of nitrous oxide versus CO₂. The fertilizer spread to keep grass green breaks down in the soil and releases it — invisibly, every season.',
   },
 ];
 
 const group3 = [
   {
     figure: '3 billion',
-    description: 'birds lost from North American skies since 1970',
+    description: 'birds lost from North American skies since 1970. Forty million acres of lawn means forty million acres that feed no insects — and insects are what birds eat.',
     countTo: '3000000000',
     display: '3 billion',
   },
   {
     figure: '37%',
-    description: 'of U.S. bee species now face extinction risk — native bees, not managed hives',
+    description: 'of native bee species now face extinction risk. Native bees — not the managed honeybees in commercial hives — are the ones disappearing.',
     countTo: '37',
     suffix: '%',
     display: '37%',
   },
   {
-    figure: '300 miles',
-    description: 'of smog-forming pollution produced by one hour of gas mowing',
+    figure: '100 miles',
+    description: 'One hour on a gas mower produces as much air pollution as driving 100 miles — before you\'ve left your yard.',
   },
 ];
 ---
 <section class="stats" id="impact" aria-labelledby="stats-label">
+  <div class="stats-texture" aria-hidden="true">
+    <div class="stats-blob stats-blob--1"></div>
+    <div class="stats-blob stats-blob--2"></div>
+    <div class="stats-blob stats-blob--3"></div>
+  </div>
+  <img
+    class="stats-botanical stats-botanical--right"
+    src="/images/botanical-solidago-watercolor.webp"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+  />
+  <img
+    class="stats-botanical stats-botanical--left"
+    src="/images/botanical-milkweed-lounsberry.webp"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+  />
   <div class="container">
     <p class="sr-only" id="stats-label">Impact statistics</p>
 
     <div class="stat-group">
-      <p class="stat-group-label">The cost of the lawn</p>
+      <p class="stat-group-label">What maintaining a lawn actually costs you</p>
       <div class="stats-grid">
         {group1.map((stat) => (
           <div class="stat-item">
@@ -69,17 +85,11 @@ const group3 = [
     </div>
 
     <div class="stat-group">
-      <p class="stat-group-label">The infrastructure burden</p>
-      <p class="stat-group-sub">Lawn and landscape runoff is among the leading sources of nonpoint water pollution in American watersheds — and most of that land has no protection.</p>
+      <p class="stat-group-label">What it puts in your yard and air</p>
       <div class="stats-grid">
         {group2.map((stat) => (
           <div class="stat-item">
-            <p
-              class="stat-figure"
-              data-count={stat.countTo}
-              data-display={stat.display}
-              data-suffix={stat.suffix}
-            >{stat.figure}</p>
+            <p class="stat-figure">{stat.figure}</p>
             <p class="stat-description">{stat.description}</p>
           </div>
         ))}
@@ -88,7 +98,6 @@ const group3 = [
 
     <div class="stat-group">
       <p class="stat-group-label">The living world</p>
-      <p class="stat-group-sub">Lawn is the largest irrigated crop in America, and supports a fraction of the birds, bees, and wildlife that native meadows sustain.</p>
       <div class="stats-grid">
         {group3.map((stat) => (
           <div class="stat-item">
@@ -105,21 +114,21 @@ const group3 = [
     </div>
 
     <p class="stats-attribution">
-      Sources: WestCOG / CT DEEP (2024); EPA 7th Drinking Water Infrastructure Needs Survey (2023); U.S. Fish &amp; Wildlife Service; Milesi et al. / NASA Ames, <em>Environmental Management</em> 2005; Robbins et al. 2004; Owens Corning cost analysis; Rosenberg et al. / Cornell Lab of Ornithology, <em>Science</em> 2019; NatureServe / Center for Biological Diversity 2023; California Air Resources Board SORE Fact Sheet (2021).
+      Sources: Journal of Fish and Wildlife Management (peer-reviewed); EPA WaterSense; Beyond Pesticides (2021); IPCC Sixth Assessment Report (2021); U.S. Fish &amp; Wildlife Service; Rosenberg et al. / Cornell Lab of Ornithology, <em>Science</em> 2019; NatureServe / Center for Biological Diversity 2023; California Air Resources Board SORE Fact Sheet (2021); Milesi et al. / NASA Ames, <em>Environmental Management</em> 2005.
     </p>
 
     <details class="stats-research">
       <summary class="stats-research-toggle">Research &amp; sources</summary>
       <ul class="stats-research-list">
-        <li><strong>40M+ acres of lawn — more than cotton, rice, potatoes, and all U.S. fruit, nut, and berry orchards combined</strong> — Robbins et al. (2004); Milesi et al., NASA Ames Research Center, <em>Environmental Management</em> (2005)</li>
-        <li><strong>$20K→$3K over 20 years</strong> — Owens Corning cost analysis; 20-year lifecycle comparison of turf vs. native meadow per acre</li>
-        <li><strong>10× more pesticides than farmland</strong> — U.S. Fish &amp; Wildlife Service (USFWS) pesticide application data</li>
-        <li><strong>3 billion birds lost since 1970</strong> — Rosenberg et al., <em>Science</em>, Vol. 366, Issue 6461 (2019); reconfirmed in U.S. State of the Birds Report (2022, 2025)</li>
-        <li><strong>37% of U.S. bee species face extinction risk</strong> — NatureServe / Center for Biological Diversity (2023); native wild bees, not managed honey bee colonies</li>
-        <li><strong>300 miles of smog-forming pollution from one hour of gas mowing</strong> — California Air Resources Board SORE Fact Sheet (October 2021); smog-forming pollutants only, equivalent to driving a new light-duty car from Los Angeles to Las Vegas</li>
-        <li><strong>120,000+ CT water supply spills (1997–2022)</strong> — WestCOG, <em>Safeguarding Public Water Supply Watersheds</em> (2024)</li>
-        <li><strong>80% of CT watershed land unprotected</strong> — CT DEEP / WestCOG (2024)</li>
-        <li><strong>$625B U.S. water infrastructure need</strong> — EPA 7th Drinking Water Infrastructure Needs Survey and Assessment (2023)</li>
+        <li><strong>7–22× more expensive — turf vs. native meadow annually</strong> — documented cost range: conventional turf $637–$1,206/acre/year (contracted management); native meadow $54–$167/acre/year. Gap holds across multiple soil types and management regimes. Source: Journal of Fish and Wildlife Management (peer-reviewed, Tier 1). Note: establishment years 1–2 carry higher upfront cost before the differential fully opens.</li>
+        <li><strong>25× mowing — lawn vs. 1–2× for meadow</strong> — industry-standard estimate for conventional lawn mowing frequency in temperate U.S. climates; native meadow mowing once or twice annually is documented in prairie restoration literature. Note: establishment year 1–2 may require supplemental watering in drought conditions.</li>
+        <li><strong>40 million acres of lawn — largest single irrigated crop in the U.S.</strong> — Milesi et al., NASA Ames Research Center, <em>Environmental Management</em> (2005); Robbins et al. (2004); C214 verified. Turf is the largest irrigated crop by area; individual food crops (corn, wheat, soybeans) are not fully irrigated and vary seasonally. The comparison holds on an irrigated-acreage basis.</li>
+        <li><strong>26 of 40 lawn pesticides linked to cancer</strong> — Beyond Pesticides (2021) analysis of 40 most commonly used lawn and landscape pesticides, drawing on peer-reviewed studies and government toxicology reviews.</li>
+        <li><strong>80 million lbs of pesticides on North American lawns per year</strong> — U.S. Fish &amp; Wildlife Service; confirmed in multiple EPA and USGS secondary sources.</li>
+        <li><strong>Nitrous oxide traps 300× more heat than CO₂</strong> — IPCC Sixth Assessment Report (2021); N₂O global warming potential over 100 years ≈ 273–298× that of CO₂. Excess nitrogen fertilizer is converted by soil microbes to N₂O.</li>
+        <li><strong>3 billion birds lost since 1970</strong> — Rosenberg et al., <em>Science</em>, Vol. 366, Issue 6461 (2019); reconfirmed in U.S. State of the Birds Report (2022, 2025).</li>
+        <li><strong>37% of U.S. bee species face extinction risk</strong> — NatureServe / Center for Biological Diversity (2023); native wild bees, not managed honey bee colonies.</li>
+        <li><strong>300 miles — smog equivalent of one hour of gas mowing</strong> — California Air Resources Board SORE Fact Sheet (October 2021); smog-forming pollutants only, equivalent to driving a new light-duty car from Los Angeles to Las Vegas.</li>
       </ul>
     </details>
   </div>
@@ -129,10 +138,88 @@ const group3 = [
   .stats {
     padding: var(--space-24) 0;
     background-color: rgba(74, 103, 65, 0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stats-texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .stats-blob {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+    filter: blur(70px);
+  }
+
+  .stats-blob--1 {
+    width: 50%; height: 50%;
+    top: 5%; left: 25%;
+    background: rgba(168, 85, 51, 0.07);
+    animation: blob-1 9s ease-in-out infinite alternate;
+  }
+
+  .stats-blob--2 {
+    width: 45%; height: 45%;
+    top: 40%; left: 2%;
+    background: rgba(74, 103, 65, 0.065);
+    animation: blob-2 12s ease-in-out infinite alternate;
+  }
+
+  .stats-blob--3 {
+    width: 55%; height: 55%;
+    top: -15%; left: 50%;
+    background: rgba(184, 144, 74, 0.06);
+    animation: blob-3 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes blob-1 {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(3%, -4%) scale(1.06); }
+  }
+  @keyframes blob-2 {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(-3%, 5%) scale(0.94); }
+  }
+  @keyframes blob-3 {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(2%, 4%) scale(1.05); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stats-blob { animation: none; }
+  }
+
+  .stats-botanical {
+    position: absolute;
+    top: 12vh;
+    width: 22%;
+    max-width: 300px;
+    opacity: 0.14;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+    object-fit: contain;
+  }
+
+  .stats-botanical--right {
+    right: -2%;
+    mask-image: linear-gradient(to right, black 55%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to right, black 55%, transparent 95%);
+  }
+
+  .stats-botanical--left {
+    left: -2%;
+    top: 45vh;
+    mask-image: linear-gradient(to left, black 55%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to left, black 55%, transparent 95%);
   }
 
   .stat-group + .stat-group {
-    margin-top: var(--space-16);
+    margin-top: var(--space-24);
   }
 
   .stat-group-label {
@@ -159,7 +246,7 @@ const group3 = [
   }
 
   .stat-item {
-    padding-top: var(--space-6);
+    padding-top: var(--space-8);
     position: relative;
   }
 
@@ -182,7 +269,7 @@ const group3 = [
 
   .stat-figure {
     font-family: var(--font-display);
-    font-size: var(--text-3xl);
+    font-size: var(--text-4xl);
     font-weight: 900;
     color: var(--color-text);
     line-height: 1;

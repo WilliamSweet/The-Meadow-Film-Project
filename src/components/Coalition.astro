@@ -1,72 +1,224 @@
 ---
+import { coalitionStats } from '../coalition-stats';
 const partners = [
-  { name: 'Homegrown National Park', description: '250,000+ pledges to restore native habitat on private land across North America' },
-  { name: 'Wild Ones', description: '36,000 members nationwide dedicated to native plant landscaping' },
-  { name: 'Tallamy Lab, University of Delaware', description: "Doug Tallamy's research lab — the science behind native plants and the food web that this film is built on" },
-  { name: 'University of Connecticut', description: "A grant in direct support of the initiative, championed by Dr. David Wagner — the UConn entomologist whose Caterpillars of Eastern North America is the field's definitive guide and whose work helped raise the alarm on global insect decline" },
-  { name: 'The Pollinator Pathway', description: 'A grassroots network linking pesticide-free pollinator habitat across town lines nationwide' },
+  {
+    name: 'Homegrown National Park',
+    url: 'https://homegrownnationalpark.org',
+    logo: '/images/logo-hnp.png',
+    logoAlt: 'Homegrown National Park',
+    descriptor: `The national movement for native habitat restoration, co-founded by Doug Tallamy — ${coalitionStats.acresPlanted} acres logged and growing.`,
+  },
+  {
+    name: 'Doug Tallamy',
+    url: 'https://homegrownnationalpark.org',
+    logo: '/images/logo-udel-wordmark.webp',
+    logoAlt: 'University of Delaware',
+    descriptor: 'The ecologist whose books Bringing Nature Home and Nature\'s Best Hope defined the native plant movement for a generation.',
+  },
+  {
+    name: 'The Pollinator Pathway',
+    url: 'https://www.pollinator-pathway.org',
+    logo: '/images/logo-pollinator-pathway-icon.png',
+    logoAlt: 'The Pollinator Pathway',
+    descriptor: 'The grassroots network linking pesticide-free native corridors across more than 300 towns in 24 states.',
+  },
+  {
+    name: 'University of Connecticut',
+    url: 'https://uconn.edu',
+    logo: '/images/logo-uconn-husky.png',
+    logoAlt: 'University of Connecticut',
+    descriptor: 'Connecticut\'s flagship research university, backing this film through a grant championed by Dr. David Wagner.',
+  },
 ];
 ---
 <section class="coalition" id="coalition" aria-labelledby="coalition-heading">
   <div class="container">
-    <h2 class="coalition-heading" id="coalition-heading">
-      Leading native plant organizations are already on board.
-    </h2>
+
+    <div class="coalition-header">
+      <h2 class="coalition-heading" id="coalition-heading">
+        The organizations that built this movement.
+      </h2>
+      <p class="coalition-stats">{coalitionStats.foundingPartners} founding partners &middot; {coalitionStats.acresPlanted} acres &middot; {coalitionStats.corridorTowns}+ corridors</p>
+    </div>
+
     <ul class="coalition-list" aria-label="Confirmed coalition partners">
       {partners.map((partner) => (
         <li class="coalition-item">
-          <span class="coalition-partner">{partner.name}</span>
-          {partner.description && (
-            <span class="coalition-description">{partner.description}</span>
+          <div class="coalition-rule" aria-hidden="true"></div>
+          {partner.logo && (
+            <div class="coalition-logo-wrap">
+              <img
+                class="coalition-logo"
+                src={partner.logo}
+                alt={partner.logoAlt}
+                loading="lazy"
+              />
+            </div>
           )}
+          {partner.url ? (
+            <a
+              class="coalition-name coalition-name--link"
+              href={partner.url}
+              target="_blank"
+              rel="noopener"
+            >{partner.name}</a>
+          ) : (
+            <span class="coalition-name">{partner.name}</span>
+          )}
+          <p class="coalition-descriptor">{partner.descriptor}</p>
         </li>
       ))}
     </ul>
+
+    <p class="coalition-closing">
+      More organizations in conversation &mdash;{' '}
+      <a href="#founding-partner" class="coalition-closing-link">founding partner window closes July&nbsp;13</a>.
+    </p>
+
   </div>
 </section>
 
 <style>
   .coalition {
     padding: var(--space-24) 0;
-    text-align: center;
+  }
+
+  /* ── Header ─────────────────────────────────────── */
+  .coalition-header {
+    margin-bottom: var(--space-16);
   }
 
   .coalition-heading {
     font-family: var(--font-display);
-    font-size: var(--text-2xl);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
     font-weight: 700;
     color: var(--color-text);
-    margin-bottom: var(--space-16);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin-bottom: var(--space-4);
   }
 
+  .coalition-stats {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-earth);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── List ───────────────────────────────────────── */
   .coalition-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: 0;
   }
 
   .coalition-item {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-10);
   }
 
-  .coalition-partner {
+  /* ── Rule ───────────────────────────────────────── */
+  .coalition-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--color-amber);
+    opacity: 0.35;
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── Logo ───────────────────────────────────────── */
+  .coalition-logo-wrap {
+    margin-bottom: var(--space-4);
+  }
+
+  .coalition-logo {
+    display: block;
+    height: 64px;
+    width: auto;
+    max-width: 320px;
+    object-fit: contain;
+    object-position: left center;
+    opacity: 0.9;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── Name ───────────────────────────────────────── */
+  .coalition-name {
+    display: block;
     font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 400;
-    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-weight: 700;
+    font-style: normal;
     color: var(--color-text);
-    letter-spacing: 0.02em;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: var(--space-3);
+    text-decoration: none;
   }
 
-  .coalition-description {
+  .coalition-name--link {
+    transition: color var(--duration-base) var(--ease-out-expo);
+  }
+
+  .coalition-name--link:hover {
+    color: var(--color-earth);
+  }
+
+  .coalition-name--link:focus-visible {
+    outline: 2px solid var(--color-earth);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ── Descriptor ─────────────────────────────────── */
+  .coalition-descriptor {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    opacity: 0.65;
+    line-height: 1.55;
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+
+  /* ── Closing scarcity line ──────────────────────── */
+  .coalition-closing {
+    margin-top: var(--space-12);
+    padding-top: var(--space-10);
+    border-top: 1px solid rgba(184, 144, 74, 0.25);
     font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--color-text);
     opacity: 0.6;
-    letter-spacing: 0;
+    font-style: italic;
+  }
+
+  .coalition-closing-link {
+    color: var(--color-earth);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
     font-style: normal;
+    opacity: 1;
+    transition: opacity var(--duration-base);
+  }
+
+  .coalition-closing-link:hover {
+    opacity: 0.75;
+  }
+
+  @media (max-width: 600px) {
+    .coalition-heading {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+    .coalition-name {
+      font-size: clamp(1.4rem, 5.5vw, 2rem);
+    }
+    .coalition-logo {
+      height: 48px;
+    }
   }
 </style>

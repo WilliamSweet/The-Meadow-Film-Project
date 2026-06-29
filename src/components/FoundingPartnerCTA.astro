@@ -1,99 +1,199 @@
 ---
 ---
-<section class="cta" id="founding-partner" aria-labelledby="cta-heading">
-  <div class="container">
-    <div class="cta-inner">
+<section class="cta" id="founding-partner" aria-label="Join the coalition">
 
-      <h2 class="cta-heading" id="cta-heading">Become a Founding Partner</h2>
+  <div class="cta-panels">
 
-      <p class="cta-sub">
-        Founding Partners receive permanent credit in the film and across all outreach,
-        the right to share the finished film through their own channels, and a place in a
-        coalition of leading conservation, scientific, and policy organizations.
-      </p>
+    <!-- Panel A: Organization / Founding Partner -->
+    <div class="cta-panel" id="panel-org" data-panel>
+      <canvas class="panel-fireflies" aria-hidden="true"></canvas>
+      <div class="panel-divider-right" aria-hidden="true"></div>
+      <div class="panel-inner">
+        <p class="panel-eyebrow">For Organizations</p>
+        <h2 class="panel-heading">Become a Founding Partner</h2>
+        <p class="panel-sub">
+          The founding coalition is where this movement puts its name on record.
+          Your organization joins Homegrown National Park, Doug Tallamy, and the Pollinator Pathway
+          as a permanent part of the story — in the film, in the outreach, and in every
+          conversation this work starts.
+        </p>
+        <form
+          class="panel-form"
+          action="https://formspree.io/f/mqeonzoz"
+          method="POST"
+          aria-label="Founding Partner registration"
+          data-fs-success="You're in. We'll be in touch shortly. — Know another organization that belongs on this list? Forward them this page."
+          data-fs-error="Something went wrong. Please email us directly."
+        >
+          <input type="hidden" name="_subject" value="New Founding Partner – meadowfilm.studio" />
+          <input type="hidden" name="signup_type" value="founding-partner" />
 
-      <form
-        class="cta-form"
-        action="https://formspree.io/f/mqeonzoz"
-        method="POST"
-        aria-label="Founding Partner registration"
-        data-fs-success="Thank you — we will be in touch shortly."
-        data-fs-error="Something went wrong. Please email us directly."
-      >
-        <input type="hidden" name="_subject" value="New Founding Partner – meadowfilm.studio" />
+          <div class="form-row">
+            <label for="fp-email" class="sr-only">Your organization email</label>
+            <input
+              type="email"
+              id="fp-email"
+              name="email"
+              class="form-input"
+              placeholder="your@organization.org"
+              required
+              autocomplete="email"
+              aria-required="true"
+              data-fs-field
+            />
+            <button type="submit" class="form-btn form-btn--org" data-fs-submit-btn>
+              Join the Coalition
+            </button>
+          </div>
 
-        <div class="form-row">
-          <label for="fp-email" class="sr-only">Your email address</label>
-          <input
-            type="email"
-            id="fp-email"
-            name="email"
-            class="form-input"
-            placeholder="your@email.com"
-            required
-            autocomplete="email"
-            aria-required="true"
-            data-fs-field
-          />
-          <button type="submit" class="btn btn-submit" data-fs-submit-btn>
-            Join the Coalition
+          <div class="form-row-referred">
+            <label for="fp-referred" class="referred-label">
+              Who told you about this? <span class="referred-optional">(optional)</span>
+            </label>
+            <input
+              type="text"
+              id="fp-referred"
+              name="referred_by"
+              class="form-input form-input--referred"
+              placeholder="A name, a community, a link…"
+              autocomplete="off"
+              data-fs-field
+            />
+          </div>
+
+          <p class="form-deadline">
+            Founding Partner registration closes <strong>July&nbsp;13,&nbsp;2026</strong>.
+          </p>
+          <p class="form-fine">Your information is never shared or sold.</p>
+          <p class="form-fine">This film is a project of BirdStory, a 501(c)(3) nonprofit organization.</p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Panel B: Individual / Follow along — powered by Tally (form: tally.so/r/yPGj0X) -->
+    <div class="cta-panel" id="panel-individual" data-panel>
+      <canvas class="panel-fireflies" aria-hidden="true"></canvas>
+      <div class="panel-inner">
+        <p class="panel-eyebrow">For Individuals</p>
+        <h2 class="panel-heading">Be Here When It Happens</h2>
+        <p class="panel-sub">
+          One email when the campaign launches. That's it.
+          No newsletters. No noise.
+        </p>
+        <div class="tally-btn-wrap">
+          <button
+            class="form-btn form-btn--individual"
+            data-tally-open="yPGj0X"
+            data-tally-hide-title="1"
+            data-tally-emoji-text="🌿"
+            data-tally-emoji-animation="wave"
+            data-tally-overlay="1"
+            data-tally-auto-close="3000"
+          >
+            Stay Updated
           </button>
         </div>
-
-        <p class="cta-deadline">
-          Founding Partner registration closes <strong>July 1, 2026</strong>.
-        </p>
-        <p class="cta-privacy">Your information is never shared or sold.</p>
-        <p class="cta-fiscal">This film is a project of BirdStory, a 501(c)(3) nonprofit organization.</p>
-      </form>
-
+        <p class="form-fine">Your email is never shared. Unsubscribe any time.</p>
+      </div>
     </div>
+
   </div>
 </section>
 
 <style>
+  /* ── Section ────────────────────────────────────── */
   .cta {
-    position: relative;
-    padding: var(--space-24) 0;
-    background-color: var(--color-meadow);
+    background-color: #1C2B1E;
+    overflow: hidden;
   }
 
-  .cta::before {
-    content: '';
+  /* ── Two-panel grid ─────────────────────────────── */
+  .cta-panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+
+  .cta-panel {
+    position: relative;
+    padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 6vw, 5rem);
+    display: flex;
+    align-items: flex-start;
+    transition: background-color 600ms ease;
+  }
+
+  /* Subtle tint on hover — fireflies do the heavy lifting */
+  .cta-panel:hover {
+    background-color: rgba(255, 255, 255, 0.015);
+  }
+
+  /* Vertical hairline between panels */
+  .panel-divider-right {
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: rgba(184, 144, 74, 0.2);
+  }
+
+  /* ── Firefly canvas per panel ───────────────────── */
+  .panel-fireflies {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 180px 180px;
-    mix-blend-mode: overlay;
+    opacity: 0.25;
+    transition: opacity 700ms ease;
+    z-index: 0;
   }
 
-  .cta-inner {
-    max-width: 580px;
-    margin: 0 auto;
-    text-align: center;
+  .cta-panel:hover .panel-fireflies {
+    opacity: 1;
   }
 
-  .cta-heading {
-    font-family: var(--font-display);
-    font-size: var(--text-3xl);
-    font-weight: 900;
-    color: #F7F3EC; /* white on sage: 6.35:1 — WCAG AA */
+  /* ── Panel content ──────────────────────────────── */
+  .panel-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+  }
+
+  .panel-eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-amber);
     margin-bottom: var(--space-4);
-    line-height: 1.1;
   }
 
-  .cta-sub {
+  .panel-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    font-weight: 900;
+    color: #F7F3EC;
+    line-height: 1.1;
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .panel-sub {
     font-family: var(--font-body);
     font-size: var(--text-base);
     color: #F7F3EC;
-    opacity: 0.82;
+    opacity: 0.72;
+    line-height: 1.6;
     margin-bottom: var(--space-8);
     font-style: italic;
-    line-height: 1.55;
+    max-width: 44ch;
+    text-wrap: pretty;
   }
 
+  /* ── Form ───────────────────────────────────────── */
   .form-row {
     display: flex;
     gap: var(--space-3);
@@ -105,7 +205,7 @@
     min-height: 48px;
     padding: 0 var(--space-4);
     font-family: var(--font-body);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     color: var(--color-text);
     background: #F7F3EC;
     border: 2px solid transparent;
@@ -115,16 +215,16 @@
   }
 
   .form-input:focus {
-    border-color: var(--color-straw);
+    border-color: var(--color-amber);
   }
 
   .form-input::placeholder {
     color: rgba(28, 43, 30, 0.4);
   }
 
-  .btn-submit {
-    background-color: var(--color-earth);
-    color: #ffffff; /* 5.23:1 on #A85533 — WCAG AA */
+  .form-btn {
+    min-height: 48px;
+    padding: 0 var(--space-6);
     font-family: var(--font-body);
     font-size: var(--text-xs);
     font-weight: 600;
@@ -132,51 +232,186 @@
     text-transform: uppercase;
     border: none;
     border-radius: var(--radius-sm);
-    min-height: 48px;
-    padding: 0 var(--space-8);
     cursor: pointer;
     white-space: nowrap;
-    transition: opacity var(--duration-base) var(--ease-out-expo);
+    transition:
+      transform 250ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity var(--duration-base);
   }
 
-  .btn-submit:hover {
-    opacity: 0.88;
+  .form-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
   }
 
-  .btn-submit:focus-visible {
+  .form-btn--org {
+    background-color: var(--color-earth);
+    color: #ffffff;
+  }
+
+  .form-btn--individual {
+    background-color: var(--color-amber);
+    color: #1C2B1E;
+  }
+
+  .form-btn:focus-visible {
     outline: 2px solid #F7F3EC;
     outline-offset: 2px;
   }
 
-  .cta-deadline {
+  .form-row-referred {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .referred-label {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     color: #F7F3EC;
-    margin-bottom: var(--space-2);
+    opacity: 0.7;
   }
 
-  .cta-privacy {
-    font-family: var(--font-body);
+  .referred-optional {
     font-size: var(--text-xs);
-    color: #F7F3EC;
     opacity: 0.6;
   }
 
-  .cta-fiscal {
+  .form-input--referred {
+    font-size: var(--text-sm);
+  }
+
+  .form-deadline {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: #F7F3EC;
+    opacity: 0.85;
+    margin-bottom: var(--space-2);
+  }
+
+  .form-fine {
     font-family: var(--font-body);
     font-size: var(--text-xs);
     color: #F7F3EC;
-    opacity: 0.5;
-    margin-top: var(--space-3);
+    opacity: 0.45;
+    margin-top: var(--space-2);
   }
 
-  @media (max-width: 520px) {
+  .tally-btn-wrap {
+    margin-bottom: var(--space-4);
+  }
+
+  /* ── Mobile: stack panels ───────────────────────── */
+  @media (max-width: 760px) {
+    .cta-panels {
+      grid-template-columns: 1fr;
+    }
+
+    .panel-divider-right {
+      display: none;
+    }
+
+    /* Horizontal rule between stacked panels */
+    #panel-individual::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: rgba(184, 144, 74, 0.2);
+    }
+
     .form-row {
       flex-direction: column;
     }
 
-    .btn-submit {
+    .form-btn {
       width: 100%;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel-fireflies,
+    .cta-panel {
+      transition: none;
+    }
+  }
 </style>
+
+<script async src="https://tally.so/widgets/embed.js"></script>
+<script>
+  (function () {
+    function makeFireflies(canvas, count) {
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      const dpr = window.devicePixelRatio || 1;
+      let W = 0, H = 0;
+
+      function resize() {
+        W = canvas.offsetWidth;
+        H = canvas.offsetHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.scale(dpr, dpr);
+      }
+
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      const pts = Array.from({ length: count }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: -(Math.random() * 0.22 + 0.03),
+        r: Math.random() * 1.1 + 0.4,
+        a: Math.random() * 0.65 + 0.25,
+        phase: Math.random() * Math.PI * 2,
+        ps: Math.random() * 0.018 + 0.007,
+        gr: Math.random() * 7 + 3,
+      }));
+
+      function tick() {
+        if (!W) resize();
+        ctx.clearRect(0, 0, W, H);
+        pts.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.phase += p.ps;
+          if (p.y < -8) { p.y = H + 4; p.x = Math.random() * W; }
+          if (p.x < -8) p.x = W + 4;
+          if (p.x > W + 8) p.x = -4;
+          const a = p.a * (0.5 + 0.5 * Math.sin(p.phase));
+          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.gr);
+          g.addColorStop(0, `rgba(184,144,74,${a.toFixed(3)})`);
+          g.addColorStop(0.45, `rgba(184,144,74,${(a * 0.18).toFixed(3)})`);
+          g.addColorStop(1, 'rgba(184,144,74,0)');
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.gr, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.fillStyle = `rgba(247,243,236,${a.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[data-panel]').forEach((panel) => {
+        const canvas = panel.querySelector('.panel-fireflies');
+        if (canvas instanceof HTMLCanvasElement) {
+          makeFireflies(canvas, 28);
+        }
+      });
+    }
+  })();
+</script>

@@ -207,15 +207,23 @@ const group3 = [
 
   .stats-botanical--right {
     right: -2%;
-    mask-image: linear-gradient(to right, black 55%, transparent 95%);
-    -webkit-mask-image: linear-gradient(to right, black 55%, transparent 95%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%),
+                linear-gradient(to right, black 50%, transparent 92%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%),
+                        linear-gradient(to right, black 50%, transparent 92%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
   }
 
   .stats-botanical--left {
     left: -2%;
     top: 45vh;
-    mask-image: linear-gradient(to left, black 55%, transparent 95%);
-    -webkit-mask-image: linear-gradient(to left, black 55%, transparent 95%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%),
+                linear-gradient(to left, black 50%, transparent 92%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%),
+                        linear-gradient(to left, black 50%, transparent 92%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
   }
 
   .stat-group + .stat-group {

@@ -7,8 +7,9 @@ export const coalitionStats = {
   foundingPartners: 4,
   // HNP biodiversity map — as of early 2026; verify at map.homegrownnationalpark.org before publish
   acresPlanted: '170,000+',
-  // Pollinator Pathway — source: William-found 2026-06-29; prior pollinator-pathway.org said 24 states
-  corridorTowns: 325,
-  corridorStates: 19,
+  // Pollinator Pathway — primary source: pollinator-pathway.org/about (read 2026-06-29)
+  // "over 300 towns in 24 states" — exact quote. Ontario (Canada) also listed. UK listed but excluded.
+  corridorTowns: 300,
+  corridorStates: 24,
   corridorCanada: true,
 };

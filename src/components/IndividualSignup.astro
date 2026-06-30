@@ -1,0 +1,201 @@
+---
+---
+<section class="signup" id="stay-updated" aria-labelledby="signup-heading">
+  <div class="container">
+    <div class="signup-inner">
+
+      <p class="signup-eyebrow">Follow the Coalition</p>
+      <h2 class="signup-heading" id="signup-heading">Be part of what's being built.</h2>
+      <p class="signup-sub">
+        We'll send one update when the campaign launches — and only when something real happens.
+        No newsletters. No noise.
+      </p>
+
+      <form
+        class="signup-form"
+        action="https://formspree.io/f/mqeonzoz"
+        method="POST"
+        aria-label="Individual coalition signup"
+        data-fs-success="You're in — we'll be in touch when the campaign launches."
+        data-fs-error="Something went wrong. Email us at meadowfilm.hello@gmail.com"
+      >
+        <input type="hidden" name="_subject" value="Community Signup – meadowfilm.studio" />
+        <input type="hidden" name="signup_type" value="individual" />
+
+        <div class="signup-email-row">
+          <label for="su-email" class="sr-only">Your email address</label>
+          <input
+            type="email"
+            id="su-email"
+            name="email"
+            class="signup-input"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+            aria-required="true"
+            data-fs-field
+          />
+          <button type="submit" class="signup-btn" data-fs-submit-btn>
+            Stay Updated
+          </button>
+        </div>
+
+        <div class="signup-referred-row">
+          <label for="su-referred" class="signup-referred-label">
+            Who told you about this?
+            <span class="signup-referred-optional">(optional — helps us understand how the coalition is growing)</span>
+          </label>
+          <input
+            type="text"
+            id="su-referred"
+            name="referred_by"
+            class="signup-input signup-input--referred"
+            placeholder="A person, a community, a link…"
+            autocomplete="off"
+            data-fs-field
+          />
+        </div>
+
+        <p class="signup-privacy">Your email is never shared. Unsubscribe any time.</p>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .signup {
+    background-color: #F7F3EC;
+    padding: var(--space-20) 0;
+    border-top: 1px solid rgba(28, 43, 30, 0.08);
+  }
+
+  .signup-inner {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .signup-eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-earth);
+    margin-bottom: var(--space-3);
+  }
+
+  .signup-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 900;
+    color: var(--color-text);
+    line-height: 1.1;
+    margin-bottom: var(--space-4);
+  }
+
+  .signup-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    opacity: 0.72;
+    line-height: 1.6;
+    margin-bottom: var(--space-8);
+  }
+
+  .signup-email-row {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .signup-input {
+    flex: 1;
+    min-height: 48px;
+    padding: 0 var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background: #ffffff;
+    border: 1.5px solid rgba(28, 43, 30, 0.18);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color var(--duration-fast);
+  }
+
+  .signup-input:focus {
+    border-color: var(--color-sage);
+  }
+
+  .signup-input::placeholder {
+    color: rgba(28, 43, 30, 0.35);
+  }
+
+  .signup-btn {
+    background-color: var(--color-sage);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--radius-sm);
+    min-height: 48px;
+    padding: 0 var(--space-8);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity var(--duration-base) var(--ease-out-expo);
+  }
+
+  .signup-btn:hover {
+    opacity: 0.88;
+  }
+
+  .signup-btn:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+  }
+
+  .signup-referred-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .signup-referred-label {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.75;
+  }
+
+  .signup-referred-optional {
+    font-size: var(--text-xs);
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  .signup-input--referred {
+    min-height: 44px;
+    font-size: var(--text-sm);
+  }
+
+  .signup-privacy {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    opacity: 0.45;
+  }
+
+  @media (max-width: 520px) {
+    .signup-email-row {
+      flex-direction: column;
+    }
+
+    .signup-btn {
+      width: 100%;
+    }
+  }
+</style>

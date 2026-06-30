@@ -4,6 +4,7 @@ const stories = [
     name: 'Ryan Dressler',
     place: 'Sixty acres · Ohio',
     photo: '/images/ryan-dressler.webp',
+    photoPosition: 'center center',
     alt: 'Ryan Dressler in Ohio',
     body: 'Ryan Dressler runs the numbers for a living. He converted sixty acres in Ohio, and the fireflies returned, along with the Baltimore orioles and a pair of trumpeter swans. As he puts it: the first half of his life was spent lobbying for impact investing, and he would like to spend the second half lobbying for nature.',
     variant: 'botanical',
@@ -14,6 +15,7 @@ const stories = [
     name: 'Sara Weaner Cooper',
     place: 'A front lawn · Pennsylvania',
     photo: '/images/sara-weaner-cooper.webp',
+    photoPosition: 'center 40%',
     alt: "Sara Weaner Cooper's front yard meadow in Pennsylvania",
     body: 'Sara converted the front lawn of her first house in Pennsylvania. She spent two years working with the existing turf rather than tearing it out, and put a small sign in the yard so the neighbors would know what was coming. One morning in May, the first partridge pea pushed through the grass.',
     variant: 'dark',
@@ -23,6 +25,7 @@ const stories = [
     name: 'Victor DeMasi',
     place: 'Twenty-eight Julys · Connecticut',
     photo: '/images/victor-demasi.webp',
+    photoPosition: 'center top',
     alt: 'Victor DeMasi, Connecticut meadow steward',
     body: 'Victor DeMasi has counted the butterflies in his Connecticut meadow every Fourth of July for twenty-eight years. In the mid-nineties he counted five hundred. Last year he counted two hundred and fifty.',
     variant: 'botanical',
@@ -33,6 +36,7 @@ const stories = [
     name: 'David Kaye',
     place: 'A brewery strip · Connecticut',
     photo: '/images/david-kaye.webp',
+    photoPosition: 'center 30%',
     alt: 'David Kaye at Nod Hill meadow, Connecticut',
     body: 'David Kaye did not build his meadow to make a point. The strip of land beside the brewery was going to become an eyesore, so Nod Hill turned it into the view from the beer garden and the filter for the river beside it.',
     variant: 'dark',
@@ -42,6 +46,7 @@ const stories = [
     name: 'Doug Tallamy',
     place: 'A lifetime · University of Delaware',
     photo: '/images/doug-tallamy.webp',
+    photoPosition: 'center 25%',
     alt: 'Doug Tallamy, University of Delaware',
     body: 'Doug Tallamy watched a bulldozer bury the pond he grew up next to when he was in the third grade. He has spent the rest of his life explaining what is lost when the ordinary living things disappear — and how quickly they return when the land is given back to them.',
     variant: 'botanical',
@@ -90,6 +95,7 @@ const stories = [
               width="320"
               height="320"
               loading="lazy"
+              style={story.photoPosition ? `object-position: ${story.photoPosition}` : undefined}
             />
           </div>
           <div class="story-text">

@@ -16,8 +16,8 @@
     <p class="hero-label">A DOCUMENTARY FILM &middot; 2026</p>
     <h1 class="hero-title" id="hero-title">A Documentary Short About the American Yard</h1>
     <p class="hero-sub">
-      Over 40 million acres of American lawn &ndash; more than cotton, rice, and every
-      fruit, nut, and berry orchard in the country combined. This is the story of the
+      Over 40 million acres of American lawn &ndash; more than every cotton field,
+      rice paddy, potato crop, and fruit, nut, and berry orchard in the country combined. This is the story of the
       Americans who turned it back into something alive.
     </p>
     <a href="#founding-partner" class="btn btn-primary btn-hero">
@@ -31,6 +31,7 @@
     position: relative;
     min-height: 100svh;
     min-height: 100vh; /* fallback */
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +69,7 @@
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(28, 43, 30, 0.60);
+    background: rgba(10, 25, 12, 0.72);
   }
 
   .hero-content {
@@ -111,8 +112,9 @@
     color: #F7F3EC;
     max-width: 52ch;
     line-height: 1.5;
-    margin-bottom: var(--space-12);
-    opacity: 0.92;
+    margin-bottom: var(--space-16);
+    opacity: 1;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
   }
 
   .btn-hero {

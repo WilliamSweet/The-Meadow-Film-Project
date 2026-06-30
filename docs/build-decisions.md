@@ -69,20 +69,48 @@ Min font-size: 16px (text-base minimum) — WCAG requirement.
 One scrolling page. Sections are anchor-linked from nav and CTA buttons.
 No sub-pages. A dedicated form page can be added later if the email capture needs room.
 
-### Section order (matches brief §3.4)
+### Section order
 1. Nav (sticky)
 2. Hero (full-viewport)
 3. Film Premise (60/40 text/image, desktop)
 4. Impact Stats (sparse 3-column — typography only, no cards)
 5. Film Details (definition-list style)
-6. Team (2×2 grid, circular portraits)
-7. Coalition (centered text, generous whitespace)
-8. Founding Partner CTA (full-width, meadow background)
-9. Footer (dark green, cream text)
+6. **Stories** (scrollytelling — 5 full-viewport panels, bidirectional fade) ← added June 2026
+7. Team (2×2 grid, circular portraits)
+8. Coalition (centered text, generous whitespace)
+9. Founding Partner CTA (full-width, meadow background)
+10. Footer (dark green, cream text)
 
 ### Section separators
 Single 1px `<hr>` in `--color-straw` between sections (except before CTA, which has own bg).
 Never section background-color switches for visual rhythm — that is the template tell.
+
+### Stories section — scrollytelling (added June 2026)
+
+**Decision:** 5 full-viewport stacked panels with bidirectional IntersectionObserver fade. No competing photo alongside stories — FilmPremise is the 60/40 image section; Stories is character-only.
+
+**Psychology rationale:**
+- Identifiable victim effect: 5 named individuals with specific parcels and specific losses/returns beats aggregate statistics
+- Mattering Framework (Prilleltensky 2019): each bio demonstrates both "felt valued" (neighbors noticed, community saw) AND "added value" (fireflies returned, butterflies counted, river filtered) — the two required components that make stories resonate
+- Scrollytelling = one story per attention window; full cognitive bandwidth per person with no visual competition
+- Loss aversion built in: Victor DeMasi's count (500 → 250 over 28 years) is the loss narrative without stating it explicitly
+- Social proof via ordinary people (not celebrities) — credibility without distance; visitor identifies, not admires
+
+**Technical pattern:**
+- Observer lives in `public/js/main.js`, NOT in the Astro component `<script>` tag
+- Astro dev mode strips component scripts from the DOM; `main.js` loads reliably in both dev and prod
+- `threshold: 0.15` with no `rootMargin` — 15% visibility triggers fade-in; bidirectional (cards fade OUT when leaving viewport)
+- CSS: `opacity: 0` + `transform: translateY(28px)` → `opacity: 1` + `translateY(0)`, 700ms `cubic-bezier(0.16, 1, 0.3, 1)`
+- `prefers-reduced-motion`: all transitions disabled; cards render at `opacity: 1` immediately
+- Section must NOT have `data-reveal` attribute — the parent `[data-reveal]` opacity-0 state blocks child cards. Remove `data-reveal` from the stories `<section>` if the global reveal loop picks it up.
+
+**Cloudflare caching lesson (hard-won):**
+After any change to `public/js/main.js` or any file in `public/js/`, bump the `?v=N` query string on the `<script>` tag in `src/pages/index.astro`. Cloudflare edge nodes cache JS aggressively — the new URL forces a cache miss. Without this, the live site serves old JS for up to 4 hours after a deploy. This was the root cause of 3+ sessions of invisible Stories debugging.
+
+```astro
+<!-- Increment v= after every public/js/ change -->
+<script src="/js/main.js?v=2" defer></script>
+```
 
 ### AI-tell avoidance rules enforced in this build
 - No Inter font

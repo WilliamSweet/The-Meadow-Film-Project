@@ -2,35 +2,53 @@
 const stories = [
   {
     name: 'Ryan Dressler',
+    place: 'Sixty acres · Ohio',
     photo: '/images/ryan-dressler.webp',
     alt: 'Ryan Dressler in Ohio',
     body: 'Ryan Dressler runs the numbers for a living. He converted sixty acres in Ohio, and the fireflies returned, along with the Baltimore orioles and a pair of trumpeter swans. As he puts it: the first half of his life was spent lobbying for impact investing, and he would like to spend the second half lobbying for nature.',
+    variant: 'botanical',
+    botanicalSrc: '/images/botanical-milkweed-lounsberry.webp',
+    botanicalSide: 'right',
   },
   {
     name: 'Sara Weaner Cooper',
+    place: 'A front lawn · Pennsylvania',
     photo: '/images/sara-weaner-cooper.webp',
-    alt: 'Sara Weaner Cooper\'s front yard meadow in Pennsylvania',
+    alt: "Sara Weaner Cooper's front yard meadow in Pennsylvania",
     body: 'Sara converted the front lawn of her first house in Pennsylvania. She spent two years working with the existing turf rather than tearing it out, and put a small sign in the yard so the neighbors would know what was coming. One morning in May, the first partridge pea pushed through the grass.',
+    variant: 'dark',
+    bgSrc: '/images/meadow-goldenrod-autumn-pa.webp',
   },
   {
     name: 'Victor DeMasi',
+    place: 'Twenty-eight Julys · Connecticut',
     photo: '/images/victor-demasi.webp',
     alt: 'Victor DeMasi, Connecticut meadow steward',
     body: 'Victor DeMasi has counted the butterflies in his Connecticut meadow every Fourth of July for twenty-eight years. In the mid-nineties he counted five hundred. Last year he counted two hundred and fifty.',
+    variant: 'botanical',
+    botanicalSrc: '/images/botanical-rudbeckia-bb1913.webp',
+    botanicalSide: 'left',
   },
   {
     name: 'David Kaye',
+    place: 'A brewery strip · Connecticut',
     photo: '/images/david-kaye.webp',
     alt: 'David Kaye at Nod Hill meadow, Connecticut',
     body: 'David Kaye did not build his meadow to make a point. The strip of land beside the brewery was going to become an eyesore, so Nod Hill turned it into the view from the beer garden and the filter for the river beside it.',
+    variant: 'dark',
+    bgSrc: '/images/native-goldenrod-gradient.webp',
   },
   {
     name: 'Doug Tallamy',
+    place: 'A lifetime · University of Delaware',
     photo: '/images/doug-tallamy.webp',
     alt: 'Doug Tallamy, University of Delaware',
     body: 'Doug Tallamy watched a bulldozer bury the pond he grew up next to when he was in the third grade. He has spent the rest of his life explaining what is lost when the ordinary living things disappear — and how quickly they return when the land is given back to them.',
+    variant: 'botanical',
+    botanicalSrc: '/images/botanical-solidago-linedrawing.webp',
+    botanicalSide: 'right',
   },
-];
+].map((s, i) => ({ ...s, side: i % 2 === 0 ? 'left' : 'right' }));
 ---
 
 <section class="stories" id="stories" aria-labelledby="stories-heading">
@@ -41,18 +59,44 @@ const stories = [
 
   <div class="story-panels">
     {stories.map((story) => (
-      <div class="story-panel">
-        <article class="story-card" data-scroll-card>
+      <div class:list={['story-panel', story.variant === 'dark' ? 'story-panel--dark' : 'story-panel--botanical']}>
+        {story.variant === 'dark' && story.bgSrc && (
           <img
-            class="story-photo"
-            src={story.photo}
-            alt={story.alt}
-            width="160"
-            height="160"
+            class="story-bg-img"
+            src={story.bgSrc}
+            alt=""
+            aria-hidden="true"
             loading="lazy"
           />
-          <h3 class="story-name">{story.name}</h3>
-          <p class="story-body">{story.body}</p>
+        )}
+        {story.variant === 'dark' && (
+          <canvas class="story-fireflies" aria-hidden="true"></canvas>
+        )}
+        {story.variant === 'botanical' && story.botanicalSrc && (
+          <img
+            class:list={['story-botanical', story.botanicalSide === 'left' ? 'story-botanical--left' : 'story-botanical--right']}
+            src={story.botanicalSrc}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          />
+        )}
+        <article class:list={['story-card', story.side === 'right' ? 'story-card--right' : 'story-card--left']} data-scroll-card>
+          <div class="story-portrait">
+            <img
+              class="story-photo"
+              src={story.photo}
+              alt={story.alt}
+              width="320"
+              height="320"
+              loading="lazy"
+            />
+          </div>
+          <div class="story-text">
+            <p class="story-place">{story.place}</p>
+            <h3 class="story-name">{story.name}</h3>
+            <p class="story-body">{story.body}</p>
+          </div>
         </article>
       </div>
     ))}
@@ -91,59 +135,207 @@ const stories = [
     flex-direction: column;
   }
 
+  /* ── Base panel ─────────────────────────────────── */
   .story-panel {
-    min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-16) var(--space-8);
+    /* Fluid vertical rhythm — generous, breathing, consistent across panels.
+       Replaces the broken var(--space-20) (undefined token = 0 padding). */
+    padding-block: clamp(4.5rem, 10vh, 9rem);
+    padding-inline: clamp(1.5rem, 6vw, 5rem);
+    position: relative;
+    overflow: hidden;
   }
 
-  .story-card {
-    max-width: 560px;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-      opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
-      transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* ── Botanical (cream) panels ───────────────────── */
+  .story-panel--botanical {
+    background-color: var(--color-bg);
   }
+
+  /* Adjacent cream panels share a hairline seam instead of a hard butt-join */
+  .story-panel--botanical + .story-panel--botanical {
+    border-top: 1px solid rgba(28, 26, 23, 0.07);
+  }
+
+  /* mix-blend-mode: multiply makes white areas of the engraving
+     transparent against the cream background — true stencil/stamp effect */
+  .story-botanical {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38%;
+    max-width: 380px;
+    height: auto;
+    opacity: 0.2;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+    object-fit: contain;
+  }
+
+  .story-botanical--right {
+    right: -4%;
+    left: auto;
+    mask-image: linear-gradient(to right, black 55%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to right, black 55%, transparent 95%);
+  }
+
+  .story-botanical--left {
+    left: -4%;
+    right: auto;
+    mask-image: linear-gradient(to left, black 55%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to left, black 55%, transparent 95%);
+  }
+
+  /* ── Dark (photo) panels ────────────────────────── */
+  .story-panel--dark {
+    background-color: #1C2B1E;
+  }
+
+  /* Background photo — actual img element so GSAP can parallax it */
+  .story-bg-img {
+    position: absolute;
+    inset: -10% 0;
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Dark overlay sits above the photo */
+  .story-panel--dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(28, 43, 30, 0.72);
+    z-index: 1;
+  }
+
+  .story-fireflies {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* ── Story card — asymmetric portrait spread ────── */
+  .story-card {
+    width: 100%;
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: clamp(160px, 18vw, 240px) minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(2.5rem, 6vw, 6rem);
+    row-gap: var(--space-8);
+    position: relative;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(34px);
+    transition:
+      opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Zig-zag: portrait on the right for alternating stories */
+  .story-card--right {
+    grid-template-columns: minmax(0, 1fr) clamp(160px, 18vw, 240px);
+  }
+  .story-card--right .story-portrait { order: 2; }
+  .story-card--right .story-text { order: 1; }
 
   .story-card.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
+  /* ── Portrait ───────────────────────────────────── */
+  .story-portrait {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+
   .story-photo {
-    width: 96px;
-    height: 96px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    margin: 0 auto var(--space-8);
+  }
+
+  /* A quiet ring drawn off the portrait — depth without a card */
+  .story-portrait::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1px solid var(--color-straw);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .story-panel--dark .story-photo {
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  }
+  .story-panel--dark .story-portrait::after {
+    border-color: rgba(247, 243, 236, 0.4);
+  }
+
+  /* ── Text column ────────────────────────────────── */
+  .story-text {
+    text-align: left;
+  }
+
+  .story-place {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-earth);
+    margin-bottom: var(--space-3);
   }
 
   .story-name {
     font-family: var(--font-display);
-    font-size: var(--text-xl);
+    font-size: var(--text-3xl);
     font-weight: 700;
+    line-height: 1.05;
     color: var(--color-text);
     margin-bottom: var(--space-6);
+    text-wrap: balance;
   }
 
   .story-body {
     font-family: var(--font-body);
     font-size: var(--text-lg);
     color: var(--color-text);
-    line-height: 1.8;
-    opacity: 0.88;
+    line-height: 1.75;
+    max-width: 56ch;
+    opacity: 0.9;
+    text-wrap: pretty;
   }
 
+  .story-panel--dark .story-place {
+    color: var(--color-straw);
+  }
+  .story-panel--dark .story-name {
+    color: #F7F3EC;
+  }
+  .story-panel--dark .story-body {
+    color: #F7F3EC;
+    opacity: 0.86;
+  }
+
+  /* ── Outro ──────────────────────────────────────── */
   .stories-outro {
     text-align: center;
-    padding-top: var(--space-8);
-    padding-bottom: var(--space-16);
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-8);
   }
 
   .stories-closing {
@@ -178,13 +370,98 @@ const stories = [
     }
   }
 
-  @media (max-width: 600px) {
-    .story-panel {
-      min-height: 70vh;
+  /* ── Stack to centered single column on narrow screens ── */
+  @media (max-width: 760px) {
+    .story-card,
+    .story-card--right {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+      row-gap: var(--space-6);
     }
-
+    .story-card--right .story-portrait { order: 1; }
+    .story-card--right .story-text { order: 2; }
+    .story-portrait {
+      width: clamp(140px, 42vw, 200px);
+    }
+    .story-text {
+      text-align: center;
+    }
+    .story-name {
+      font-size: var(--text-2xl);
+    }
     .story-body {
       font-size: var(--text-base);
+      margin-inline: auto;
+    }
+    .story-botanical {
+      width: 52%;
+      opacity: 0.14;
     }
   }
 </style>
+
+<script>
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    Array.from(document.querySelectorAll('.story-fireflies')).forEach((el) => {
+      const canvas = /** @type {HTMLCanvasElement} */ (el);
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      const dpr = window.devicePixelRatio || 1;
+      let W = 0, H = 0;
+
+      function resize() {
+        W = canvas.offsetWidth;
+        H = canvas.offsetHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.scale(dpr, dpr);
+      }
+
+      resize();
+
+      const pts = Array.from({ length: 28 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: -(Math.random() * 0.26 + 0.04),
+        r: Math.random() * 1.1 + 0.4,
+        a: Math.random() * 0.7 + 0.25,
+        phase: Math.random() * Math.PI * 2,
+        ps: Math.random() * 0.02 + 0.008,
+        gr: Math.random() * 6 + 3,
+      }));
+
+      function tick() {
+        if (!W) resize();
+        ctx.clearRect(0, 0, W, H);
+        pts.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.phase += p.ps;
+          if (p.y < -8) { p.y = H + 4; p.x = Math.random() * W; }
+          if (p.x < -8) p.x = W + 4;
+          if (p.x > W + 8) p.x = -4;
+          const a = p.a * (0.5 + 0.5 * Math.sin(p.phase));
+          const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.gr);
+          g.addColorStop(0, `rgba(184,144,74,${a.toFixed(3)})`);
+          g.addColorStop(0.45, `rgba(184,144,74,${(a * 0.18).toFixed(3)})`);
+          g.addColorStop(1, 'rgba(184,144,74,0)');
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.gr, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.fillStyle = `rgba(247,243,236,${a.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    });
+  }
+</script>

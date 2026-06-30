@@ -1,6 +1,7 @@
 /* ─── Fonts ────────────────────────────────────────────────────────────────── */
 /* Variable font packages — @font-face declarations handled by fontsource.     */
-/* Font families registered: 'Fraunces Variable', 'DM Sans Variable'           */
+/* Font families registered: 'Newsreader Variable', 'DM Sans Variable'         */
+@import '@fontsource-variable/newsreader';
 @import '@fontsource-variable/fraunces';
 @import '@fontsource-variable/dm-sans';
 
@@ -22,7 +23,7 @@
   --color-straw:      #C9A96E;
 
   /* Typography */
-  --font-display: 'Fraunces Variable', 'Playfair Display', Georgia, serif;
+  --font-display: 'Newsreader Variable', 'Fraunces Variable', Georgia, serif;
   --font-body:    'DM Sans Variable', system-ui, sans-serif;
 
   /* Type scale — Perfect Fourth (1.333) */
@@ -155,6 +156,12 @@ video {
   }
 }
 
+/* ─── Full-bleed escape — breaks out of any parent container ────────────────── */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
 /* ─── Section rule ───────────────────────────────────────────────────────────── */
 .section-rule {
   border: none;
@@ -179,6 +186,8 @@ video {
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition:
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity var(--duration-base) var(--ease-out-expo),
     outline-offset var(--duration-fast);
 }
@@ -189,7 +198,19 @@ video {
 }
 
 .btn-primary:hover {
-  opacity: 0.88;
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 10px 32px rgba(168, 85, 51, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: opacity var(--duration-base), outline-offset var(--duration-fast);
+  }
+  .btn-primary:hover {
+    transform: none;
+    box-shadow: none;
+    opacity: 0.88;
+  }
 }
 
 .btn-primary:focus-visible {

@@ -123,16 +123,37 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
   document.querySelectorAll('main section').forEach(function (el, i) {
     if (i === 0) return;
     if (el.querySelector('[data-scroll-card]')) return;
+    if (el.hasAttribute('data-static')) return;
     el.setAttribute('data-reveal', '');
   });
   var footer = document.querySelector('footer');
   if (footer) footer.setAttribute('data-reveal', '');
 
-  // Observe ALL [data-reveal] elements — catches template-set ones (TallammyPullQuote div)
-  // and the programmatically-set ones above. Elements already in the viewport at script
-  // run time (e.g. page loaded at a hash anchor) are shown immediately without waiting
-  // for the observer's async callback.
-  document.querySelectorAll('[data-reveal]').forEach(function (el) {
+  // Pull-quote gets its own bidirectional observer so the word-reveal replays every
+  // time the section scrolls back into view. All other [data-reveal] sections are
+  // one-directional (stay visible once shown).
+  var pullQuote = document.querySelector('.pull-quote');
+  if (pullQuote) {
+    var pullObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            setTimeout(function () { startRevealedContent(entry.target); }, 650);
+          } else {
+            entry.target.classList.remove('is-visible');
+            var text = entry.target.querySelector('.pull-quote-text');
+            if (text) text.classList.remove('revealed');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    pullObserver.observe(pullQuote);
+  }
+
+  // Observe ALL other [data-reveal] elements — one-directional: add is-visible, never remove.
+  document.querySelectorAll('[data-reveal]:not(.pull-quote)').forEach(function (el) {
     var rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
       el.classList.add('is-visible');
@@ -142,13 +163,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     }
   });
 
-  // Scroll-based fallback: IntersectionObserver handles most cases, but programmatic
-  // and anchor-triggered scrolls can miss the callback. This scan runs on every scroll
-  // (throttled to one per frame) and catches any element in the viewport that the
-  // observer hasn't yet marked visible.
+  // Scroll-based fallback for one-directional sections
   var ticking = false;
   function revealInView() {
-    document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(function (el) {
+    document.querySelectorAll('[data-reveal]:not(.pull-quote):not(.is-visible)').forEach(function (el) {
       var rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight && rect.bottom > 0) {
         el.classList.add('is-visible');
@@ -181,23 +199,24 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
+          cardObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.15 }
   );
 
   cards.forEach(function (card) { cardObserver.observe(card); });
 
-  // Scroll fallback — catches any card that missed the observer callback
+  // Scroll fallback — one-directional: add visible, never remove
   var cardTicking = false;
   function syncCardsInView() {
     cards.forEach(function (card) {
+      if (card.classList.contains('visible')) return;
       var rect = card.getBoundingClientRect();
-      var inView = rect.bottom > window.innerHeight * 0.2 && rect.top < window.innerHeight * 0.85;
-      card.classList.toggle('visible', inView);
+      if (rect.top < window.innerHeight * 0.88 && rect.bottom > 0) {
+        card.classList.add('visible');
+      }
     });
     cardTicking = false;
   }
@@ -210,4 +229,41 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 
   // Initial check on load
   syncCardsInView();
+})();
+
+// Smooth anchor scroll — eased, ~900ms, respects reduced-motion
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function smoothScrollTo(targetY, duration) {
+    var startY = window.scrollY;
+    var dist = targetY - startY;
+    var startTime = null;
+
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      var elapsed = ts - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + dist * easeOutExpo(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    var id = link.getAttribute('href').slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    var offset = 72; // nav height
+    var targetY = target.getBoundingClientRect().top + window.scrollY - offset;
+    smoothScrollTo(targetY, 900);
+  });
 })();

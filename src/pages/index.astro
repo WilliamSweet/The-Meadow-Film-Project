@@ -22,7 +22,7 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="A short documentary about Americans who turned their lawns into native meadows, and what came back. A portrait of the country as it actually is, not an environmental appeal. Join the founding coalition before registration closes July 1, 2026."
+      content="Over 40 million acres of American lawn — more than cotton, rice, potatoes, and every fruit, nut, and berry orchard in the country combined. A documentary short about the Americans who turned it back into something alive."
     />
     <meta name="robots" content="index, follow" />
 
@@ -55,12 +55,8 @@ import '../styles/global.css';
       <!-- SECTION 1: Hero — full-viewport, primary CTA above fold -->
       <Hero />
 
-      <hr class="section-rule" aria-hidden="true" />
-
       <!-- SECTION 2: Film premise copy -->
       <FilmPremise />
-
-      <hr class="section-rule" aria-hidden="true" />
 
       <!-- SECTION 3: Stories — five named subjects; character before statistics -->
       <StoriesSection />
@@ -71,32 +67,22 @@ import '../styles/global.css';
       <!-- Visual landmark — full-bleed meadow break between stories and stats -->
       <MeadowBreak />
 
-      <hr class="section-rule" aria-hidden="true" />
-
       <!-- SECTION 4: Three statistics — after visitor has met the people -->
       <ImpactStats />
-
-      <hr class="section-rule" aria-hidden="true" />
 
       <!-- SECTION 5: Coalition partners — social proof -->
       <Coalition />
 
-      <hr class="section-rule" aria-hidden="true" />
-
       <!-- SECTION 6: Primary location — Sleepy Cat Farm -->
       <Location />
-
-      <hr class="section-rule" aria-hidden="true" />
 
       <!-- SECTION 7: Team — 2×2 grid, portrait + name + role -->
       <Team />
 
-      <hr class="section-rule" aria-hidden="true" />
-
       <!-- SECTION 8: Film details — definition list -->
       <FilmDetails />
 
-      <!-- SECTION 7: Founding Partner CTA — meadow green background -->
+      <!-- SECTION 7: Founding Partner CTA — two tracks: org + individual -->
       <FoundingPartnerCTA />
     </main>
 
@@ -114,5 +100,76 @@ import '../styles/global.css';
     <script src="/js/formspree-ajax.js" defer></script>
     <script async defer src="https://cloud.umami.is/script.js" data-website-id="ba135a4e-288e-4632-95c5-26a0b5ed6f46"></script>
     <script src="/js/main.js?v=2" defer></script>
+
+    <script>
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+        // Hero text drifts upward at a faster rate than the background — classic parallax depth
+        gsap.to('.hero-content', {
+          yPercent: -22,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.5,
+          }
+        });
+
+        // MeadowBreak: image travels at a different rate than the scroll — the grasses seem to breathe
+        gsap.fromTo('.meadow-break-img',
+          { yPercent: -14 },
+          {
+            yPercent: 14,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.meadow-break',
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            }
+          }
+        );
+
+        // FilmPremise: image slides in from the right as the section reveals
+        // FilmPremise: intentionally static — no entrance animation (data-static on section).
+
+        // CTA: content rises on enter — no opacity, parent section fades via [data-reveal]
+        gsap.from('.cta-inner', {
+          y: 45,
+          duration: 1.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.cta',
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          }
+        });
+
+        // Story dark panels: background photo scrolls at a different rate than the card text
+        // Creates depth — the landscape drifts while the person's story stays centered
+        document.querySelectorAll('.story-bg-img').forEach((img) => {
+          gsap.fromTo(img,
+            { yPercent: -8 },
+            {
+              yPercent: 8,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: img.closest('.story-panel'),
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              }
+            }
+          );
+        });
+
+      }
+    </script>
   </body>
 </html>

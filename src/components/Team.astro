@@ -23,11 +23,11 @@ const team = [
   },
   {
     name: 'Mel Finn',
-    role: 'Producer',
-    credential: 'Novelist (The Gloaming, The Hare); co-founder of BirdStory',
-    bio: 'Melanie is an award-winning novelist — The Gloaming, The Underneath, The Hare — and the co-founder of BirdStory. As writer and producer of the Stories to Save Us series, she brings a literary sensibility to documentary filmmaking, exploring how we mythologize landscapes and how those myths shape the way we treat the land.',
+    role: '',
+    credential: 'Novelist — The Gloaming, The Underneath, The Hare',
+    bio: 'Melanie is an award-winning novelist and documentary filmmaker. She brings a literary sensibility to non-fiction storytelling, exploring how we mythologize landscapes and how those myths shape the way we treat the land.',
     imgSrc: '/images/mel-finn.webp',
-    imgAlt: 'Mel Finn, producer',
+    imgAlt: 'Mel Finn',
     imgW: 154,
     imgH: 200,
   },
@@ -59,7 +59,7 @@ const team = [
             style={member.imgPosition ? `object-position: ${member.imgPosition}` : undefined}
           />
           <div class="team-info">
-            <p class="team-role">{member.role}</p>
+            {member.role && <p class="team-role">{member.role}</p>}
             <h3 class="team-name">{member.name}</h3>
             <p class="team-credential">{member.credential}</p>
             <p class="team-bio">{member.bio}</p>

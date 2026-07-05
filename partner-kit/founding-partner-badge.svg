@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 440" width="440" height="440" role="img" aria-label="Founding Partner — Meadow Film 2026">
+  <defs>
+    <path id="arc-top" d="M 70 220 A 150 150 0 0 1 370 220" fill="none"/>
+    <path id="arc-bottom" d="M 78 220 A 142 142 0 0 0 362 220" fill="none"/>
+  </defs>
+
+  <!-- Seal body -->
+  <circle cx="220" cy="220" r="210" fill="#1C2B1E"/>
+  <circle cx="220" cy="220" r="200" fill="none" stroke="#B8904A" stroke-width="2" opacity="0.55"/>
+  <circle cx="220" cy="220" r="168" fill="none" stroke="#B8904A" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Circular text -->
+  <g fill="#C9A96E" font-family="Georgia, 'Times New Roman', serif" letter-spacing="4">
+    <text font-size="26" font-weight="700" text-anchor="middle">
+      <textPath href="#arc-top" startOffset="50%">FOUNDING&#160;&#160;PARTNER</textPath>
+    </text>
+    <text font-size="15" letter-spacing="4" text-anchor="middle">
+      <textPath href="#arc-bottom" startOffset="50%">MEADOWFILM.STUDIO</textPath>
+    </text>
+  </g>
+
+  <!-- Meadow silhouette -->
+  <g stroke="#B8904A" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.92">
+    <line x1="220" y1="248" x2="220" y2="176"/>
+    <line x1="200" y1="248" x2="196" y2="192"/>
+    <line x1="240" y1="248" x2="244" y2="192"/>
+    <line x1="182" y1="248" x2="176" y2="206"/>
+    <line x1="258" y1="248" x2="264" y2="206"/>
+  </g>
+  <!-- Blooms -->
+  <g fill="#C9A96E">
+    <circle cx="220" cy="172" r="9"/>
+    <circle cx="196" cy="188" r="6.5"/>
+    <circle cx="244" cy="188" r="6.5"/>
+    <circle cx="176" cy="202" r="5"/>
+    <circle cx="264" cy="202" r="5"/>
+  </g>
+  <circle cx="220" cy="172" r="3.5" fill="#1C2B1E"/>
+
+  <!-- Ground line -->
+  <line x1="150" y1="250" x2="290" y2="250" stroke="#B8904A" stroke-width="2" opacity="0.5"/>
+
+  <!-- Center wordmark -->
+  <text x="220" y="280" text-anchor="middle" fill="#F7F3EC"
+        font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="700" letter-spacing="1.5">
+    NATIVE&#160;LANDSCAPE&#160;FILM
+  </text>
+  <text x="220" y="304" text-anchor="middle" fill="#C9A96E"
+        font-family="Georgia, 'Times New Roman', serif" font-size="12" letter-spacing="4">
+    EST.&#160;2026
+  </text>
+</svg>

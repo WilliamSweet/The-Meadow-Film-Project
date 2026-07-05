@@ -4,7 +4,7 @@
 
   <div class="cta-panels">
 
-    <!-- Panel A: Organization / Founding Partner -->
+    <!-- Panel A: Organization / Founding Partner — powered by Tally (form: tally.so/r/xXBplv) -->
     <div class="cta-panel" id="panel-org" data-panel>
       <canvas class="panel-fireflies" aria-hidden="true"></canvas>
       <div class="panel-divider-right" aria-hidden="true"></div>
@@ -17,56 +17,25 @@
           and the Pollinator Pathway — as a permanent part of the story: in the film, in the
           outreach, and in every conversation this work starts.
         </p>
-        <form
-          class="panel-form"
-          action="https://formspree.io/f/mqeonzoz"
-          method="POST"
-          aria-label="Founding Partner registration"
-          data-fs-success="You're in. We'll be in touch shortly. — Know another organization that belongs on this list? Forward them this page."
-          data-fs-error="Something went wrong. Please email us directly."
-        >
-          <input type="hidden" name="_subject" value="New Founding Partner – meadowfilm.studio" />
-          <input type="hidden" name="signup_type" value="founding-partner" />
 
-          <div class="form-row">
-            <label for="fp-email" class="sr-only">Your organization email</label>
-            <input
-              type="email"
-              id="fp-email"
-              name="email"
-              class="form-input"
-              placeholder="your@organization.org"
-              required
-              autocomplete="email"
-              aria-required="true"
-              data-fs-field
-            />
-            <button type="submit" class="form-btn form-btn--org" data-fs-submit-btn>
-              Join the Coalition
-            </button>
-          </div>
+        <div class="tally-btn-wrap">
+          <button
+            class="form-btn form-btn--org"
+            data-tally-open="xXBplv"
+            data-tally-hide-title="1"
+            data-tally-emoji-text="🌿"
+            data-tally-emoji-animation="wave"
+            data-tally-overlay="1"
+            data-tally-auto-close="3000"
+          >
+            Join the Coalition
+          </button>
+        </div>
 
-          <div class="form-row-referred">
-            <label for="fp-referred" class="referred-label">
-              Who told you about this? <span class="referred-optional">(optional)</span>
-            </label>
-            <input
-              type="text"
-              id="fp-referred"
-              name="referred_by"
-              class="form-input form-input--referred"
-              placeholder="A name, a community, a link…"
-              autocomplete="off"
-              data-fs-field
-            />
-          </div>
-
-          <p class="form-deadline">
-            Founding Partner registration closes <strong>July&nbsp;13,&nbsp;2026</strong>.
-          </p>
-          <p class="form-fine">Your information is never shared or sold.</p>
-          <p class="form-fine">This film is a project of BirdStory, fiscally sponsored by Tiny Seed Project, a 501(c)(3) nonprofit organization.</p>
-        </form>
+        <p class="form-deadline">
+          Founding Partner registration closes <strong>July&nbsp;13,&nbsp;2026</strong>.
+        </p>
+        <p class="form-fine">Your information is never shared or sold.</p>
       </div>
     </div>
 
@@ -77,8 +46,8 @@
         <p class="panel-eyebrow">For Individuals</p>
         <h2 class="panel-heading">Be Here When It Happens</h2>
         <p class="panel-sub">
-          One email when the campaign launches. That's it.
-          No newsletters. No noise.
+          One email when the film launches — no newsletters, no noise.
+          And if you're ready to move now, there's more you can do.
         </p>
         <div class="tally-btn-wrap">
           <button
@@ -93,6 +62,28 @@
             Stay Updated
           </button>
         </div>
+
+        <ul class="panel-actions" aria-label="Ways to help now">
+          <li>
+            <a href="https://meadowfilm.studio/" class="panel-action-link" data-share-page>
+              Share the film
+            </a>
+            <span class="panel-action-note">— send this page to someone who needs to see it</span>
+          </li>
+          <li>
+            <a href="mailto:meadowfilm.hello@gmail.com?subject=Bringing%20the%20film%20to%20my%20town" class="panel-action-link">
+              Bring it to your town
+            </a>
+            <span class="panel-action-note">— tell us where you are</span>
+          </li>
+          <li>
+            <a href="mailto:meadowfilm.hello@gmail.com?subject=Hosting%20a%20screening" class="panel-action-link">
+              Host a screening
+            </a>
+            <span class="panel-action-note">— gather your community around it</span>
+          </li>
+        </ul>
+
         <p class="form-fine">Your email is never shared. Unsubscribe any time.</p>
       </div>
     </div>
@@ -299,7 +290,49 @@
   }
 
   .tally-btn-wrap {
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── "Do more now" micro-actions ────────────────── */
+  .panel-actions {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(184, 144, 74, 0.2);
+  }
+
+  .panel-actions li {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+  }
+
+  .panel-action-link {
+    color: var(--color-amber);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 144, 74, 0.4);
+    padding-bottom: 1px;
+    transition: border-color var(--duration-base);
+  }
+
+  .panel-action-link:hover {
+    border-color: var(--color-amber);
+  }
+
+  .panel-action-link:focus-visible {
+    outline: 2px solid #F7F3EC;
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  .panel-action-note {
+    color: #F7F3EC;
+    opacity: 0.6;
+    margin-left: var(--space-1);
   }
 
   /* ── Mobile: stack panels ───────────────────────── */
@@ -410,6 +443,26 @@
         const canvas = panel.querySelector('.panel-fireflies');
         if (canvas instanceof HTMLCanvasElement) {
           makeFireflies(canvas, 28);
+        }
+      });
+    }
+
+    // "Share the film" — native share sheet where available, copy-link fallback
+    const shareLink = document.querySelector('[data-share-page]');
+    if (shareLink) {
+      shareLink.addEventListener('click', async (e) => {
+        const url = shareLink.getAttribute('href') || window.location.href;
+        const data = { title: document.title, text: 'A documentary short about the American yard.', url };
+        if (navigator.share) {
+          e.preventDefault();
+          try { await navigator.share(data); } catch (_) { /* user cancelled */ }
+        } else if (navigator.clipboard) {
+          e.preventDefault();
+          try {
+            await navigator.clipboard.writeText(url);
+            const note = shareLink.nextElementSibling;
+            if (note) { const t = note.textContent; note.textContent = '— link copied'; setTimeout(() => { note.textContent = t; }, 2000); }
+          } catch (_) { window.open(url, '_blank'); }
         }
       });
     }

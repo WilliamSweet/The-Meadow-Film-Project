@@ -1,48 +1,24 @@
 ---
 import { coalitionStats } from '../coalition-stats';
-const partners = [
-  {
-    name: 'Homegrown National Park',
-    url: 'https://homegrownnationalpark.org',
-    logo: '/images/logo-hnp.png',
-    logoAlt: 'Homegrown National Park',
-    descriptor: `The national movement for native habitat restoration, co-founded by Doug Tallamy — ${coalitionStats.acresPlanted} acres logged and growing.`,
-  },
-  {
-    name: 'Doug Tallamy',
-    url: 'https://homegrownnationalpark.org',
-    logo: '/images/logo-udel-wordmark.webp',
-    logoAlt: 'University of Delaware',
-    descriptor: 'The ecologist whose books Bringing Nature Home and Nature\'s Best Hope defined the native plant movement for a generation.',
-  },
-  {
-    name: 'The Pollinator Pathway',
-    url: 'https://www.pollinator-pathway.org',
-    logo: '/images/logo-pollinator-pathway-icon.png',
-    logoAlt: 'The Pollinator Pathway',
-    descriptor: 'The grassroots network of pesticide-free native corridors spanning 300+ towns across 24 states and Canada.',
-  },
-  {
-    name: 'University of Connecticut',
-    url: 'https://uconn.edu',
-    logo: '/images/logo-uconn-husky.png',
-    logoAlt: 'University of Connecticut',
-    descriptor: 'Connecticut\'s flagship research university, backing this film through a grant championed by Dr. David Wagner.',
-  },
-];
+import { anchorPartners, wallPartners } from '../data/partners';
 ---
 <section class="coalition" id="coalition" aria-labelledby="coalition-heading">
   <div class="container">
 
     <div class="coalition-header">
+      <p class="coalition-eyebrow">The Founding Coalition</p>
       <h2 class="coalition-heading" id="coalition-heading">
-        The organizations that built this movement.
+        The organizations putting their name behind this film.
       </h2>
+      <p class="coalition-intro">
+        Founding partners join the movement on record — named in the film, in the
+        outreach, and in every conversation this work starts. Here is who is already in.
+      </p>
       <p class="coalition-stats">{coalitionStats.foundingPartners} founding partners &middot; {coalitionStats.acresPlanted} acres logged on the HNP Biodiversity Map &middot; {coalitionStats.corridorTowns}+ corridors</p>
     </div>
 
-    <ul class="coalition-list" aria-label="Confirmed coalition partners">
-      {partners.map((partner) => (
+    <ul class="coalition-list" aria-label="Founding coalition partners">
+      {anchorPartners.map((partner) => (
         <li class="coalition-item">
           <div class="coalition-rule" aria-hidden="true"></div>
           {partner.logo && (
@@ -70,9 +46,35 @@ const partners = [
       ))}
     </ul>
 
+    {wallPartners.length > 0 && (
+      <div class="coalition-wall">
+        <p class="coalition-wall-label">Joined by</p>
+        <ul class="coalition-wall-grid" aria-label="Founding partner organizations">
+          {wallPartners.map((partner) => (
+            <li class="coalition-wall-item">
+              <a
+                class="coalition-wall-link"
+                href={partner.url}
+                target="_blank"
+                rel="noopener"
+                title={partner.name}
+              >
+                <img
+                  class="coalition-wall-logo"
+                  src={partner.logo}
+                  alt={partner.logoAlt}
+                  loading="lazy"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
     <p class="coalition-closing">
       More organizations in conversation &mdash;{' '}
-      <a href="#founding-partner" class="coalition-closing-link">founding partner window closes July&nbsp;13</a>.
+      <a href="#founding-partner" class="coalition-closing-link">add your organization before the window closes July&nbsp;13</a>.
     </p>
 
   </div>
@@ -86,6 +88,27 @@ const partners = [
   /* ── Header ─────────────────────────────────────── */
   .coalition-header {
     margin-bottom: var(--space-16);
+  }
+
+  .coalition-eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-earth);
+    margin-bottom: var(--space-4);
+  }
+
+  .coalition-intro {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    opacity: 0.72;
+    line-height: 1.6;
+    max-width: 60ch;
+    margin-bottom: var(--space-5);
+    text-wrap: pretty;
   }
 
   .coalition-heading {
@@ -182,6 +205,62 @@ const partners = [
     line-height: 1.55;
     max-width: 60ch;
     text-wrap: pretty;
+  }
+
+  /* ── Logo wall — scales to 20–30+ without crowding ─ */
+  .coalition-wall {
+    margin-top: var(--space-16);
+    padding-top: var(--space-10);
+    border-top: 1px solid rgba(184, 144, 74, 0.35);
+  }
+
+  .coalition-wall-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-earth);
+    margin-bottom: var(--space-8);
+  }
+
+  .coalition-wall-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-10) var(--space-8);
+    align-items: center;
+  }
+
+  .coalition-wall-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .coalition-wall-link {
+    display: block;
+    line-height: 0;
+    opacity: 0.72;
+    transition: opacity var(--duration-base) var(--ease-out-expo);
+  }
+
+  .coalition-wall-link:hover {
+    opacity: 1;
+  }
+
+  .coalition-wall-link:focus-visible {
+    outline: 2px solid var(--color-earth);
+    outline-offset: 4px;
+    border-radius: 2px;
+    opacity: 1;
+  }
+
+  .coalition-wall-logo {
+    height: 56px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
   }
 
   /* ── Closing scarcity line ──────────────────────── */

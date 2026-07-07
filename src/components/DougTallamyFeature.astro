@@ -1,0 +1,210 @@
+---
+const quote = "“If you have watched a bulldozer destroy a part of the natural world you loved, you can picture what used to exist in the areas that are now lawn. We can and must restore what once thrived in our yards. Few things are as rewarding as watching life return!”";
+---
+<section class="tallamy-feature" id="tallamy" aria-labelledby="tallamy-heading" data-reveal>
+  <img
+    class="tallamy-botanical"
+    src="/images/botanical-solidago-linedrawing.webp"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+  />
+  <div class="container tallamy-grid">
+    <div class="tallamy-portrait">
+      <img
+        class="tallamy-photo"
+        src="/images/doug-tallamy.webp"
+        alt="Doug Tallamy, University of Delaware"
+        width="320"
+        height="320"
+        loading="lazy"
+        style="object-position: center 25%"
+      />
+    </div>
+    <div class="tallamy-text">
+      <p class="tallamy-place">Entomologist &amp; Conservationist · University of Delaware</p>
+      <h2 class="tallamy-name" id="tallamy-heading">Dr. Doug Tallamy</h2>
+      <p class="tallamy-body">
+        When Doug Tallamy was in the third grade, he watched a bulldozer
+        bury the pond beside his childhood home to build the house next
+        door. It was, he has said, his first conservation lesson — watching
+        something ordinary and alive simply disappear.
+      </p>
+      <p class="tallamy-body">
+        He has spent the decades since studying what that loss means at
+        scale. An entomologist, conservationist, and professor at the
+        University of Delaware, his research and books — including <em>Bringing
+        Nature Home</em> and <em>Nature's Best Hope</em> — have inspired
+        millions to see their own yards as part of the solution to the
+        biodiversity crisis. Driven by the belief that everyone can play a
+        role, Doug co-founded Homegrown National Park to encourage people to
+        plant natives in the spaces they care for.
+      </p>
+      <div class="tallamy-quote-block">
+        <p class="tallamy-quote-label">The renowned Doug Tallamy, speaking on the importance of this film:</p>
+        <blockquote class="tallamy-quote">
+          <p class="tallamy-quote-text">{quote}</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tallamy-feature {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-bg);
+    padding: var(--space-24) 0;
+    border-top: 1px solid rgba(28, 26, 23, 0.07);
+  }
+
+  .tallamy-botanical {
+    position: absolute;
+    top: 50%;
+    right: -4%;
+    transform: translateY(-50%);
+    width: 38%;
+    max-width: 380px;
+    height: auto;
+    opacity: 0.2;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+    object-fit: contain;
+    mask-image: linear-gradient(to right, black 55%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to right, black 55%, transparent 95%);
+  }
+
+  .tallamy-grid {
+    display: grid;
+    grid-template-columns: clamp(160px, 18vw, 240px) minmax(0, 1fr);
+    align-items: start;
+    column-gap: clamp(2.5rem, 6vw, 6rem);
+    row-gap: var(--space-8);
+    position: relative;
+    z-index: 1;
+  }
+
+  .tallamy-portrait {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+
+  .tallamy-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tallamy-portrait::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1px solid var(--color-straw);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .tallamy-text {
+    text-align: left;
+  }
+
+  .tallamy-place {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-earth);
+    margin-bottom: var(--space-3);
+  }
+
+  .tallamy-name {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--color-text);
+    margin-bottom: var(--space-6);
+    text-wrap: balance;
+  }
+
+  .tallamy-body {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    line-height: 1.75;
+    max-width: 60ch;
+    opacity: 0.9;
+    text-wrap: pretty;
+  }
+
+  .tallamy-body + .tallamy-body {
+    margin-top: var(--space-6);
+  }
+
+  .tallamy-quote-block {
+    margin-top: var(--space-12);
+  }
+
+  .tallamy-quote-label {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    opacity: 0.65;
+    margin-bottom: var(--space-4);
+  }
+
+  .tallamy-quote {
+    margin: 0;
+    padding-left: var(--space-6);
+    border-left: 2px solid var(--color-amber);
+  }
+
+  .tallamy-quote-text {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--color-text);
+    line-height: 1.5;
+    max-width: 56ch;
+  }
+
+  @media (max-width: 760px) {
+    .tallamy-grid {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+    .tallamy-portrait {
+      width: clamp(140px, 42vw, 200px);
+    }
+    .tallamy-text {
+      text-align: center;
+    }
+    .tallamy-name {
+      font-size: var(--text-2xl);
+    }
+    .tallamy-body {
+      font-size: var(--text-base);
+      margin-inline: auto;
+    }
+    .tallamy-quote {
+      text-align: left;
+      margin-inline: auto;
+      max-width: 56ch;
+    }
+    .tallamy-botanical {
+      width: 52%;
+      opacity: 0.14;
+    }
+  }
+</style>

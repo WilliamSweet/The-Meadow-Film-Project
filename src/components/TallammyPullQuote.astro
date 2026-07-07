@@ -4,6 +4,7 @@ const words = quoteText.split(' ');
 ---
 <div class="pull-quote" data-reveal>
   <div class="container">
+    <div class="pull-quote-rule" aria-hidden="true"></div>
     <p class="pull-quote-text">
       {words.map((word, i) => (
         <span class="word" style={`transition-delay: ${i * 50}ms`}>{word}{' '}</span>
@@ -48,10 +49,17 @@ const words = quoteText.split(' ');
     }
   }
 
+  .pull-quote-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--color-amber);
+    margin: 0 auto var(--space-6);
+  }
+
   .pull-quote-attribution {
     font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: var(--color-wildflower);
+    color: var(--color-amber);
     letter-spacing: 0.04em;
     margin: 0 auto;
   }

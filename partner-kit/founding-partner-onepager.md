@@ -38,7 +38,7 @@ so the film reaches your audience in your voice, not just ours.
 
 ## What we ask of you
 
-- Register before the founding window closes — **July 13, 2026**.
+- Register before the founding window closes — **August 13, 2026**.
 - Send your logo, a one-line description, and a link.
 - When the film launches, share it once with your audience. We hand you the assets;
   the effort is ours, the credit is yours.

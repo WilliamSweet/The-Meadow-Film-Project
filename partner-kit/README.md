@@ -34,4 +34,4 @@ export, or install one (`brew install librsvg` → `rsvg-convert -w 880 -h 880 b
 - **Listed beside Tallamy / HNP** = borrowed authority + social proof.
 - **Ready-made share kit** = removes all friction — the only way an org climbs from
   "partner" to "advocate."
-- **July 13 deadline + review** = the bottleneck that makes membership worth displaying.
+- **August 13 deadline + review** = the bottleneck that makes membership worth displaying.

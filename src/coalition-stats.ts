@@ -4,7 +4,7 @@
 // Source for towns/states: pollinator-pathway.org/about
 
 export const coalitionStats = {
-  foundingPartners: 4,
+  foundingPartners: 5,
   // HNP biodiversity map — as of early 2026; verify at map.homegrownnationalpark.org before publish
   acresPlanted: '170,000+',
   // Pollinator Pathway — primary source: pollinator-pathway.org/about (read 2026-06-29)

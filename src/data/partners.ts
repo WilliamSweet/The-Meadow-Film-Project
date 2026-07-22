@@ -61,6 +61,14 @@ export const anchorPartners: AnchorPartner[] = [
     descriptor:
       "Connecticut's flagship research university, backing this film through a grant championed by Dr. David Wagner.",
   },
+  {
+    name: 'New Directions in the American Landscape',
+    url: 'https://www.ndal.org',
+    logo: '/images/partners/ndal-logo.png',
+    logoAlt: 'New Directions in the American Landscape',
+    descriptor:
+      "The ecological landscape design and stewardship education organization founded in 1990 by Larry Weaner — his daughter Sara Weaner Cooper, NDAL's principal, is one of the film's featured subjects.",
+  },
 ];
 
 // Growing roster — logos link out to each org (their backlink reward).

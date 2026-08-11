@@ -51,11 +51,28 @@
     font-size: var(--text-xl);
     font-weight: 900;
     letter-spacing: 0.14em;
-    color: #F7F3EC;
+    color: var(--color-bg);
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+    position: relative;
+  }
+
+  /* The wordmark's text box is 23px tall. On a touch screen that is a miss
+     waiting to happen, so the tap area is grown to 44px with a pseudo-element
+     rather than with padding — padding would move the wordmark off its
+     baseline in the nav row. Touch pointers only; the mouse never needed it. */
+  @media (pointer: coarse) {
+    .nav-logo::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 44px;
+      transform: translateY(-50%);
+    }
   }
 
   /* ── Section links ── */
@@ -84,13 +101,13 @@
 
   .nav-link:hover,
   .nav-link:focus-visible {
-    color: #F7F3EC;
+    color: var(--color-bg);
     border-bottom-color: rgba(247, 243, 236, 0.45);
     outline: none;
   }
 
   .nav-link--active {
-    color: #F7F3EC;
+    color: var(--color-bg);
     border-bottom-color: rgba(247, 243, 236, 0.55);
   }
 

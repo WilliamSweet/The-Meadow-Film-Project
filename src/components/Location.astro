@@ -1,26 +1,32 @@
 ---
-// Sleepy Cat Farm carousel. Add or reorder slides here — one entry per image.
-// Drop new photos into /public/images/sleepy-cat/ and add a row below.
+/*
+  REAL SHOOT STILLS — August 5, 2026, Connecticut. These replace the stock
+  meadow frames that stood in here, which in turn replaced Sleepy Cat Farm
+  (dropped as a location 2026-07-27; its photos must not come back).
+
+  Sources in ~/My Drive: IMG_4666, IMG_4662, "Steve Interview".
+  Converted at 1800px wide, cwebp q82, into /images/shoot-2026-08-05/.
+
+  These are the two properties this section names. Generic grass undersold
+  both of them, and the whole point of the section is that these are real
+  places belonging to real people.
+*/
 const slides = [
   {
-    src: '/images/sleepy-cat/paradiso-arch.webp',
-    alt: 'Sleepy Cat Farm — perennial borders in bloom leading to the stone Paradiso arch, Greenwich, Connecticut',
+    src: '/images/shoot-2026-08-05/dobbins-copper-sculpture.webp',
+    alt: "Two of Paul Dobbins's copper sculptures standing in a bank of black-eyed Susans on the Dobbins property in Fairfield, Connecticut",
   },
   {
-    src: '/images/sleepy-cat/meadow-rocks.jpg',
-    alt: 'Native meadow grasses and wildflowers rooting through the ledge rock at Sleepy Cat Farm',
+    src: '/images/shoot-2026-08-05/dobbins-maggie-paul-frame.webp',
+    alt: 'Maggie and Paul Dobbins in their meadow, from the film',
   },
   {
-    src: '/images/sleepy-cat/garden-statue.jpg',
-    alt: 'Visitors walking the garden paths past a classical statue and mixed plantings at Sleepy Cat Farm',
-  },
-  {
-    src: '/images/sleepy-cat/greenhouse-lemons.webp',
-    alt: 'The timber-beamed citrus gallery at Sleepy Cat Farm, potted lemon trees under the arched ceiling',
+    src: '/images/shoot-2026-08-05/steve-zatz-interview.webp',
+    alt: 'Steve Zatz being interviewed on his New Canaan property',
   },
 ];
 ---
-<section class="location" id="location" aria-labelledby="location-heading">
+<section class="location" id="people" aria-labelledby="location-heading">
   <div class="container">
     <div class="location-inner">
 
@@ -29,10 +35,12 @@ const slides = [
         data-carousel
         role="group"
         aria-roledescription="carousel"
-        aria-label="Sleepy Cat Farm photographs"
+        aria-label="Photographs from the meadows in the film"
       >
         <div class="carousel-viewport">
-          <ul class="carousel-track" data-carousel-track>
+          <!-- aria-live: without it a slide change is silent to a screen reader.
+               "polite" waits for a pause rather than interrupting. -->
+          <ul class="carousel-track" data-carousel-track aria-live="polite">
             {slides.map((slide, i) => (
               <li
                 class="carousel-slide"
@@ -46,7 +54,7 @@ const slides = [
                   class="carousel-img"
                   src={slide.src}
                   alt={slide.alt}
-                  loading={i === 0 ? 'eager' : 'lazy'}
+                  loading="eager"
                 />
               </li>
             ))}
@@ -60,31 +68,65 @@ const slides = [
           </button>
         </div>
 
-        <div class="carousel-dots" data-carousel-dots role="tablist" aria-label="Choose photo">
+        <!--
+          These are not tabs. They were marked role="tablist"/role="tab", which
+          promises a screen-reader user a set of tab panels to move between with
+          the arrow keys — there are none, and the slides are not tabpanels. A
+          reader announced "tab, 1 of 4" and then found nothing. They are plain
+          buttons that change which photo shows; aria-current marks the active
+          one. Simpler, and it describes what actually happens.
+        -->
+        <div class="carousel-dots" data-carousel-dots aria-label="Choose photo">
           {slides.map((_, i) => (
             <button
               class="carousel-dot"
               data-carousel-dot
               type="button"
-              role="tab"
-              aria-label={`Photo ${i + 1}`}
-              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-label={`Show photo ${i + 1} of ${slides.length}`}
+              aria-current={i === 0 ? 'true' : 'false'}
             ></button>
           ))}
         </div>
       </div>
 
       <div class="location-text">
-        <h2 class="location-heading" id="location-heading">One of the places the film visits</h2>
+        <h2 class="location-heading" id="location-heading">The properties and the people on them</h2>
         <p class="location-body">
-          The film travels to properties of every kind. One of them is
-          <a href="https://www.sleepycatfarm.com" target="_blank" rel="noopener" class="location-link">Sleepy Cat Farm</a>,
-          a thirteen-acre estate in Greenwich, Connecticut. Designed in collaboration
-          with Charles J. Stick, it blends European and Asian garden influences with a
-          productive organic farm and thriving native pollinator habitat. Through its
-          partnership with The Garden Conservancy, it serves as an educational hub,
-          hosting public tours and workshops on native wildflower propagation.
+          The film travels to properties of every kind, and the people on them have
+          nothing in common except what they did with their land.
         </p>
+
+        <!--
+          Two entries, not four. Doug Tallamy has his own section and Sara Weaner
+          Cooper has her own story panel; naming all four here repeated them and
+          made the section a summary of the page rather than a part of it.
+
+          A real list, not bolded names inside a paragraph. Bold runs in prose ask
+          the reader to read and scan at the same time, and the eye bounces —
+          which is exactly what it looked like. Name, place, then the sentence.
+        -->
+        <ul class="subject-list">
+          <li class="subject">
+            <p class="subject-place">New Canaan, Connecticut</p>
+            <h3 class="subject-name">Steve Zatz</h3>
+            <p class="subject-line">
+              The former chief executive of WebMD, who built one of Fairfield County's
+              most ambitious native landscapes from scratch. His line is that grass is
+              &ldquo;essentially a bio-desert.&rdquo;
+            </p>
+          </li>
+          <li class="subject">
+            <p class="subject-place">Fairfield, Connecticut</p>
+            <h3 class="subject-name">Maggie and Paul Dobbins</h3>
+            <p class="subject-line">
+              Maggie and Paul moved from the Bay Area to Fairfield in 2021 and began
+              restoring four and a half acres — pond, wetlands, rocky hillside, meadow.
+              Maggie serves on the board of the Connecticut chapter of Wild Ones. Paul
+              took up metal sculpture in 2023; his pieces now rise from the grasses he
+              and Maggie planted.
+            </p>
+          </li>
+        </ul>
       </div>
 
     </div>
@@ -159,7 +201,7 @@ const slides = [
   }
 
   .carousel-btn:hover {
-    background: #F7F3EC;
+    background: var(--color-bg);
   }
 
   .carousel-btn:focus-visible {
@@ -174,24 +216,49 @@ const slides = [
   .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
+    /* No gap: each button is a 44px target and carries its own breathing room
+       inside. A gap on top of that would push the dots visually apart.      */
+    margin-top: var(--space-2);
   }
 
+  /* The dot you see is 8px. The button you tap is 44px.
+     The visible mark is drawn with a pseudo-element so the hit area can be
+     full size without the dot growing to match. */
   .carousel-dot {
-    width: 8px;
-    height: 8px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .carousel-dot::before {
+    content: '';
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: rgba(28, 43, 30, 0.25);
-    cursor: pointer;
     transition: background var(--duration-base), transform var(--duration-base);
   }
 
-  .carousel-dot[aria-selected='true'] {
+  .carousel-dot[aria-current='true']::before {
     background: var(--color-earth);
     transform: scale(1.3);
+  }
+
+  .carousel-dot:hover::before {
+    background: rgba(28, 43, 30, 0.45);
+  }
+
+  .carousel-dot:focus-visible {
+    outline: 2px solid var(--color-earth);
+    outline-offset: -8px;
+    border-radius: 50%;
   }
 
   .carousel-dot:focus-visible {
@@ -215,6 +282,57 @@ const slides = [
     color: var(--color-text);
     line-height: 1.8;
     max-width: 65ch;
+  }
+
+  .location-body + .location-body {
+    margin-top: var(--space-4);
+  }
+
+  /* ── Subjects ───────────────────────────────────────────────────────────
+     Same grammar as the Camera & Sound block: a straw hairline above each
+     entry, a small-caps place line, the name, then one sentence. Nothing is
+     bolded inside prose — the name is a heading because it IS one.        */
+  .subject-list {
+    list-style: none;
+    margin: var(--space-8) 0 0;
+    padding: 0;
+  }
+
+  .subject {
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(201, 169, 110, 0.28);
+  }
+
+  .subject + .subject {
+    margin-top: var(--space-6);
+  }
+
+  .subject-place {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    color: var(--color-meadow); /* 5.74:1 on cream — WCAG AA */
+  }
+
+  .subject-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-top: var(--space-1);
+  }
+
+  .subject-line {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.7;
+    opacity: 0.8;
+    margin-top: var(--space-2);
+    max-width: 52ch;
   }
 
   .location-link {
@@ -260,7 +378,7 @@ const slides = [
         index = (n + count) % count;
         track.style.transform = `translateX(-${index * 100}%)`;
         slides.forEach((s, i) => s.setAttribute('aria-hidden', i === index ? 'false' : 'true'));
-        dots.forEach((d, i) => d.setAttribute('aria-selected', i === index ? 'true' : 'false'));
+        dots.forEach((d, i) => d.setAttribute('aria-current', i === index ? 'true' : 'false'));
       }
 
       prev && prev.addEventListener('click', () => { go(index - 1); restart(); });

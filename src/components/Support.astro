@@ -1,0 +1,137 @@
+---
+/*
+  Support the film — the only place on the page that asks an individual for money.
+
+  Sits between FilmDetails and FoundingPartnerCTA: after the visitor has met the
+  people, seen the numbers, and read who is making it, and before the two
+  join-the-coalition panels. Asking earlier would ask a stranger.
+
+  The donate button routes to the Center for Independent Documentary's own page
+  for this film — CID is the 501(c)(3) fiscal sponsor, so the gift is made to
+  them and is tax-deductible. Never take card details on this site.
+
+  NOTE ON THE FEE: the signed CID agreement (§6(e)) deducts 5% of all money
+  received, and states only that card gifts "incur additional fees that are
+  determined by type of credit card and online system" — no percentage. Do not
+  publish a card-processing rate until CID gives one in writing.
+*/
+const DONATE_URL = 'https://www.documentaries.org/films/rooted/';
+---
+<!--
+  data-static is deliberate. main.js gives every other section a scroll-triggered
+  fade that starts at opacity 0; this is the only section that asks for money, and
+  a section that renders blank to anything which never scrolls (a link-preview bot,
+  a background tab, a headless renderer) is a section that does not exist. It is
+  visible from first paint. data-static is the escape hatch main.js already honors.
+-->
+<section class="support" id="support" data-static aria-labelledby="support-heading">
+  <div class="container">
+    <div class="support-inner">
+
+      <h2 class="support-heading" id="support-heading">
+        Every gift is tax-deductible.
+      </h2>
+
+      <p class="support-body">
+        This film is fiscally sponsored by the <strong>Center for Independent
+        Documentary</strong>, a 501(c)(3) founded in 1981. In four decades CID has
+        sponsored more than 350 documentaries — films that have run on PBS and HBO,
+        premiered at Sundance, and won Peabody and Emmy awards.
+      </p>
+
+      <p class="support-body">
+        Your gift goes to CID and is tax-deductible to the fullest extent of the law.
+        CID emails a confirmation for your records, and the money comes back to this
+        film as production costs — camera, sound, travel, the people on this page.
+      </p>
+
+      <a
+        class="btn btn-primary support-btn"
+        href={DONATE_URL}
+        target="_blank"
+        rel="noopener"
+      >
+        Donate by credit card
+      </a>
+
+      <p class="support-check">
+        Prefer a check? Make it payable to the <strong>Center for Independent
+        Documentary</strong>, write <em>Native Revolution Pictures LLC</em> in the memo, and
+        mail it to PO&nbsp;Box&nbsp;95216, Newton, MA&nbsp;02495. A check carries no
+        card-processing fee, so slightly more of it reaches the film.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .support {
+    padding: var(--space-24) 0;
+  }
+
+  /* Centred, not left-aligned. At 62ch inside a full-width section this block
+     sat in the left third with the entire right half empty — it read as a
+     column that lost its neighbour rather than a deliberate moment. Every
+     other section on the page pairs its text with an image; this one has
+     nothing to pair with, so it owns the middle instead. */
+  .support-inner {
+    max-width: 62ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* The check paragraph stays left-aligned: it carries an address and a memo
+     line, and centred addresses are hard to read and harder to copy. */
+  .support-check {
+    text-align: left;
+  }
+
+  /* No small-caps eyebrow above this heading, on purpose. Four sections already
+     carry one; a fifth turns a voice into scaffolding. The heading stands alone. */
+  .support-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-bottom: var(--space-6);
+  }
+
+  .support-body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+  .support-body + .support-body {
+    margin-top: var(--space-4);
+  }
+
+  .support-body strong {
+    font-weight: 600;
+  }
+
+  .support-btn {
+    display: inline-block;
+    margin-top: var(--space-8);
+  }
+
+  /* Secondary path. Deliberately quieter than the button — a donor who wants
+     the check route will read for it; nobody needs it shouted.              */
+  .support-check {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.7; /* above the 35% meaning-bearing floor */
+    line-height: 1.7;
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(201, 169, 110, 0.28);
+  }
+
+  .support-check strong {
+    font-weight: 600;
+  }
+</style>

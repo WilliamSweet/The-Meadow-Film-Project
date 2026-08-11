@@ -182,6 +182,62 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       ticking = true;
     }
   }, { passive: true });
+
+  // ── Safety net ────────────────────────────────────────────────────────────
+  // Everything above hides a section until a scroll or an IntersectionObserver
+  // callback reveals it. Anything that renders the page WITHOUT scrolling — a
+  // link-preview screenshot service, a print-to-PDF engine, an automated
+  // capture — therefore photographs a page of empty cream. Confirmed live on
+  // 2026-08-10: seven sections sat at opacity 0 in a scripted browser.
+  //
+  // Three seconds after load, anything still hidden is shown. Unconditionally.
+  //
+  // The first version of this bailed out if a scroll event had fired, on the
+  // theory that a scrolling visitor proves the normal path works. That was
+  // wrong twice over: one stray scroll event — a restored scroll position, a
+  // pane resize — switched the net off for the whole session, and two sections
+  // stayed dark in testing because of it. And the check bought nothing: a
+  // visitor who has scrolled has already revealed everything they have reached,
+  // so there is nothing left for this to disturb.
+  //
+  // Cost, stated plainly: someone who sits on the hero for more than three
+  // seconds without scrolling will find the sections below already visible
+  // rather than fading in as they arrive. That is a smaller price than a blank
+  // page, and it is the only price.
+  // `.reveal-now` (global.css) lands on the final values with transition:none.
+  // `.is-visible` alone is NOT sufficient here: a hidden document freezes
+  // transition clocks, so the fade starts and never advances — the section
+  // stays at opacity 0 forever. That is the exact case this net exists for.
+  function revealEverythingNow() {
+    document.querySelectorAll('[data-reveal]').forEach(function (el) {
+      if (el.classList.contains('reveal-now')) return;
+      el.classList.add('is-visible', 'reveal-now');
+      observer.unobserve(el);
+      startRevealedContent(el);
+    });
+  }
+
+  // Rendered while not frontmost — a screenshot service, a print job, a
+  // background tab. Transitions cannot run at all here, so don't wait.
+  if (document.visibilityState !== 'visible') {
+    revealEverythingNow();
+  }
+
+  // Backgrounded partway through. Same problem, later.
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') revealEverythingNow();
+  });
+
+  // Before printing, no matter what state the page is in.
+  window.addEventListener('beforeprint', revealEverythingNow);
+
+  // Last resort, deliberately long. Ten seconds on a page without a single
+  // scroll means the observer and the scroll fallback have both had every
+  // chance and something is wrong. Three seconds was the first attempt and it
+  // was too eager: a visitor who simply reads the hero for a moment would have
+  // had the fade stripped off the entire page below. Ten seconds costs a real
+  // visitor nothing and still guarantees the content is never permanently dark.
+  window.setTimeout(revealEverythingNow, 10000);
 })();
 
 // Story cards scrollytelling — bidirectional fade in/out as each card enters/leaves view

@@ -11,6 +11,7 @@ import StoriesSection from '../components/StoriesSection.astro';
 import DougTallamyFeature from '../components/DougTallamyFeature.astro';
 import TallammyPullQuote from '../components/TallammyPullQuote.astro';
 import MeadowBreak from '../components/MeadowBreak.astro';
+import Support from '../components/Support.astro';
 import FoundingPartnerCTA from '../components/FoundingPartnerCTA.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -83,7 +84,10 @@ import '../styles/global.css';
 
       <FilmDetails />
 
-      <!-- SECTION 9: Founding Partner CTA — bottom of page -->
+      <!-- SECTION 9: Support — the one place an individual is asked for money -->
+      <Support />
+
+      <!-- SECTION 10: Founding Partner CTA — bottom of page -->
       <FoundingPartnerCTA />
     </main>
 
@@ -99,7 +103,8 @@ import '../styles/global.css';
     <!-- <script src="https://cdn.usefathom.com/script.js" data-site="YOUR_SITE_ID" defer></script> -->
 
     <script async defer src="https://cloud.umami.is/script.js" data-website-id="ba135a4e-288e-4632-95c5-26a0b5ed6f46"></script>
-    <script src="/js/main.js?v=2" defer></script>
+    <!-- Bump ?v= after every public/js/ change — Cloudflare caches JS for hours. -->
+    <script src="/js/main.js?v=6" defer></script>
 
     <script>
       import { gsap } from 'gsap';

@@ -13,7 +13,11 @@
 
     <div class="footer-legal">
       <p>
-        This film is an independent documentary production. Tax-deductible donations are available through our fiscal sponsor. Contact us for details.
+        This film is an independent documentary production, fiscally sponsored by the
+        <a href="https://www.documentaries.org/films/rooted/" target="_blank" rel="noopener" class="footer-legal-link">Center for Independent Documentary</a>,
+        a 501(c)(3) non-profit media arts organization registered with the Massachusetts
+        Division of Public Charities. Donations are tax-deductible to the fullest extent
+        of the law.
       </p>
     </div>
 
@@ -23,7 +27,7 @@
 <style>
   .footer {
     position: relative;
-    background-color: var(--color-text); /* #1C2B1E dark green */
+    background-color: var(--color-text);
     padding: var(--space-16) 0 var(--space-12);
   }
 
@@ -77,6 +81,24 @@
     border-radius: 1px;
   }
 
+  /* Same treatment as the nav wordmark: 25px of text, 44px of tap area, no
+     layout shift. The underline stays on the text, not on the hit box. */
+  @media (pointer: coarse) {
+    .footer-email {
+      position: relative;
+    }
+
+    .footer-email::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 44px;
+      transform: translateY(-50%);
+    }
+  }
+
   .footer-copy {
     font-family: var(--font-body);
     font-size: var(--text-xs);
@@ -94,8 +116,33 @@
     font-family: var(--font-body);
     font-size: var(--text-xs);
     color: var(--color-bg);
-    opacity: 0.48;
+    /* 0.48 measured 4.43:1 against the footer green — under the 4.5:1 floor for
+       12px text. This paragraph now carries the sponsor name and the
+       tax-deductible statement, so it has to be readable, not atmospheric. */
+    opacity: 0.62;
     line-height: 1.65;
+  }
+
+  /* The sponsor name is a credibility asset, not fine print — lift it back out
+     of the 0.48 legal wash so it reads and so the link is visibly a link.    */
+  .footer-legal-link {
+    color: var(--color-bg);
+    opacity: 1;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(247, 243, 236, 0.4);
+    padding-bottom: 1px;
+    transition: border-color var(--duration-fast);
+  }
+
+  .footer-legal-link:hover,
+  .footer-legal-link:focus-visible {
+    border-color: var(--color-bg);
+  }
+
+  .footer-legal-link:focus-visible {
+    outline: 2px solid var(--color-straw);
+    outline-offset: 3px;
+    border-radius: 1px;
   }
 
   @media (max-width: 640px) {

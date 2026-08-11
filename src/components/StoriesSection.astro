@@ -60,7 +60,7 @@ const stories = [
             src={story.bgSrc}
             alt=""
             aria-hidden="true"
-            loading="lazy"
+            loading="eager"
           />
         )}
         {story.variant === 'dark' && (
@@ -72,7 +72,7 @@ const stories = [
             src={story.botanicalSrc}
             alt=""
             aria-hidden="true"
-            loading="lazy"
+            loading="eager"
           />
         )}
         <article class:list={['story-card', story.side === 'right' ? 'story-card--right' : 'story-card--left']} data-scroll-card>
@@ -185,7 +185,7 @@ const stories = [
 
   /* ── Dark (photo) panels ────────────────────────── */
   .story-panel--dark {
-    background-color: #1C2B1E;
+    background-color: var(--color-text);
   }
 
   /* Background photo — actual img element so GSAP can parallax it */
@@ -319,10 +319,10 @@ const stories = [
     color: var(--color-straw);
   }
   .story-panel--dark .story-name {
-    color: #F7F3EC;
+    color: var(--color-bg);
   }
   .story-panel--dark .story-body {
-    color: #F7F3EC;
+    color: var(--color-bg);
     opacity: 0.86;
   }
 

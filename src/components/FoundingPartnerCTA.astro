@@ -33,7 +33,7 @@
         </div>
 
         <p class="form-deadline">
-          Founding Partner registration closes <strong>August&nbsp;13,&nbsp;2026</strong>.
+          Founding Partner registration closes <strong>September&nbsp;13,&nbsp;2026</strong>.
         </p>
         <p class="form-fine">Your information is never shared or sold.</p>
       </div>
@@ -46,8 +46,8 @@
         <p class="panel-eyebrow">For Individuals</p>
         <h2 class="panel-heading">Be Here When It Happens</h2>
         <p class="panel-sub">
-          One email when the film launches — no newsletters, no noise.
-          And if you're ready to move now, there's more you can do.
+          We will write when there is real news to share — no newsletters, no noise.
+          If you are ready to move now, there is more you can do.
         </p>
         <div class="tally-btn-wrap">
           <button
@@ -94,7 +94,7 @@
 <style>
   /* ── Section ────────────────────────────────────── */
   .cta {
-    background-color: #1C2B1E;
+    background-color: var(--color-text);
     overflow: hidden;
   }
 
@@ -135,7 +135,11 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    opacity: 0.25;
+    /* Was 0.25. Twenty-eight small points at quarter opacity across a panel
+       this large were findable only if you already knew to look — William
+       reported them as missing twice. The canvas was always drawing; it was
+       the strength that was wrong. Hover still lifts them to full. */
+    opacity: 0.6;
     transition: opacity 700ms ease;
     z-index: 0;
   }
@@ -165,7 +169,7 @@
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 2.5vw, 2.4rem);
     font-weight: 900;
-    color: #F7F3EC;
+    color: var(--color-bg);
     line-height: 1.1;
     margin-bottom: var(--space-4);
     letter-spacing: -0.02em;
@@ -175,7 +179,7 @@
   .panel-sub {
     font-family: var(--font-body);
     font-size: var(--text-base);
-    color: #F7F3EC;
+    color: var(--color-bg);
     opacity: 0.72;
     line-height: 1.6;
     margin-bottom: var(--space-8);
@@ -198,7 +202,7 @@
     font-family: var(--font-body);
     font-size: var(--text-sm);
     color: var(--color-text);
-    background: #F7F3EC;
+    background: var(--color-bg);
     border: 2px solid transparent;
     border-radius: var(--radius-sm);
     outline: none;
@@ -242,11 +246,11 @@
 
   .form-btn--individual {
     background-color: var(--color-amber);
-    color: #1C2B1E;
+    color: var(--color-text);
   }
 
   .form-btn:focus-visible {
-    outline: 2px solid #F7F3EC;
+    outline: 2px solid var(--color-bg);
     outline-offset: 2px;
   }
 
@@ -260,7 +264,7 @@
   .referred-label {
     font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: #F7F3EC;
+    color: var(--color-bg);
     opacity: 0.7;
   }
 
@@ -276,7 +280,7 @@
   .form-deadline {
     font-family: var(--font-body);
     font-size: var(--text-sm);
-    color: #F7F3EC;
+    color: var(--color-bg);
     opacity: 0.85;
     margin-bottom: var(--space-2);
   }
@@ -284,7 +288,7 @@
   .form-fine {
     font-family: var(--font-body);
     font-size: var(--text-xs);
-    color: #F7F3EC;
+    color: var(--color-bg);
     opacity: 0.45;
     margin-top: var(--space-2);
   }
@@ -324,13 +328,31 @@
   }
 
   .panel-action-link:focus-visible {
-    outline: 2px solid #F7F3EC;
+    outline: 2px solid var(--color-bg);
     outline-offset: 2px;
     border-radius: 1px;
   }
 
+  /* 21px of text, 44px of tap area. The 12px gap between list items absorbs
+     the overhang, so neighbouring links never steal each other's taps. */
+  @media (pointer: coarse) {
+    .panel-action-link {
+      position: relative;
+    }
+
+    .panel-action-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 44px;
+      transform: translateY(-50%);
+    }
+  }
+
   .panel-action-note {
-    color: #F7F3EC;
+    color: var(--color-bg);
     opacity: 0.6;
     margin-left: var(--space-1);
   }
@@ -442,7 +464,7 @@
       document.querySelectorAll('[data-panel]').forEach((panel) => {
         const canvas = panel.querySelector('.panel-fireflies');
         if (canvas instanceof HTMLCanvasElement) {
-          makeFireflies(canvas, 28);
+          makeFireflies(canvas, 46);
         }
       });
     }

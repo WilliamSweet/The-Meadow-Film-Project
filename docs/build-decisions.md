@@ -22,8 +22,8 @@ Sources: SYNTHESIS-website-build-brief.md + full build prompt (2026-06-15)
 
 ### Palette (locked — no deviation)
 ```
---color-bg:      #F7F3EC   dominant background (60%)
---color-text:    #1C2B1E   body text (near-black, green cast)
+--color-bg:      #F4EFE6   dominant background (60%)
+--color-text:    #1C1A17   body text (near-black)
 --color-meadow:  #4A6741   sage green (UI/brand elements)
 --color-earth:   #A85533   terracotta (CTAs only)
 --color-straw:   #C9A96E   amber (hairlines/hover only — NEVER body text)
@@ -47,10 +47,10 @@ Sources: SYNTHESIS-website-build-brief.md + full build prompt (2026-06-15)
 
 ### Typography
 ```
---font-display:  'Fraunces Variable', 'Playfair Display', Georgia, serif
+--font-display:  'Newsreader Variable', Georgia, serif
 --font-body:     'DM Sans Variable', system-ui, sans-serif
 ```
-Installed via: `@fontsource-variable/fraunces` + `@fontsource-variable/dm-sans`
+Installed via: `@fontsource-variable/newsreader` + `@fontsource-variable/dm-sans`
 Imported in global.css via `@import` (Vite resolves bare module specifiers in CSS)
 
 **Font traps avoided:**
@@ -148,7 +148,13 @@ After any change to `public/js/main.js` or any file in `public/js/`, bump the `?
 
 ## Forms
 
-**Current state:** Formspree placeholder (zero-cost, immediate)
+**Current state (2026-08-10):** Tally. Formspree was retired 2026-07-05 and must not
+come back. `IndividualSignup.astro` was the last component still holding a live
+Formspree endpoint; it had stopped rendering on the page entirely and was archived
+2026-08-10 to `vault/archive/rooted-film/`. The Cloudflare Worker plan below was
+never built and Tally replaced the need for it — kept here as history, not as a TODO.
+
+**Superseded plan:** Formspree placeholder (zero-cost, immediate)
 **Before launch:** Replace with Cloudflare Worker using write-to-queue-first pattern:
 - Worker accepts POST
 - Writes address to queue
@@ -180,3 +186,36 @@ After any change to `public/js/main.js` or any file in `public/js/`, bump the `?
 4. **Build command:** `npm run build`  |  **Output directory:** `dist`
 
 Full sequence: docs/deploy-checklist.md
+
+
+---
+
+## 2026-08-10 corrections
+
+Three things in this document were wrong for months, and each one had already cost
+something by the time it was caught.
+
+**The palette drifted and the doc did not follow.** `--color-bg` and `--color-text`
+were changed in `global.css` — to #F4EFE6 and #1C1A17 — while this file still named
+#F7F3EC and #1C2B1E. Twenty-two component declarations still hardcoded the OLD hex
+values, so the page rendered two different creams and two different near-blacks at
+the same time. All twenty-two now use the tokens. If the palette changes again, it
+changes in `global.css` and here, in the same commit.
+
+**The display font is Newsreader, not Fraunces.** Same failure, smaller blast radius.
+
+**Three spacing tokens never existed.** `--space-5`, `--space-10` and `--space-20`
+were called twelve times across four components and defined nowhere, so the browser
+silently discarded every declaration using them. The Film section's two-column grid
+had no gap and the Coalition list had none either. Defined now, on the existing 4px
+grid. A missing CSS variable fails silently — nothing warns you — so the only defence
+is that a token is defined before it is used.
+
+## Scroll-reveal — visible by default (2026-08-10)
+
+`main.js` hides every section at opacity 0 and reveals it on scroll. Anything that
+renders the page WITHOUT scrolling — a link-preview screenshot, a print-to-PDF engine,
+an automated capture — therefore photographed a page of empty cream. A three-second
+no-scroll backstop now reveals everything, and the Support section carries `data-static`
+so the one part of the page that asks for money never depends on the mechanism at all.
+Real visitors are unaffected: they scroll, so the fade plays as designed.

@@ -41,11 +41,20 @@
   --space-2:  8px;
   --space-3:  12px;
   --space-4:  16px;
+  --space-5:  20px;
   --space-6:  24px;
   --space-8:  32px;
+  --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
+  --space-20: 80px;
   --space-24: 96px;
+  /* 5, 10 and 20 were added 2026-08-10. Components had been calling them for
+     months — 12 uses across Coalition, FilmDetails, StoriesSection and the CTA
+     panel — and a CSS variable that does not exist fails silently: the browser
+     throws the whole declaration away. The Film section's two-column grid was
+     running with no gap at all, and the Coalition partner list with none either.
+     Values follow the existing 4px grid, so nothing else shifts. */
 
   /* Radius */
   --radius-sm: 4px;
@@ -230,4 +239,20 @@ video {
 [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+}
+
+/* Force-visible, no transition involved.
+   `.is-visible` alone is not enough in every environment. A browser freezes
+   transition clocks while the document is hidden, so a section that has just
+   been given `.is-visible` sits at opacity 0 with its transition reported as
+   "running, currentTime: 0" — started, and never advancing. Confirmed live
+   2026-08-10 on .tallamy-feature and .meadow-break in a backgrounded pane.
+   Anything rendering the page without it being frontmost — a link-preview
+   screenshot, a print job, an automated capture — hits exactly this.
+   So the safety net in main.js adds THIS class, which lands on the final
+   values directly and takes the transition out of the path. */
+[data-reveal].reveal-now {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }

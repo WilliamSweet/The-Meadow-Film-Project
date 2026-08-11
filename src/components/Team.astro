@@ -42,6 +42,40 @@ const team = [
     imgH: 200,
   },
 ];
+
+/*
+  Camera & Sound — the shooting crew. Deliberately portrait-free: the four
+  above are the film's authors and carry the visual weight; adding four more
+  circular portraits would flatten that hierarchy into eight equal faces.
+  Same title used twice per department on purpose — the credential line does
+  the distinguishing, not a state name.
+*/
+const crew = [
+  {
+    name: 'Luke Geissbühler',
+    role: 'Cinematographer',
+    credential: 'Oscar-nominated, Emmy-winning — Borat, Fahrenheit 11/9, Buck',
+    bio: "Luke is an Oscar-nominated, Emmy-winning cinematographer whose credits include Borat, Michael Moore's Fahrenheit 11/9, and Buck, which won the Audience Award at Sundance. He also shot Helvetica, Objectified, and Urbanized, and Netflix's Abstract: The Art of Design. He founded Microcrews, a consortium of filmmakers built for small, fast crews.",
+  },
+  {
+    name: 'Brian Troy',
+    role: 'Cinematographer',
+    credential: "Director of photography, HBO's The Garden Chronicles",
+    bio: "Brian is a cinematographer who shot HBO's The Garden Chronicles, filmed down the center of the Yangtze River, and interviewed His Holiness the Dalai Lama. His work has aired on Netflix, Amazon, Apple TV, Max, and Showtime, and reached the front page of the Wall Street Journal. He runs 1985 Films, his own production company in Philadelphia.",
+  },
+  {
+    name: 'Matt Sutton',
+    role: 'Production Sound Mixer',
+    credential: 'The Lottery · Best Kept Secret',
+    bio: "Matt has recorded documentary sound from Alaska to Iraq, for HBO, the BBC, PBS, Al Jazeera, and Discovery. He recorded The Lottery, one of fifteen films shortlisted for the Best Documentary Feature Oscar, and Best Kept Secret, which won a Peabody and aired on PBS's POV.",
+  },
+  {
+    name: 'Nick Bohun',
+    role: 'Production Sound Mixer',
+    credential: 'Here Alone · This Is Not a War Story',
+    bio: "Nick recorded Here Alone, which won the Audience Award for Best Narrative Feature at Tribeca, and the Adirondack unit of The Climb, which premiered at Cannes and was released by Sony Pictures Classics. He is also a composer — on Blood for Dust and HBO Max's This Is Not a War Story he recorded the sound on location, then wrote the music for it.",
+  },
+];
 ---
 <section class="team" id="team" aria-labelledby="team-heading">
   <div class="container">
@@ -66,6 +100,20 @@ const team = [
           </div>
         </article>
       ))}
+    </div>
+
+    <div class="crew-block">
+      <h3 class="crew-heading">Camera &amp; Sound</h3>
+      <div class="crew-grid">
+        {crew.map((member) => (
+          <article class="crew-card">
+            <p class="crew-role">{member.role}</p>
+            <h4 class="crew-name">{member.name}</h4>
+            <p class="crew-credential">{member.credential}</p>
+            <p class="crew-bio">{member.bio}</p>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
@@ -154,8 +202,78 @@ const team = [
     max-width: 52ch;
   }
 
+  /* ── Camera & Sound ─────────────────────────────────────────────────────
+     Secondary tier. No portraits, smaller type, one straw hairline above —
+     the same separator grammar used between sections, so the block reads as
+     a subordinate register of The Team rather than a second section.      */
+  .crew-block {
+    margin-top: var(--space-16);
+    padding-top: var(--space-12);
+    border-top: 1px solid rgba(201, 169, 110, 0.28);
+  }
+
+  .crew-heading {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    color: var(--color-meadow); /* 5.74:1 on cream — WCAG AA */
+    margin-bottom: var(--space-8);
+  }
+
+  .crew-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8) var(--space-16);
+  }
+
+  .crew-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .crew-role {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+    color: var(--color-meadow);
+  }
+
+  .crew-name {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    font-style: italic;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .crew-credential {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    opacity: 0.65;
+  }
+
+  .crew-bio {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.7;
+    opacity: 0.8;
+    margin-top: var(--space-2);
+    max-width: 52ch;
+  }
+
   @media (max-width: 640px) {
     .team-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .crew-grid {
       grid-template-columns: 1fr;
       gap: var(--space-8);
     }

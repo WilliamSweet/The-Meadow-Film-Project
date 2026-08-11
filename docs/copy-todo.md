@@ -1,4 +1,23 @@
 # Copy TODO — ROOTED Documentary Site
+
+> ⚠️ **STALE as of 2026-08-10 — read this first.** Six of the seven placeholders below
+> were filled long ago and this file was never updated, so it now describes a site that
+> no longer exists. Current status of each:
+>
+> | # | Item | Status |
+> |---|------|--------|
+> | 1 | Founding Partner benefit statement | **DONE** — written into the CTA panel |
+> | 2 | Founding Partner deadline | **DONE** — September 13, 2026 |
+> | 3 | Formspree endpoint | **VOID** — Formspree retired 2026-07-05; forms run on Tally |
+> | 4 | Fathom site ID | **VOID** — analytics run on Umami, Fathom never enabled |
+> | 5 | Font preload paths | **OPEN** — still commented out, an LCP item |
+> | 6 | Contact email domain | **OPEN** — still `meadowfilm.hello@gmail.com`; the site owns meadowfilm.studio |
+> | 7 | Coalition logo wall at 12+ partners | **OPEN** — still a text list |
+>
+> The original text is kept below unedited, as the record of what was planned.
+
+---
+
 Every placeholder in the live site, numbered. All must be filled before launch.
 
 ---

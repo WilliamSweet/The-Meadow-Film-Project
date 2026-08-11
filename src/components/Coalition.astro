@@ -57,6 +57,7 @@ import { anchorPartners, wallPartners } from '../data/partners';
             </span>
             <span class="coalition-name">{partner.name}</span>
           </a>
+          <p class="coalition-blurb">{partner.descriptor}</p>
         </li>
       ))}
     </ul>
@@ -163,7 +164,9 @@ import { anchorPartners, wallPartners } from '../data/partners';
 
   .coalition-item {
     flex: 0 1 auto;
-    max-width: 260px;
+    max-width: 300px;
+    /* Anchor for the hover blurb below. */
+    position: relative;
   }
 
   .coalition-entry {
@@ -181,13 +184,15 @@ import { anchorPartners, wallPartners } from '../data/partners';
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    height: 80px;
+    /* 96px at five partners. Drop this one value as the roster grows —
+       it is the single knob that rebalances the whole section. */
+    height: 96px;
     margin-bottom: var(--space-4);
   }
 
   .coalition-logo {
     max-height: 100%;
-    max-width: 220px;
+    max-width: 260px;
     width: auto;
     object-fit: contain;
     object-position: left center;
@@ -205,23 +210,103 @@ import { anchorPartners, wallPartners } from '../data/partners';
   .coalition-name {
     display: block;
     font-family: var(--font-display);
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     font-weight: 700;
     color: var(--color-text);
     letter-spacing: -0.01em;
     line-height: 1.2;
     text-wrap: balance;
-    transition: color var(--duration-base) var(--ease-out-expo);
+    /* Dotted underline is the affordance: it tells you there is more here
+       without a "hover me" instruction or an icon. */
+    border-bottom: 1px dotted rgba(28, 26, 23, 0.28);
+    padding-bottom: 2px;
+    transition: color var(--duration-base) var(--ease-out-expo),
+                border-color var(--duration-base) var(--ease-out-expo);
   }
 
-  .coalition-entry:hover .coalition-name {
+  .coalition-item:hover .coalition-name,
+  .coalition-item:focus-within .coalition-name {
     color: var(--color-earth);
+    border-bottom-color: var(--color-earth);
   }
 
   .coalition-entry:focus-visible {
     outline: 2px solid var(--color-earth);
     outline-offset: 6px;
     border-radius: 2px;
+  }
+
+  /* ── Hover blurb ────────────────────────────────────────────────────────
+     What each partner actually does, revealed on hover or keyboard focus.
+
+     OVERLAY, not inline: it is absolutely positioned so revealing it never
+     reflows the row. An inline reveal would shove every other partner
+     sideways the instant the cursor crossed a name — the section would
+     twitch as you moved across it.
+
+     Animates opacity and transform only — never height or max-height,
+     which would force a layout recalculation on every frame.             */
+  .coalition-blurb {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 5;
+    width: 300px;
+    max-width: 90vw;
+    margin-top: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-bg);
+    border: 1px solid rgba(201, 169, 110, 0.5);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 6px 24px rgba(28, 26, 23, 0.1);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 180ms var(--ease-out-expo),
+                transform 180ms var(--ease-out-expo),
+                visibility 180ms;
+    pointer-events: none;
+  }
+
+  .coalition-item:hover .coalition-blurb,
+  .coalition-item:focus-within .coalition-blurb {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* A touch screen has no hover. Without this the blurbs would be
+     unreachable on every phone and tablet — so there they simply live
+     inline, always visible, no overlay and no reveal. */
+  @media (hover: none) {
+    .coalition-blurb {
+      position: static;
+      width: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      background: none;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin-top: var(--space-2);
+      opacity: 0.72;
+    }
+
+    .coalition-name {
+      border-bottom: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .coalition-blurb {
+      transition: opacity 0.01ms, visibility 0.01ms;
+      transform: none;
+    }
   }
 
   /* ── Logo wall — scales to 20–30+ without crowding ─ */

@@ -17,31 +17,46 @@ import { anchorPartners, wallPartners } from '../data/partners';
       <p class="coalition-stats">{coalitionStats.foundingPartners} founding partners &middot; {coalitionStats.acresPlanted} acres logged on the HNP Biodiversity Map &middot; {coalitionStats.corridorTowns}+ corridors</p>
     </div>
 
+    <!--
+      CREDITS TREATMENT — 2026-08-11.
+      Was: one partner per full-width row, logo stacked over name over
+      descriptor. That ran 295px per partner — 2,081px total for five —
+      while the text only used 739px of a 1,200px container, leaving 461px
+      of dead space on the right of every row.
+
+      Now: a wrapped run, the way a film credits its supporters. Logos got
+      BIGGER (64px -> 80px box), not smaller — the whole job of this section
+      is that a visitor recognises these names and wants to be among them.
+      The compression comes from killing the one-per-row stacking, not from
+      hiding anybody.
+
+      Deliberately NOT a side-by-side image/text pair: six other sections
+      already use that layout and a seventh would make the page read as one
+      template on repeat. Deliberately NOT a card grid — impeccable bans it.
+
+      Descriptors dropped: the header line above already reads "5 founding
+      partners · 170,000+ acres logged · 300+ corridors," which is where
+      those same numbers were coming from.
+    -->
     <ul class="coalition-list" aria-label="Founding coalition partners">
       {anchorPartners.map((partner) => (
         <li class="coalition-item">
-          <div class="coalition-rule" aria-hidden="true"></div>
-          {partner.logo && (
-            <div class="coalition-logo-wrap">
+          <a
+            class="coalition-entry"
+            href={partner.url}
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="coalition-logo-slot">
               <img
                 class="coalition-logo"
                 src={partner.logo}
                 alt={partner.logoAlt}
-                loading="lazy"
+                loading="eager"
               />
-            </div>
-          )}
-          {partner.url ? (
-            <a
-              class="coalition-name coalition-name--link"
-              href={partner.url}
-              target="_blank"
-              rel="noopener"
-            >{partner.name}</a>
-          ) : (
+            </span>
             <span class="coalition-name">{partner.name}</span>
-          )}
-          <p class="coalition-descriptor">{partner.descriptor}</p>
+          </a>
         </li>
       ))}
     </ul>
@@ -130,81 +145,83 @@ import { anchorPartners, wallPartners } from '../data/partners';
     letter-spacing: 0.04em;
   }
 
-  /* ── List ───────────────────────────────────────── */
+  /* ── List — a wrapped run, not one per row ──────────────────────────────
+     flex-wrap, not grid: the entries are different widths (a wide wordmark
+     vs a square husky vs a long org name) and should sit at their natural
+     size rather than be forced into equal columns. Equal columns is what
+     makes a logo row read as a template.                                  */
   .coalition-list {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    gap: 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-12) var(--space-16);
+    margin-top: var(--space-12);
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--color-amber);
   }
 
   .coalition-item {
-    padding-top: var(--space-10);
-    padding-bottom: var(--space-10);
+    flex: 0 1 auto;
+    max-width: 260px;
   }
 
-  /* ── Rule ───────────────────────────────────────── */
-  .coalition-rule {
-    width: 100%;
-    height: 1px;
-    background: var(--color-amber);
-    opacity: 0.35;
-    margin-bottom: var(--space-6);
+  .coalition-entry {
+    display: block;
+    text-decoration: none;
   }
 
-  /* ── Logo ───────────────────────────────────────── */
-  .coalition-logo-wrap {
+  /* ── Logo ───────────────────────────────────────────────────────────────
+     A fixed-height SLOT, not a fixed-height image. These five logos have
+     wildly different proportions — a wide horizontal wordmark next to a
+     square icon — and sizing by image height alone makes the wordmark
+     enormous and the icon tiny. The slot gives each one the same visual
+     weight regardless of its shape.                                       */
+  .coalition-logo-slot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 80px;
     margin-bottom: var(--space-4);
   }
 
   .coalition-logo {
-    display: block;
-    height: 64px;
+    max-height: 100%;
+    max-width: 220px;
     width: auto;
-    max-width: 320px;
     object-fit: contain;
     object-position: left center;
-    opacity: 0.9;
+    /* Full opacity. At 0.9 the NDAL mark — already a pale logo — washed out
+       against the cream and read as less real than the others. A founding
+       partner should never look faded on the page that thanks them. */
+    opacity: 1;
     mix-blend-mode: multiply;
   }
 
-  /* ── Name ───────────────────────────────────────── */
+  /* ── Name ───────────────────────────────────────────────────────────────
+     Down from 40px. At 40px each name demanded its own row; at 20px five
+     names fit the eye at once, which is what makes a coalition read as a
+     coalition rather than a list of separate announcements.               */
   .coalition-name {
     display: block;
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-size: var(--text-lg);
     font-weight: 700;
-    font-style: normal;
     color: var(--color-text);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: var(--space-3);
-    text-decoration: none;
-  }
-
-  .coalition-name--link {
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    text-wrap: balance;
     transition: color var(--duration-base) var(--ease-out-expo);
   }
 
-  .coalition-name--link:hover {
+  .coalition-entry:hover .coalition-name {
     color: var(--color-earth);
   }
 
-  .coalition-name--link:focus-visible {
+  .coalition-entry:focus-visible {
     outline: 2px solid var(--color-earth);
-    outline-offset: 3px;
+    outline-offset: 6px;
     border-radius: 2px;
-  }
-
-  /* ── Descriptor ─────────────────────────────────── */
-  .coalition-descriptor {
-    font-family: var(--font-body);
-    font-size: var(--text-base);
-    color: var(--color-text);
-    opacity: 0.65;
-    line-height: 1.55;
-    max-width: 60ch;
-    text-wrap: pretty;
   }
 
   /* ── Logo wall — scales to 20–30+ without crowding ─ */

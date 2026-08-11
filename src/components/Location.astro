@@ -14,7 +14,7 @@
 const slides = [
   {
     src: '/images/shoot-2026-08-05/dobbins-copper-sculpture.webp',
-    alt: "Two of Paul Dobbins's copper sculptures standing in a bank of black-eyed Susans on the Dobbins property in Fairfield, Connecticut",
+    alt: "Two of Paul Dobbins's copper sculptures standing in a bank of black-eyed Susans on the Dobbins property",
   },
   {
     src: '/images/shoot-2026-08-05/dobbins-maggie-paul-frame.webp',
@@ -22,7 +22,7 @@ const slides = [
   },
   {
     src: '/images/shoot-2026-08-05/steve-zatz-interview.webp',
-    alt: 'Steve Zatz being interviewed on his New Canaan property',
+    alt: 'Steve Zatz being interviewed on his property',
   },
 ];
 ---
@@ -107,16 +107,14 @@ const slides = [
         -->
         <ul class="subject-list">
           <li class="subject">
-            <p class="subject-place">New Canaan, Connecticut</p>
             <h3 class="subject-name">Steve Zatz</h3>
             <p class="subject-line">
-              The former chief executive of WebMD, who built one of Fairfield County's
-              most ambitious native landscapes from scratch. His line is that grass is
+              The former chief executive of WebMD, who built one of the most ambitious
+              native landscapes in Connecticut from scratch. His line is that grass is
               &ldquo;essentially a bio-desert.&rdquo;
             </p>
           </li>
           <li class="subject">
-            <p class="subject-place">Fairfield, Connecticut</p>
             <h3 class="subject-name">Maggie and Paul Dobbins</h3>
             <p class="subject-line">
               Maggie and Paul moved from the Bay Area to Fairfield in 2021 and began
@@ -290,8 +288,9 @@ const slides = [
 
   /* ── Subjects ───────────────────────────────────────────────────────────
      Same grammar as the Camera & Sound block: a straw hairline above each
-     entry, a small-caps place line, the name, then one sentence. Nothing is
-     bolded inside prose — the name is a heading because it IS one.        */
+     entry, the name, then one sentence. No town/state line — William asked
+     for it dropped 2026-08-10. Nothing is bolded inside prose — the name
+     is a heading because it IS one.                                       */
   .subject-list {
     list-style: none;
     margin: var(--space-8) 0 0;
@@ -305,14 +304,6 @@ const slides = [
 
   .subject + .subject {
     margin-top: var(--space-6);
-  }
-
-  .subject-place {
-    font-family: var(--font-body);
-    font-size: var(--text-xs);
-    font-variant: small-caps;
-    letter-spacing: 0.12em;
-    color: var(--color-meadow); /* 5.74:1 on cream — WCAG AA */
   }
 
   .subject-name {

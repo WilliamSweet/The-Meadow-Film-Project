@@ -13,7 +13,10 @@
       <li><a href="#film"    class="nav-link" data-nav-link>Film</a></li>
     </ul>
 
-    <a href="#founding-partner" class="btn btn-primary nav-cta">Join the Coalition</a>
+    <div class="nav-actions">
+      <a href="#support" class="btn nav-cta nav-cta--ghost">Support the Film</a>
+      <a href="#founding-partner" class="btn btn-primary nav-cta">Join the Coalition</a>
+    </div>
   </div>
 </nav>
 
@@ -111,11 +114,51 @@
     border-bottom-color: rgba(247, 243, 236, 0.55);
   }
 
-  /* ── CTA button ── */
+  /* ── CTA buttons ── */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-shrink: 0;
+  }
+
   .nav-cta {
     padding: var(--space-2) var(--space-6);
     font-size: 0.625rem;
     flex-shrink: 0;
+  }
+
+  /* Ghost variant — the funding ask, sitting next to the coalition ask.
+     One filled button pulling for two different asks would flatten the
+     choice between them; this one stays quiet so "Join the Coalition"
+     keeps first weight, the way it did before this button existed. */
+  .nav-cta--ghost {
+    background: transparent;
+    border: 1px solid rgba(247, 243, 236, 0.55);
+    color: var(--color-bg);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+    transition: border-color var(--duration-base) var(--ease-out-expo),
+                background-color var(--duration-base) var(--ease-out-expo),
+                color var(--duration-base) var(--ease-out-expo);
+  }
+
+  .nav-cta--ghost:hover,
+  .nav-cta--ghost:focus-visible {
+    border-color: var(--color-bg);
+    background-color: rgba(247, 243, 236, 0.12);
+  }
+
+  .nav--scrolled .nav-cta--ghost {
+    border-color: rgba(28, 26, 23, 0.32);
+    color: var(--color-text);
+    text-shadow: none;
+  }
+
+  .nav--scrolled .nav-cta--ghost:hover,
+  .nav--scrolled .nav-cta--ghost:focus-visible {
+    border-color: var(--color-earth);
+    color: var(--color-earth);
+    background-color: rgba(168, 85, 51, 0.06);
   }
 
   /* ── JS fallback: solid state past hero (older browsers only) ── */
@@ -197,6 +240,12 @@
     .nav-cta {
       padding: var(--space-2) var(--space-4);
       letter-spacing: 0.04em;
+    }
+
+    /* One ask fits a phone header without crowding the logo; the donation
+       ask is still one scroll away in the Support section itself. */
+    .nav-cta--ghost {
+      display: none;
     }
   }
 </style>

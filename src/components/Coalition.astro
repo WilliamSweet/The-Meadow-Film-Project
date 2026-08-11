@@ -208,7 +208,14 @@ import { anchorPartners, wallPartners } from '../data/partners';
      names fit the eye at once, which is what makes a coalition read as a
      coalition rather than a list of separate announcements.               */
   .coalition-name {
-    display: block;
+    /* flex + a 2-line min-height, not block: "Homegrown National Park" wraps
+       to two lines and "Doug Tallamy" doesn't, so a plain block let their
+       dotted underlines land at two different heights within the same row —
+       the thing that read as "not in the same line." align-items: flex-end
+       pins every underline to the same baseline regardless of wrap. */
+    display: flex;
+    align-items: flex-end;
+    min-height: 2.4em;
     font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 700;
@@ -244,8 +251,17 @@ import { anchorPartners, wallPartners } from '../data/partners';
      sideways the instant the cursor crossed a name — the section would
      twitch as you moved across it.
 
-     Animates opacity and transform only — never height or max-height,
-     which would force a layout recalculation on every frame.             */
+     Reads as a real card, not a browser tooltip: its own off-white (not
+     the page's cream) so it visibly lifts off the background, a caret
+     pointing at the name it belongs to, and a two-layer shadow (a tight
+     ambient one plus a soft earth-toned one) instead of one flat blur.
+
+     The entrance and exit are deliberately asymmetric. Entering waits 70ms
+     before animating — long enough that a cursor passing over a name on
+     its way to another doesn't spawn a card, short enough that a real stop
+     feels instant. Leaving has no delay, so pulling away is snappy rather
+     than sticky. Animates opacity/transform/visibility only — never height,
+     which would force a layout recalculation on every frame.              */
   .coalition-blurb {
     position: absolute;
     top: 100%;
@@ -253,30 +269,51 @@ import { anchorPartners, wallPartners } from '../data/partners';
     z-index: 5;
     width: 300px;
     max-width: 90vw;
-    margin-top: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-bg);
-    border: 1px solid rgba(201, 169, 110, 0.5);
-    border-radius: var(--radius-sm);
-    box-shadow: 0 6px 24px rgba(28, 26, 23, 0.1);
+    margin-top: var(--space-4);
+    padding: var(--space-5);
+    background: #FBF8F2;
+    border: 1px solid rgba(201, 169, 110, 0.45);
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 8px rgba(28, 26, 23, 0.06),
+                0 16px 32px -8px rgba(168, 85, 51, 0.18);
     font-family: var(--font-body);
     font-size: var(--text-sm);
     line-height: 1.6;
     color: var(--color-text);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-4px);
-    transition: opacity 180ms var(--ease-out-expo),
-                transform 180ms var(--ease-out-expo),
-                visibility 180ms;
+    transform-origin: top left;
+    transform: translateY(-6px) scale(0.97);
+    transition: opacity 220ms var(--ease-out-expo),
+                transform 220ms var(--ease-out-expo),
+                visibility 220ms;
+    transition-delay: 0ms;
     pointer-events: none;
+  }
+
+  /* The caret — a rotated square clipped to its top-left corner — is what
+     turns a floating rectangle into something that visibly belongs to the
+     name above it, the way a speech bubble belongs to its speaker. */
+  .coalition-blurb::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: var(--space-5);
+    width: 12px;
+    height: 12px;
+    background: #FBF8F2;
+    border-left: 1px solid rgba(201, 169, 110, 0.45);
+    border-top: 1px solid rgba(201, 169, 110, 0.45);
+    border-radius: 2px 0 0 0;
+    transform: rotate(45deg);
   }
 
   .coalition-item:hover .coalition-blurb,
   .coalition-item:focus-within .coalition-blurb {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    transition-delay: 70ms;
   }
 
   /* A touch screen has no hover. Without this the blurbs would be
@@ -297,6 +334,10 @@ import { anchorPartners, wallPartners } from '../data/partners';
       opacity: 0.72;
     }
 
+    .coalition-blurb::before {
+      display: none;
+    }
+
     .coalition-name {
       border-bottom: none;
     }
@@ -305,6 +346,12 @@ import { anchorPartners, wallPartners } from '../data/partners';
   @media (prefers-reduced-motion: reduce) {
     .coalition-blurb {
       transition: opacity 0.01ms, visibility 0.01ms;
+      transform: none;
+    }
+
+    .coalition-item:hover .coalition-blurb,
+    .coalition-item:focus-within .coalition-blurb {
+      transition-delay: 0ms;
       transform: none;
     }
   }

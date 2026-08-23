@@ -10,6 +10,9 @@
 /js/*
   Cache-Control: no-cache, must-revalidate
 
+/favicon.png
+  Cache-Control: no-cache, must-revalidate
+
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff

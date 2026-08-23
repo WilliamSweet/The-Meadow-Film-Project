@@ -3,7 +3,10 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <nav class="nav" id="nav" aria-label="Site navigation">
   <div class="nav-inner container">
-    <a href="/" class="nav-logo" aria-label="meadowfilm.studio — return to top">meadowfilm.studio</a>
+    <a href="/" class="nav-logo" aria-label="meadowfilm.studio — return to top">
+      <img src="/images/mark-nav.png" alt="" aria-hidden="true" width="383" height="400" class="nav-mark" />
+      <span class="nav-logo-text">meadowfilm.studio</span>
+    </a>
 
     <ul class="nav-links" role="list" aria-label="Page sections">
       <li><a href="#about"   class="nav-link" data-nav-link>About</a></li>
@@ -50,6 +53,9 @@
 
   /* ── Logo ── */
   .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
     font-family: var(--font-display);
     font-size: var(--text-xl);
     font-weight: 900;
@@ -60,6 +66,23 @@
     flex-shrink: 0;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
     position: relative;
+  }
+
+  /* ── The mark ──
+     One asset, two states. The artwork is black ink on transparency, so the
+     transparent-over-hero state inverts it to cream and the solid state lets
+     it sit black — the same flip the wordmark makes, driven by the same
+     .nav--scrolled class rather than a second image file. */
+  .nav-mark {
+    height: 1.5em;
+    width: auto;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1) drop-shadow(0 1px 6px rgba(0, 0, 0, 0.45));
+    transition: filter var(--duration-base) var(--ease-out-expo);
+  }
+
+  .nav--scrolled .nav-mark {
+    filter: none;
   }
 
   /* The wordmark's text box is 23px tall. On a touch screen that is a miss

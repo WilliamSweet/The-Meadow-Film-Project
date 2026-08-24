@@ -1,6 +1,7 @@
 ---
 import { coalitionStats } from '../coalition-stats';
 import { anchorPartners, wallPartners } from '../data/partners';
+import { responsive } from '../lib/images';
 ---
 <section class="coalition" id="coalition" aria-labelledby="coalition-heading">
   <div class="container">
@@ -51,8 +52,11 @@ import { anchorPartners, wallPartners } from '../data/partners';
               <img
                 class="coalition-logo"
                 src={partner.logo}
+                width={responsive(partner.logo).width}
+                height={responsive(partner.logo).height}
                 alt={partner.logoAlt}
-                loading="eager"
+                loading="lazy"
+                decoding="async"
               />
             </span>
             <span class="coalition-name">{partner.name}</span>
@@ -78,6 +82,8 @@ import { anchorPartners, wallPartners } from '../data/partners';
                 <img
                   class="coalition-wall-logo"
                   src={partner.logo}
+                  width={responsive(partner.logo).width}
+                  height={responsive(partner.logo).height}
                   alt={partner.logoAlt}
                   loading="lazy"
                 />

@@ -48,6 +48,9 @@ const group3 = [
     description: 'One hour on a gas mower produces as much air pollution as driving 100 miles — before you\'ve left your yard.',
   },
 ];
+import { responsive } from '../lib/images';
+const solidago = responsive('/images/botanical-solidago-watercolor.webp');
+const milkweed = responsive('/images/botanical-milkweed-lounsberry.webp');
 ---
 <section class="stats" id="impact" aria-labelledby="stats-label">
   <div class="stats-texture" aria-hidden="true">
@@ -57,17 +60,27 @@ const group3 = [
   </div>
   <img
     class="stats-botanical stats-botanical--right"
-    src="/images/botanical-solidago-watercolor.webp"
+    src={solidago.src}
+    srcset={solidago.srcset}
+    width={solidago.width}
+    height={solidago.height}
+    sizes="(min-width: 768px) 300px, 30vw"
     alt=""
     aria-hidden="true"
-    loading="eager"
+    loading="lazy"
+    decoding="async"
   />
   <img
     class="stats-botanical stats-botanical--left"
-    src="/images/botanical-milkweed-lounsberry.webp"
+    src={milkweed.src}
+    srcset={milkweed.srcset}
+    width={milkweed.width}
+    height={milkweed.height}
+    sizes="(min-width: 768px) 300px, 30vw"
     alt=""
     aria-hidden="true"
-    loading="eager"
+    loading="lazy"
+    decoding="async"
   />
   <div class="container">
     <p class="sr-only" id="stats-label">Impact statistics</p>

@@ -1,19 +1,29 @@
 ---
 const quote = "“If you have watched a bulldozer destroy a part of the natural world you loved, you can picture what used to exist in the areas that are now lawn. We can and must restore what once thrived in our yards. Few things are as rewarding as watching life return!”";
+import { responsive } from '../lib/images';
+const tallamyPhoto = responsive('/images/doug-tallamy.webp');
+const tallamyBotanical = responsive('/images/botanical-solidago-linedrawing.webp');
 ---
 <section class="tallamy-feature" id="tallamy" aria-labelledby="tallamy-heading" data-reveal>
   <img
     class="tallamy-botanical"
-    src="/images/botanical-solidago-linedrawing.webp"
+    src={tallamyBotanical.src}
+    srcset={tallamyBotanical.srcset}
+    width={tallamyBotanical.width}
+    height={tallamyBotanical.height}
+    sizes="(min-width: 768px) 40vw, 70vw"
     alt=""
     aria-hidden="true"
-    loading="eager"
+    loading="lazy"
+    decoding="async"
   />
   <div class="container tallamy-grid">
     <div class="tallamy-portrait">
       <img
         class="tallamy-photo"
-        src="/images/doug-tallamy.webp"
+        src={tallamyPhoto.src}
+        srcset={tallamyPhoto.srcset}
+        sizes="320px"
         alt="Doug Tallamy, University of Delaware"
         width="320"
         height="320"

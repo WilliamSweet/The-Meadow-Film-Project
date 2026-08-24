@@ -7,6 +7,8 @@ const details = [
   { label: 'Created by', value: 'William Sweet' },
   { label: 'Production', value: 'Native Revolution Pictures LLC' },
 ];
+import { responsive } from '../lib/images';
+const detailsImg = responsive('/images/native-blackeyed-susan-meadow.webp');
 ---
 <section class="details" id="film" aria-labelledby="details-heading">
   <div class="container">
@@ -27,7 +29,9 @@ const details = [
       <div class="details-image">
         <img
           class="img-details"
-          src="/images/native-blackeyed-susan-meadow.webp"
+          src={detailsImg.src}
+          srcset={detailsImg.srcset}
+          sizes="(min-width: 768px) 50vw, 100vw"
           alt="Native black-eyed Susan meadow in bloom"
           width="960"
           height="640"

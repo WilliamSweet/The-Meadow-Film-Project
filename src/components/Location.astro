@@ -25,6 +25,7 @@ const slides = [
     alt: 'Steve Zatz being interviewed on his property',
   },
 ];
+import { responsive } from '../lib/images';
 ---
 <section class="location" id="people" aria-labelledby="location-heading">
   <div class="container">
@@ -52,9 +53,12 @@ const slides = [
               >
                 <img
                   class="carousel-img"
-                  src={slide.src}
+                  src={responsive(slide.src).src}
+                  srcset={responsive(slide.src).srcset}
+                  sizes="(min-width: 900px) 900px, 100vw"
                   alt={slide.alt}
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                 />
               </li>
             ))}

@@ -76,6 +76,7 @@ const crew = [
     bio: "Nick recorded Here Alone, which won the Audience Award for Best Narrative Feature at Tribeca, and the Adirondack unit of The Climb, which premiered at Cannes and was released by Sony Pictures Classics. He is also a composer — on Blood for Dust and HBO Max's This Is Not a War Story he recorded the sound on location, then wrote the music for it.",
   },
 ];
+import { responsive } from '../lib/images';
 ---
 <section class="team" id="team" aria-labelledby="team-heading">
   <div class="container">
@@ -85,7 +86,9 @@ const crew = [
         <article class="team-card">
           <img
             class="team-portrait"
-            src={member.imgSrc}
+            src={responsive(member.imgSrc).src}
+            srcset={responsive(member.imgSrc).srcset}
+            sizes="320px"
             alt={member.imgAlt}
             width={member.imgW}
             height={member.imgH}

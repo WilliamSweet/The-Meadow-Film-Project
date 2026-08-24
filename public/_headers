@@ -1,16 +1,34 @@
+# Cache policy (rewritten 2026-08-24 — mobile load-speed pass).
+#
+# Everything here was previously "no-cache, must-revalidate", including the
+# content-hashed /_astro/ bundle. That meant a repeat visitor re-fetched or
+# re-validated every file on every visit, which is why the site felt as slow
+# the second time as the first. Hashed filenames change whenever the content
+# changes, so they are safe to cache forever; HTML must never be cached, or
+# a deploy would not reach anyone.
+#
+# `immutable` is a browser directive — Cloudflare's edge follows max-age only.
+
+# Content-hashed by Astro (CSS, JS, fonts). Filename changes on every rebuild.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images keep stable filenames, so cache for a week and no longer.
+/images/*
+  Cache-Control: public, max-age=604800
+
+/favicon.png
+  Cache-Control: public, max-age=604800
+
+# Hand-written JS is cache-busted with ?v= — a day is plenty.
+/js/*
+  Cache-Control: public, max-age=86400
+
+# HTML must always be fresh so a deploy is visible immediately.
 /
   Cache-Control: no-cache, must-revalidate
 
 /*.html
-  Cache-Control: no-cache, must-revalidate
-
-/images/*
-  Cache-Control: no-cache, must-revalidate
-
-/js/*
-  Cache-Control: no-cache, must-revalidate
-
-/favicon.png
   Cache-Control: no-cache, must-revalidate
 
 /*

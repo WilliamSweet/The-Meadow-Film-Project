@@ -43,6 +43,7 @@ const stories = [
     bgSrc: '/images/native-goldenrod-gradient.webp',
   },
 ].map((s, i) => ({ ...s, side: i % 2 === 0 ? 'left' : 'right' }));
+import { responsive } from '../lib/images';
 ---
 
 <section class="stories" id="stories" aria-labelledby="stories-heading">
@@ -57,10 +58,13 @@ const stories = [
         {story.variant === 'dark' && story.bgSrc && (
           <img
             class="story-bg-img"
-            src={story.bgSrc}
+            src={responsive(story.bgSrc).src}
+            srcset={responsive(story.bgSrc).srcset}
+            sizes="100vw"
             alt=""
             aria-hidden="true"
-            loading="eager"
+            loading="lazy"
+            decoding="async"
           />
         )}
         {story.variant === 'dark' && (
@@ -69,17 +73,24 @@ const stories = [
         {story.variant === 'botanical' && story.botanicalSrc && (
           <img
             class:list={['story-botanical', story.botanicalSide === 'left' ? 'story-botanical--left' : 'story-botanical--right']}
-            src={story.botanicalSrc}
+            src={responsive(story.botanicalSrc).src}
+            srcset={responsive(story.botanicalSrc).srcset}
+            width={responsive(story.botanicalSrc).width}
+            height={responsive(story.botanicalSrc).height}
+            sizes="(min-width: 768px) 40vw, 60vw"
             alt=""
             aria-hidden="true"
-            loading="eager"
+            loading="lazy"
+            decoding="async"
           />
         )}
         <article class:list={['story-card', story.side === 'right' ? 'story-card--right' : 'story-card--left']} data-scroll-card>
           <div class="story-portrait">
             <img
               class="story-photo"
-              src={story.photo}
+              src={responsive(story.photo).src}
+              srcset={responsive(story.photo).srcset}
+              sizes="320px"
               alt={story.alt}
               width="320"
               height="320"

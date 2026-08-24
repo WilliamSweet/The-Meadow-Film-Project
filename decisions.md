@@ -103,3 +103,85 @@ pane stayed hidden throughout. The visible-state code path is unchanged apart fr
 backstop, but William should eyeball one scroll-through before deploying.
 
 `main.js` cache-bust bumped v=2 → v=6.
+
+## 2026-08-24 — Mobile load-speed pass: lazy loading, responsive image variants, real cache headers
+
+**Why William gave:** "my astro website ... is a bit slow when it loads in on phone ... I want the
+same website, but make it load faster." Same design, fewer bytes — nothing visual was allowed to
+change.
+
+**What was actually wrong** (measured against the live site, not guessed):
+1. `loading="eager"` on story backgrounds, coalition logos, carousel slides and every botanical —
+   ~3.2 MB of below-the-fold imagery competing with the hero for a phone's bandwidth.
+2. No `srcset` anywhere. A 2400px hero (295 KB) went whole to a 390px screen. `logo-hnp.png` was
+   4969 px / 417 KB for a 260px slot; `favicon.png` was 512×512 / 331 KB.
+3. `_headers` said `no-cache, must-revalidate` for images and JS, and the content-hashed `/_astro/`
+   bundle came back `cf-cache-status: DYNAMIC` — nothing cached, so a repeat visit was as slow as
+   the first.
+4. 14 MB of video in `public/video/` that no component references.
+
+**What changed:**
+- Every image except the hero and the nav mark is now `loading="lazy" decoding="async"`.
+- `scripts/gen-image-variants.mjs` (new) builds 480/768/1024/1440/1920 WebP variants into
+  `public/images/_r/` for every image src/ actually references, and `src/lib/images.ts` (new) hands
+  components the matching `srcset`. Wired as `npm run images` / `prebuild`. Astro cannot optimize
+  anything in `public/`, and moving 72 images into `src/assets/` would have touched every component
+  — this gets the same result without the refactor. Missing variants degrade to the original file,
+  so a build that skips the step still renders correctly.
+- 15 images now carry `srcset`; the hero is preloaded with matching `imagesrcset`, and the two fonts
+  actually used are preloaded (they were previously discovered only after the CSS parsed).
+- Four files re-encoded (originals in `.image-originals/`, also in git history): favicon 331→25 KB,
+  logo-hnp 417→33 KB (WebP), pollinator icon 306→27 KB (WebP), milkweed botanical 400→101 KB.
+  Side-by-side comparison at display size shows no visible difference.
+- `public/_headers` rewritten: `/_astro/*` immutable for a year, images a week, HTML never.
+- Fraunces dropped — it was only a fallback behind Newsreader and never rendered. `cormorant-sc`
+  was an unused dependency. `public/video/` moved to `unused-assets/video/` (kept, not deleted).
+
+**Result:** whole page at phone size, all 29 images, 4.83 MB → 1.38 MB. Before first paint the
+phone now fetches one 63 KB hero variant instead of ~3.2 MB of eager imagery.
+
+**Left alone deliberately:** GSAP/ScrollTrigger (117 KB, drives the parallax) — removing it would
+change how the site moves, and the instruction was same site, faster. ~11 MB of unreferenced photos
+in `public/images/` also stay; they are never requested by a visitor, so they cost deploy size only,
+and `public/images/sleepy-cat/` is reserved for a carousel per this project's CLAUDE.md.
+
+**Not verified yet:** the cache-header fix. `/images/*` on the live site returns
+`max-age=14400`, which matches neither the old nor the new `_headers` file — so something in the
+Cloudflare dashboard (a Cache Rule, or Development Mode) is overriding the file and needs checking
+there after the next deploy.
+
+## 2026-08-24 (same day, follow-up) — Lazy images need explicit width/height, or they never load at all
+
+**What broke:** William, on the first pass above: "seems a lot smoother, some images arent loading
+in." He was right. Switching the coalition logos and the botanical illustrations to
+`loading="lazy"` blanked them.
+
+**Why:** those images get one axis from CSS and leave the other on `auto` —
+`.coalition-logo` is `height: 48px; width: auto`, `.stats-botanical` and `.story-botanical` are
+`width: 22%/38%; height: auto`. With no `width`/`height` attributes the browser has no aspect ratio
+before the file arrives, so the element measures **0 px on the auto axis**. A zero-area element
+never intersects the viewport, so the native lazy loader never fires, so the file never arrives.
+Circular: it will not load because it has no size, and it has no size because it has not loaded.
+Measured live before the fix: `.coalition-logo` was `0x48`, `.story-botanical` `195x0`.
+
+It never showed up before because those images were `loading="eager"` — an eager image loads
+regardless of geometry, so the missing dimensions were invisible.
+
+**Fix:** `scripts/gen-image-variants.mjs` now also writes `src/lib/image-manifest.json` — intrinsic
+width and height for all 28 referenced images. `responsive()` returns them, and the five affected
+image spots (both coalition logo slots, the two stats botanicals, the story botanical, the Tallamy
+botanical) emit `width`/`height`. Same fix removes layout shift as a bonus.
+`.story-bg-img` and `.carousel-img` are deliberately left without attributes: both are sized 100% on
+*both* axes by CSS, so they were never at risk.
+
+**Verified after the fix:** zero images with zero area; coalition logos measure 203x48, 118x48,
+49x48, 38x48, 96x48 before their files load; all 29 images load on scroll; all 84 image URLs in the
+build resolve to a file; screenshots of the coalition wall and the stats band show every logo and
+both botanicals rendering.
+
+**Testing note for next time — cost me three wrong readings.** The Browser pane reports
+`document.visibilityState: "hidden"`, and Chrome suspends lazy-image loading in a hidden tab, so
+"image did not load" there proves nothing. Separately, the dev server died mid-session and served
+200s with empty bodies, which renders as a broken-image icon and looks exactly like a corrupt file.
+Check `preview_list` for a live process and fetch + `createImageBitmap` each URL before concluding
+an image is broken.

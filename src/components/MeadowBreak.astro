@@ -1,9 +1,13 @@
 ---
+import { responsive } from '../lib/images';
+const img = responsive('/images/fullbleed-meadow.webp');
 ---
 <section class="meadow-break" data-reveal aria-hidden="true">
   <img
     class="meadow-break-img"
-    src="/images/fullbleed-meadow.webp"
+    src={img.src}
+    srcset={img.srcset}
+    sizes="100vw"
     alt="Native meadow grasses in golden afternoon light"
     width="2400"
     height="1602"

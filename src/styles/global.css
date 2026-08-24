@@ -2,7 +2,6 @@
 /* Variable font packages — @font-face declarations handled by fontsource.     */
 /* Font families registered: 'Newsreader Variable', 'DM Sans Variable'         */
 @import '@fontsource-variable/newsreader';
-@import '@fontsource-variable/fraunces';
 @import '@fontsource-variable/dm-sans';
 
 /* ─── Design tokens ─────────────────────────────────────────────────────────── */
@@ -23,7 +22,7 @@
   --color-straw:      #C9A96E;
 
   /* Typography */
-  --font-display: 'Newsreader Variable', 'Fraunces Variable', Georgia, serif;
+  --font-display: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
   --font-body:    'DM Sans Variable', system-ui, sans-serif;
 
   /* Type scale — Perfect Fourth (1.333) */

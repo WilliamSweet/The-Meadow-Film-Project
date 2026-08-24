@@ -1,4 +1,6 @@
 ---
+import { responsive } from '../lib/images';
+const premiseImg = responsive('/images/meadow-project-litchfield.webp');
 ---
 <section class="premise" id="about" aria-labelledby="premise-heading" data-static>
   <div class="container">
@@ -20,7 +22,9 @@
         <figure class="premise-figure">
           <img
             class="img-premise"
-            src="/images/meadow-project-litchfield.webp"
+            src={premiseImg.src}
+            srcset={premiseImg.srcset}
+            sizes="(min-width: 768px) 50vw, 100vw"
             alt="Meadow Project, Litchfield County, Connecticut — native planting in progress"
             width="960"
             height="623"

@@ -33,7 +33,7 @@ export const anchorPartners: AnchorPartner[] = [
   {
     name: 'Homegrown National Park',
     url: 'https://homegrownnationalpark.org',
-    logo: '/images/logo-hnp.png',
+    logo: '/images/logo-hnp.webp',
     logoAlt: 'Homegrown National Park',
     descriptor: `The national movement for native habitat restoration, co-founded by Doug Tallamy — ${coalitionStats.acresPlanted} acres logged and growing.`,
   },
@@ -48,7 +48,7 @@ export const anchorPartners: AnchorPartner[] = [
   {
     name: 'The Pollinator Pathway',
     url: 'https://www.pollinator-pathway.org',
-    logo: '/images/logo-pollinator-pathway-icon.png',
+    logo: '/images/logo-pollinator-pathway-icon.webp',
     logoAlt: 'The Pollinator Pathway',
     descriptor:
       'The grassroots network of pesticide-free native corridors spanning 300+ towns across 24 states and Canada.',

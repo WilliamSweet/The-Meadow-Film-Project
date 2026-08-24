@@ -1,9 +1,16 @@
 ---
+import { responsive } from '../lib/images';
+
+// The hero is the LCP element on every visit. Without srcset a phone downloads
+// the full 2400px file (295 KB) to display it at 390px.
+const bg = responsive('/images/hero-meadow.webp');
 ---
 <section class="hero" aria-labelledby="hero-title">
   <img
     class="hero-bg"
-    src="/images/hero-meadow.webp"
+    src={bg.src}
+    srcset={bg.srcset}
+    sizes="100vw"
     alt="A native meadow in golden afternoon light"
     width="2400"
     height="1600"

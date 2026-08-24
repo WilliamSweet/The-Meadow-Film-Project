@@ -15,6 +15,17 @@ import Support from '../components/Support.astro';
 import FoundingPartnerCTA from '../components/FoundingPartnerCTA.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+
+// Font files are otherwise only discovered after the CSS has downloaded and
+// parsed — one round-trip too late on a phone. Importing with ?url gives us the
+// hashed build filename so we can preload them from <head> instead.
+import newsreaderLatin from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
+import dmSansLatin from '@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2?url';
+import { responsive } from '../lib/images';
+
+// Must mirror Hero.astro's srcset exactly, or the preload fetches one file and
+// the <img> then fetches a different one.
+const heroImage = responsive('/images/hero-meadow.webp');
 ---
 
 <!doctype html>
@@ -42,6 +53,24 @@ import '../styles/global.css';
     <meta name="twitter:image"       content="https://meadowfilm.studio/images/hero-meadow.webp" />
 
     <title>A Documentary Short About the American Yard</title>
+
+    <!--
+      Priority hints. The hero photo is the largest thing on the first screen —
+      telling the browser about it here, rather than letting it wait until the
+      <img> is parsed, is the single biggest first-paint win available.
+      Fonts are preloaded for the same reason; crossorigin is required on font
+      preloads or the browser silently downloads them twice.
+    -->
+    <link
+      rel="preload"
+      as="image"
+      href={heroImage.src}
+      imagesrcset={heroImage.srcset}
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+    <link rel="preload" as="font" type="font/woff2" href={newsreaderLatin} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={dmSansLatin} crossorigin />
 
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/favicon.png" />

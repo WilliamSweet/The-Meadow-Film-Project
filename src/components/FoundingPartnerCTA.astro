@@ -71,15 +71,18 @@
             <span class="panel-action-note">— send this page to someone who needs to see it</span>
           </li>
           <li>
-            <a href="mailto:meadowfilm.hello@gmail.com?subject=Bringing%20the%20film%20to%20my%20town" class="panel-action-link">
-              Bring it to your town
-            </a>
-            <span class="panel-action-note">— tell us where you are</span>
-          </li>
-          <li>
-            <a href="mailto:meadowfilm.hello@gmail.com?subject=Hosting%20a%20screening" class="panel-action-link">
+            <button
+              type="button"
+              class="panel-action-link"
+              data-tally-open="gD6yLP"
+              data-tally-hide-title="1"
+              data-tally-emoji-text="🌿"
+              data-tally-emoji-animation="wave"
+              data-tally-overlay="1"
+              data-tally-auto-close="3000"
+            >
               Host a screening
-            </a>
+            </button>
             <span class="panel-action-note">— gather your community around it</span>
           </li>
         </ul>
@@ -321,6 +324,20 @@
     border-bottom: 1px solid rgba(184, 144, 74, 0.4);
     padding-bottom: 1px;
     transition: border-color var(--duration-base);
+  }
+
+  /* The screening action opens the Tally overlay, so it is a <button>.
+     Strip the browser chrome so it reads identically to the sibling link. */
+  button.panel-action-link {
+    appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(184, 144, 74, 0.4);
+    padding: 0 0 1px;
+    font: inherit;
+    font-weight: 600;
+    line-height: inherit;
+    cursor: pointer;
   }
 
   .panel-action-link:hover {

@@ -48,7 +48,7 @@ export const anchorPartners: AnchorPartner[] = [
   {
     name: 'The Pollinator Pathway',
     url: 'https://www.pollinator-pathway.org',
-    logo: '/images/logo-pollinator-pathway-wordmark.webp',
+    logo: '/images/logo-pollinator-pathway-v2.webp',
     logoAlt: 'The Pollinator Pathway',
     descriptor:
       'The grassroots network of pesticide-free native corridors spanning 300+ towns across 24 states and Canada.',

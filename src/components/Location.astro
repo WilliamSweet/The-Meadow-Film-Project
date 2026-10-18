@@ -367,7 +367,6 @@ import { responsive } from '../lib/images';
 
       let index = 0;
       const count = slides.length;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       function go(n) {
         index = (n + count) % count;
@@ -376,14 +375,14 @@ import { responsive } from '../lib/images';
         dots.forEach((d, i) => d.setAttribute('aria-current', i === index ? 'true' : 'false'));
       }
 
-      prev && prev.addEventListener('click', () => { go(index - 1); restart(); });
-      next && next.addEventListener('click', () => { go(index + 1); restart(); });
-      dots.forEach((d, i) => d.addEventListener('click', () => { go(i); restart(); }));
+      prev && prev.addEventListener('click', () => go(index - 1));
+      next && next.addEventListener('click', () => go(index + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
 
       // Keyboard
       root.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') { go(index - 1); restart(); }
-        else if (e.key === 'ArrowRight') { go(index + 1); restart(); }
+        if (e.key === 'ArrowLeft') go(index - 1);
+        else if (e.key === 'ArrowRight') go(index + 1);
       });
 
       // Touch / swipe
@@ -393,25 +392,13 @@ import { responsive } from '../lib/images';
         if (!dragging) return;
         dragging = false;
         const dx = e.changedTouches[0].clientX - startX;
-        if (Math.abs(dx) > 40) { go(dx < 0 ? index + 1 : index - 1); restart(); }
+        if (Math.abs(dx) > 40) go(dx < 0 ? index + 1 : index - 1);
       }, { passive: true });
 
-      // Gentle autoplay — pauses on hover/focus, off for reduced-motion
-      let timer = null;
-      function start() {
-        if (reduce || count < 2) return;
-        timer = window.setInterval(() => go(index + 1), 6000);
-      }
-      function stop() { if (timer) { clearInterval(timer); timer = null; } }
-      function restart() { stop(); start(); }
-
-      root.addEventListener('mouseenter', stop);
-      root.addEventListener('mouseleave', start);
-      root.addEventListener('focusin', stop);
-      root.addEventListener('focusout', start);
-
+      // No autoplay (2026-10-17, William): auto-advancing carousels test poorly
+      // (web-design psychology talks, L4742–4750). The visitor moves the photos
+      // with the arrows, the dots, a swipe or the arrow keys.
       go(0);
-      start();
     });
   })();
 </script>

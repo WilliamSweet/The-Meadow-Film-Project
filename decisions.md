@@ -185,3 +185,6 @@ both botanicals rendering.
 200s with empty bodies, which renders as a broken-image icon and looks exactly like a corrupt file.
 Check `preview_list` for a live process and fetch + `createImageBitmap` each URL before concluding
 an image is broken.
+
+## 2026-10-17 — Location carousel no longer advances by itself
+William's call, after the web-design psychology talks said automatic carousels and sliders "test very poorly" (vault/research/extractions/2026-10-17-research-psychology-web-design-BRIEF.md, conflict 1; source L4742–4750). The 6,000 ms timer, its hover/focus pause and its restart-on-click are gone from `src/components/Location.astro`. Arrows, dots, swipe and the arrow keys still move the photos. Tested on the dev server: the photo stayed on 1 of 3 for 8 seconds; next, dot 3 and previous each moved it; no movement in the 7 seconds after the clicks; no console errors. Commit 9cc9a14, pushed to main (the deploy).

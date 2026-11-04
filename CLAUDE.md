@@ -43,9 +43,25 @@ Two rules that are easy to break:
 `public/images/_r/` is generated and gitignored. Missing variants are harmless —
 `responsive()` returns no srcset and the original file is served.
 
+## Deploy — Cloudflare Pages (added 2026-08-30)
+
+**Pushing to `main` on GitHub IS the deploy.** Cloudflare Pages watches
+`https://github.com/WilliamSweet/The-Meadow-Film-Project.git`, runs `npm run build`,
+and publishes `dist/`. There is no netlify.toml, no vercel.json, no `.github/workflows` —
+the configuration lives in the Cloudflare dashboard, not in the repo. Full setup and the
+mandatory HTML Cache Rule: `docs/deploy-checklist.md`. Hosting rationale and the
+cache-busting lesson: `docs/build-decisions.md`.
+
+⚠️ **Never conclude "I cannot tell how this site deploys" from the absence of a config
+file.** On 2026-08-30 I ran one filtered `ls` of the repo root, found no netlify/vercel/
+workflow file, and told William the deploy target was unknown — while `docs/` described the
+whole Cloudflare Pages setup in detail. `docs/` is part of the repo. Read it. Logged as
+rule-miss `unearned-negative-argument-from-ignorance`.
+
 ## Rules
 - LTM global + project rules apply here as DEFAULTS (~/.claude/CLAUDE.md, LTM-data/CLAUDE.md, LTM-Operations/CLAUDE.md) — this file overrides them for site work.
 - Never deploy or publish without William's explicit confirmation (LTM Bright Line #2 applies).
 - Site copy is outreach-adjacent: fact claims on the site go through the claim registry (grep vault/research/claims/CLAIMS-INDEX.md) like any brief.
 - UI changes: screenshot before claiming a visual change works (decisions.md ACTIVE RULES #4).
 - Before structural changes to the site, read LTM-Operations/decisions.md (Meadow entries: 2026-07-05 Tally cutover, Founding Coalition redesign).
+- Before designing a new page or flow (screening sign-up, share, donate, partner sign-on), read `LTM-Operations/.claude/skills/website-teardown.md` (2026-11-04): what big sites do on that kind of page, read from their own code, plus the tools to tear down a new one.

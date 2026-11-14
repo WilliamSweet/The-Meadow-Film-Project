@@ -191,3 +191,17 @@ William's call, after the web-design psychology talks said automatic carousels a
 
 ## 2026-10-17 — Security header lets the Umami visitor counter send again
 Umami's script (cloud.umami.is/script.js) now sends each visit to `https://gateway.umami.is`. The Content-Security-Policy in `public/_headers` allowed only `cloud.umami.is` in connect-src, so the browser blocked every send and no visits were recorded. Found 2026-10-17 two ways: the live console showed "Connecting to 'https://gateway.umami.is/api/send' violates ... connect-src", and the script source names gateway.umami.is as its only host. Fix: `https://gateway.umami.is` added to connect-src; nothing else in the header changed. Deployed with William's OK. The Cloudflare beacon and Cloudflare's injected inline script are still blocked by the same header; those are Cloudflare's own add-ons, not the site's counter, and were left alone.
+
+## 2026-11-13 — Team: Mel Finn out, Eddie O'Connor in (Camera & Sound)
+William asked to put Eddie O'Connor on the site in place of Mel Finn, with no photo.
+Mel's card sat in the portrait tier (the authors, 2×2 circular portraits); a photo-less
+card there would break that grid, so Mel's card was removed and Eddie went into the
+portrait-free Camera & Sound tier, first of the sound mixers. Credits checked: IMDb paste
+(nm0640310) lists "additional sound: New York" on An Inconvenient Truth and "sound
+recordist" on Food, Inc., so the copy says "recorded sound for", not "lead sound mixer".
+Oscar win and nomination confirmed on each film's Wikipedia page, 2026-11-13. Second
+sentence is William's own wording (Metallica documentary, giant squid expedition aboard
+Ray Dalio's ship), from Eddie's own words on the 2026-11-07 call; no title is named
+because which Metallica film is unconfirmed. Published at William's word, 2026-11-13. The top tier
+now holds three portraits (William alone on row two). Checked on localhost:4321 at
+1280 wide. NOT deployed.

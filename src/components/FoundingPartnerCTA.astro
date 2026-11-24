@@ -32,9 +32,6 @@
           </button>
         </div>
 
-        <p class="form-deadline">
-          Founding Partner registration closes <strong>September&nbsp;13,&nbsp;2026</strong>.
-        </p>
         <p class="form-fine">Your information is never shared or sold.</p>
       </div>
     </div>
@@ -491,7 +488,7 @@
     if (shareLink) {
       shareLink.addEventListener('click', async (e) => {
         const url = shareLink.getAttribute('href') || window.location.href;
-        const data = { title: document.title, text: 'A documentary short about the American yard.', url };
+        const data = { title: document.title, text: 'A documentary about the American yard.', url };
         if (navigator.share) {
           e.preventDefault();
           try { await navigator.share(data); } catch (_) { /* user cancelled */ }
